@@ -1,13 +1,16 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from 'next/document'
+import React from 'react'
 
-export default function Document() {
+const Document: any = () => {
   return (
-    <Html lang="en">
+    <Html lang='en'>
       <Head />
       <body>
         <Main />
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }
+
+export default Document
