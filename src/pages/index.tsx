@@ -1,3 +1,7 @@
-export default function Home() {
-	return <div className='h-screen w-full'>test</div>;
+import React from 'react'
+
+const Home: React.FC = () => {
+  return <div className='h-screen w-full'>test2</div>
 }
+
+export default Home
