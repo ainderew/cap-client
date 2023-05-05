@@ -12,5 +12,7 @@ module.exports = {
     tsconfigRootDir: __dirname
   },
   plugins: ['react'],
-  rules: {}
+  rules: {
+    'multiline-ternary': ['error', 'never']
+  }
 }
