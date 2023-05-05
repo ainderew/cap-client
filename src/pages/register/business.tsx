@@ -1,56 +1,80 @@
 import React from 'react'
 
 const BusinessSignup: React.FC = () => {
+  const clicked = (): void => {
+    // some functions here when proceed is clicked
+  }
   return (
     <div>
-      <div className=''>
-        <div className=''>
-          <div className=''>
+      <div className='font-poppins flex h-[100vh]'>
+        <div className='grid w-full grid-cols-[50%_50%] overflow-x-hidden'>
+          <div className='m-[5rem] flex items-center justify-center'>
             <div>
-              <div className=''>
-                <div className=''>WELCOME</div>
-                <div className=''>Sign up with us</div>
-                <div className=''>Manage customer support with the help of AI</div>
-              </div>
-              <div className=''>
-                <div className=''>Email</div>
-                <input type='text' className=''></input>
-              </div>
-              <div className=''>
-                <div className=''>Password</div>
-                <input type='password' className=''></input>
-              </div>
-              <div className=''>
-                <div className=''>Verify Password</div>
-                <input type='password' className=''></input>
-              </div>
-              <div className=''>
-                <div className=''>Business Name</div>
-                <input type='text' className=''></input>
-              </div>
-              <div className=''>
-                <div className=''>
-                  <div className=''>Business Size</div>
-                  <input type='text' className=''></input>
+              <div className='mb-[1.5rem]'>
+                <div className='text-[3.5rem] font-[700] tracking-[.5rem]'>WELCOME</div>
+                <div className='text-[2.25rem] font-[600] tracking-[.45rem]'>Sign up with us</div>
+                <div className='font-[600] tracking-[.1rem]'>
+                  Manage customer support with the help of AI
                 </div>
-                <div className=''>
-                  <div className=''>Business Type</div>
-                  <input type='text' className=''></input>
+              </div>
+              <div className='my-[.5rem] font-[400]'>
+                <div className='py-[.5rem]'>Email</div>
+                <input
+                  type='text'
+                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                ></input>
+              </div>
+              <div className='my-[.5rem] font-[400]'>
+                <div className='py-[.5rem]'>Password</div>
+                <input
+                  type='password'
+                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                ></input>
+              </div>
+              <div className='my-[.5rem] font-[400]'>
+                <div className='py-[.5rem]'>Verify Password</div>
+                <input
+                  type='password'
+                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                ></input>
+              </div>
+              <div className='my-[.5rem] font-[400]'>
+                <div className='py-[.5rem]'>Business Name</div>
+                <input
+                  type='text'
+                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                ></input>
+              </div>
+              <div className='grid grid-cols-[42%_42%]'>
+                <div className='my-[.5rem] font-[400]'>
+                  <div className='py-[.5rem]'>Business Size</div>
+                  <input
+                    type='text'
+                    className='w-[9rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                  ></input>
+                </div>
+                <div className='my-[.5rem] font-[400]'>
+                  <div className='py-[.5rem]'>Business Type</div>
+                  <input
+                    type='text'
+                    className='w-[9rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                  ></input>
                 </div>
               </div>
 
-              <div className=''>
-                <button className=''>Proceed</button>
+              <div className='mt-[3rem] font-[600]'>
+                <button
+                  onClick={clicked}
+                  className='w-[10rem] rounded-[.3rem] bg-[#D9D9D9] px-[1.5rem] py-[.3rem] text-[.8rem] font-[600]'
+                >
+                  Proceed
+                </button>
               </div>
             </div>
           </div>
           <div className=''>
-            <div className=''>
-              <img src='/images/bsignupvector.png' alt='vector' className='' />
-            </div>
-            <div className=''>
-              <img src='/images/bsignupimage.png' alt='image' className='' />
-            </div>
+            <div className=''>{/* <Image src={''} width={} height={} alt='' /> */}</div>
+            <div className=''>{/* <Image src={''} width={} height={} alt='' /> */}</div>
           </div>
         </div>
       </div>
