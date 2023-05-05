@@ -1,7 +1,14 @@
 import React from 'react'
+import BusinessSignup from './register/business'
 
 const Home: React.FC = () => {
-  return <div className='h-screen w-full'>test 5</div>
+  return (
+    <div className='h-screen w-full'>
+      <div>
+        <BusinessSignup />
+      </div>
+    </div>
+  )
 }
 
 export default Home
