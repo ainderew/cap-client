@@ -1,12 +1,11 @@
+import NavBar from '@/components/navbar'
 import React from 'react'
-import BusinessSignup from './register/business'
 
 const Home: React.FC = () => {
   return (
     <div className='h-screen w-full'>
-      <div>
-        <BusinessSignup />
-      </div>
+      <NavBar />
+      test 4
     </div>
   )
 }
