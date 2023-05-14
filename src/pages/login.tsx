@@ -1,5 +1,9 @@
 import React from 'react'
 
+interface user {
+  email: string
+  password: string
+}
 const Login: React.FC = () => {
   const clicked = (): void => {
     // some functions here when proceed is clicked
