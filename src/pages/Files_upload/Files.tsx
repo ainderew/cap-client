@@ -14,7 +14,7 @@ interface EachfilesProps {
 const file1: EachfilesProps = {
   type: 'PDF',
   filename: 'my-document.pdf',
-  category: 'Reports',
+  category: 'Customer Support ',
   date: '2023-05-07',
   status: 'Active',
   report: 'Quarterly Report'
@@ -59,7 +59,7 @@ const Files: React.FC = () => {
       <NavBar />
 
       <div className='flex items-center justify-center '>
-        <div className=' w-[80vw] '>
+        <div className=' w-[90vw] sm:w-[80vw]'>
           <div className=' pt-[5rem]'>
             <div>
               <select
@@ -71,8 +71,9 @@ const Files: React.FC = () => {
                   Filter By
                 </option>
                 <option value='all'>ALL</option>
-                <option value='active'>Active</option>
-                <option value='inactive'>Inactive</option>
+                <option value='active'>Business Data</option>
+                <option value='active'>Customer Support Data</option>
+                <option value='active'>Product Availability Data</option>
               </select>
             </div>
 

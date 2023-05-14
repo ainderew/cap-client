@@ -25,7 +25,7 @@ const Eachfiles: React.FC<EachfilesProps> = ({ ...prop }) => {
           <div className='justify-self-end text-[1rem]'>{prop.date}</div>
           <div className='justify-self-end px-5 text-[1rem]'>{prop.status}</div>
         </div>
-        <div className='bg-[#F4F4F4] p-2 px-40 text-[#736666]'>{prop.report}</div>
+        <div className='bg-[#F4F4F4] p-2 px-10 text-[#736666]'>{prop.report}</div>
         <br />
       </div>
     </div>
