@@ -18,8 +18,8 @@ const ChatBubble: React.FC<props> = ({ content }) => {
       )}
       <div
         className={`${
-          content.type === 'ai' ? 'border-2 bg-[#F6F6F6] text-gray-800' : 'bg-[#2B99FF]'
-        }  min-h-min w-max min-w-[10px] max-w-[45%] self-start rounded-2xl px-4 py-2 text-white shadow-sm`}
+          content.type === 'ai' ? 'border-2 bg-[#F6F6F6] text-gray-800' : 'bg-[#2B99FF] text-white'
+        }  min-h-min w-max min-w-[10px] max-w-[45%] self-start rounded-2xl px-4 py-2  shadow-sm`}
       >
         {content.message.content}
       </div>
