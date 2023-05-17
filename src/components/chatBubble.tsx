@@ -14,7 +14,7 @@ const ChatBubble: React.FC<props> = ({ content }) => {
       {content.type === 'ai' ? (
         <Avatar />
       ) : (
-        <Avatar image="https://static.generated.photos/vue-static/face-generator/landing/wall/14.jpg" />
+        <Avatar image="https://ca.slack-edge.com/TLYK33FD1-U03KWGK3EMS-c82179af8c3e-512" />
       )}
       <div
         className={`${
