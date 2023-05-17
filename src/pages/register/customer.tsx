@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 interface Customer {
@@ -6,8 +8,10 @@ interface Customer {
   type: string
 }
 const CustomerRegisterUI: React.FC = () => {
+  const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [vppassword, setVPPassword] = useState<string>('')
 
   function submitForm (): void {
     const bodyObj: Customer = {
@@ -28,6 +32,9 @@ const CustomerRegisterUI: React.FC = () => {
       })
       .then((data) => {
         console.log(data)
+        router.push('/home').catch((err) => {
+          throw err
+        })
       })
       .catch((err) => {
         throw err
@@ -36,7 +43,7 @@ const CustomerRegisterUI: React.FC = () => {
 
   return (
     <div>
-      <div className="font-poppins flex h-[100vh]">
+      <div className="flex h-[100vh] px-32">
         <div className="grid w-full grid-cols-[50%_50%] overflow-x-hidden">
           <div className="m-[5rem] flex items-center justify-center">
             <div>
@@ -78,9 +85,9 @@ const CustomerRegisterUI: React.FC = () => {
                 <input
                   type="password"
                   className="w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]"
-                  value={password}
+                  value={vppassword}
                   onChange={(e) => {
-                    setPassword(e.target.value)
+                    setVPPassword(e.target.value)
                   }}
                 ></input>
               </div>
@@ -94,12 +101,17 @@ const CustomerRegisterUI: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="">
-            <div className="">
-              {/* <Image src={''} width={} height={} alt='' /> */}
+          <div className="flex items-center justify-center">
+            <div className="z-99 relative h-[50%] w-[60%]">
+              <Image
+                src="/images/bsignupimage.svg"
+                fill
+                alt="human registering"
+              />
             </div>
-            <div className="">
-              {/* <Image src={''} width={} height={} alt='' /> */}
+            <div className="absolute bottom-0 right-0">
+              <div className="relative h-[400px] w-[400px]"></div>
+              <Image src={'/ball.svg'} fill alt="ball" />
             </div>
           </div>
         </div>
