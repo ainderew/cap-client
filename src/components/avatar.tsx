@@ -6,7 +6,7 @@ interface props {
 }
 const Avatar: React.FC<props> = ({ image }) => {
   return (
-    <div className="relative h-12 w-12 overflow-hidden rounded-full bg-[#F4F4F4] shadow-md shadow-gray-400">
+    <div className="relative flex h-12 w-12 flex-shrink-0 overflow-hidden rounded-full bg-[#F4F4F4] shadow-md shadow-gray-400">
       <Image
         src={image === undefined ? '/logo.svg' : image}
         alt="logo"

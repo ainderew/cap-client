@@ -9,7 +9,7 @@ const ChatBubble: React.FC<props> = ({ content }) => {
     <div
       className={`${
         content.type === 'ai' ? 'flex-row' : 'flex-row-reverse'
-      } flex items-end gap-4`}
+      } flex gap-4`}
     >
       {content.type === 'ai' ? (
         <Avatar />
@@ -19,7 +19,7 @@ const ChatBubble: React.FC<props> = ({ content }) => {
       <div
         className={`${
           content.type === 'ai' ? 'border-2 bg-[#F6F6F6] text-gray-800' : 'bg-[#2B99FF] text-white'
-        }  min-h-min w-max min-w-[10px] max-w-[45%] self-start rounded-2xl px-4 py-2  shadow-sm`}
+        }  min-h-min min-w-[10px] max-w-[70%] self-start rounded-2xl px-4 py-2 shadow-sm lg:max-w-[45%]`}
       >
         {content.message.content}
       </div>
