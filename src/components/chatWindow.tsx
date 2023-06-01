@@ -8,6 +8,7 @@ interface props {
   sendChat: any
   searchInput: string
   loadingResponse: boolean
+  modalOpener: any
 }
 
 const ChatWindow: React.FC<props> = ({
@@ -15,14 +16,17 @@ const ChatWindow: React.FC<props> = ({
   userinputSetter,
   sendChat,
   searchInput,
-  loadingResponse
+  loadingResponse,
+  modalOpener
 }) => {
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden px-72 py-8">
-      <div className="scroll-container flex flex-col-reverse gap-4 overflow-auto px-2 pb-20">
+    <div className="relative flex h-screen w-full flex-col overflow-hidden px-4 py-8 xl:px-72">
+      <div className="scroll-container flex flex-col-reverse gap-6 overflow-auto px-2 pb-20 lg:gap-4">
         {loadingResponse ? <LoadingResponse /> : null}
-        {response.map((el: any) => {
-          return <ChatBubble key={el.message.content} content={el} />
+        {response.map((el: any, index: number) => {
+          return (
+            <ChatBubble modalOpener={modalOpener} key={index} content={el} />
+          )
         })}
       </div>
 

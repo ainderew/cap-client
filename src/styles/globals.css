@@ -32,6 +32,10 @@ body {
     rgb(var(--background-start-rgb)); */
 /* } */
 
+.business-link {
+  color: blue;
+}
+
 .lds-ellipsis {
   display: inline-block;
   position: relative;
