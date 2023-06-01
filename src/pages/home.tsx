@@ -7,20 +7,24 @@ import SideBar from '@/components/sidebar'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import LoadingPage from '@/components/loadingPage'
+import { useStores } from '@/core/stores/UseStores'
+import { regexLocation } from '@/utils/regex'
+import Modal from '@/components/modal'
+const ENDPOINT = 'http://localhost:8987/getReply'
 
-const ENDPOINT = 'http://localhost:8989/getReply'
-
-interface Location {
-  city: string
-  country: string
-}
-const General: React.FC = () => {
-  const [searchInput, setSearchInput] = useState<string>('')
+// interface Location {
+//   city: string
+//   country: string
+// }
+const GeneralChatUI: React.FC = () => {
+  const { authStore } = useStores()
+  const [userInput, setUserInput] = useState<string>('')
   const [response, setResponse] = useState<any[]>([])
   const [aiRes, setAiRes] = useState<string>('')
   const [loadingResponse, setLoadingResponse] = useState<boolean>(false)
-  const [location, setLocation] = useState<Location | null>(null)
+  const [location, setLocation] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
+  const [show, setShow] = useState<boolean>(false)
 
   useEffect(() => {
     getLocation()
@@ -32,22 +36,28 @@ const General: React.FC = () => {
     setResponse((prev) => [aiRes, ...prev])
   }, [aiRes])
 
-  const submitSearch = (
+  const submitUserInput = (
     e: any,
     commonQuestion: boolean = false,
-    question: string = searchInput
+    question: string = userInput
   ): void => {
     if ((e.key !== 'Enter' && !commonQuestion) || loadingResponse) {
       return
     }
-
     setLoadingResponse(true)
+    setResponse((prev) => [{ content: question, role: 'user' }, ...prev])
 
-    setResponse((prev) => [{ message: { content: question } }, ...prev])
+    const history = [
+      ...response,
+      { content: regexLocation(question, location), role: 'user' }
+    ]
+    console.log(history)
+
     const sendObj = {
-      searchInput: question
+      userInput: history,
+      userId: authStore.userProfile?.profile._id
     }
-    setSearchInput('')
+    setUserInput('')
 
     fetch(ENDPOINT, {
       method: 'POST',
@@ -59,6 +69,7 @@ const General: React.FC = () => {
     })
       .then(async (res) => await res.json())
       .then((data) => {
+        console.log(data)
         setAiRes(data)
       })
       .catch((err) => {
@@ -77,11 +88,10 @@ const General: React.FC = () => {
           const data = await response.json()
 
           if (data?.address) {
-            const { city, country } = data.address
-            setLocation({ city, country })
-            alert(city)
+            const { city, country }: { city: string, country: string } =
+              data.address
+            setLocation(`${city} ${country}`)
             setLoading(false)
-            console.log(location)
           } else {
             console.error('No results found for the given coordinates.')
           }
@@ -115,11 +125,11 @@ const General: React.FC = () => {
             </div>
             <div className="flex h-[calc(100vh-35vh)] w-full flex-col items-center justify-start gap-10 border-t-[0.5px] bg-[#FCFCFC] py-10">
               <input
-                onKeyDown={submitSearch}
+                onKeyDown={submitUserInput}
                 onChange={(e) => {
-                  setSearchInput(e.target.value)
+                  setUserInput(e.target.value)
                 }}
-                value={searchInput}
+                value={userInput}
                 type="text"
                 placeholder="How may I help you?"
                 className="h-10 w-1/2 rounded-3xl border-[1px] p-4 outline-none"
@@ -127,19 +137,19 @@ const General: React.FC = () => {
               <div className="flex w-[45%] flex-col items-center gap-5 ">
                 <span className="text-gray-400">COMMON QUESTIONS</span>
                 <CommonQuestions
-                  submit={submitSearch}
+                  submit={submitUserInput}
                   question="Stores that sell cake near me"
                 />
                 <CommonQuestions
-                  submit={submitSearch}
+                  submit={submitUserInput}
                   question="What are good anniversary gifts near me"
                 />
                 <CommonQuestions
-                  submit={submitSearch}
+                  submit={submitUserInput}
                   question="Trending cake flavors"
                 />
                 <CommonQuestions
-                  submit={submitSearch}
+                  submit={submitUserInput}
                   question="Stores that sell cake near me"
                 />
               </div>
@@ -148,15 +158,17 @@ const General: React.FC = () => {
         ) : (
           <ChatWindow
             response={response}
-            userinputSetter={setSearchInput}
-            sendChat={submitSearch}
-            searchInput={searchInput}
+            userinputSetter={setUserInput}
+            sendChat={submitUserInput}
+            searchInput={userInput}
             loadingResponse={loadingResponse}
+            modalOpener={setShow}
           />
         )}
       </div>
+      <Modal modalOpener={setShow} show={show} />
     </div>
   )
 }
 
-export default General
+export default GeneralChatUI

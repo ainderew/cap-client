@@ -20,7 +20,7 @@ const CustomerRegisterUI: React.FC = () => {
       type: 'customer'
     }
 
-    fetch('http://localhost:8989/register/customer', {
+    fetch('http://localhost:8987/register/customer', {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
