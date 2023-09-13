@@ -7,7 +7,7 @@ const DataManagement: React.FC = () => {
   return (
     <div className=' flex flex-col items-center'>
       <NavBar />
-      <div className='w-7/12'>
+      <div className='w-8/12'>
         <UploadSection />
         <FileGroup />
       </div>
