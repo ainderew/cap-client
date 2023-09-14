@@ -1,24 +1,32 @@
 import React from 'react'
 import ChatBubble from './chatBubble'
+import LoadingResponse from './loadingResponse'
 
 interface props {
   response: any
   userinputSetter: any
   sendChat: any
   searchInput: string
+  loadingResponse: boolean
+  modalOpener: any
 }
 
 const ChatWindow: React.FC<props> = ({
   response,
   userinputSetter,
   sendChat,
-  searchInput
+  searchInput,
+  loadingResponse,
+  modalOpener
 }) => {
   return (
-    <div className="relative flex h-screen w-full flex-col overflow-hidden px-72 py-8">
-      <div className="scroll-container flex flex-col-reverse gap-4 overflow-auto px-2 pb-20">
-        {response.map((el: any) => {
-          return <ChatBubble key={el.message.content} content={el} />
+    <div className="relative flex h-screen w-full flex-col overflow-hidden px-4 py-8 xl:px-72">
+      <div className="scroll-container flex flex-col-reverse gap-6 overflow-auto px-2 pb-20 lg:gap-4">
+        {loadingResponse ? <LoadingResponse /> : null}
+        {response.map((el: any, index: number) => {
+          return (
+            <ChatBubble modalOpener={modalOpener} key={index} content={el} />
+          )
         })}
       </div>
 

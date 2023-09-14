@@ -1,8 +1,12 @@
+import { useStores } from '@/core/stores/UseStores'
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const { authStore } = useStores()
+  const router = useRouter()
 
   function submitForm (): void {
     const bodyObj = {
@@ -10,7 +14,7 @@ const Login: React.FC = () => {
       password
     }
 
-    fetch('http://localhost:8989/login', {
+    fetch('http://localhost:8987/login', {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -21,7 +25,10 @@ const Login: React.FC = () => {
         return await test
       })
       .then((data) => {
-        console.log(data)
+        authStore.loginUser(data)
+        router.push('/home').catch((err) => {
+          throw err
+        })
       })
       .catch((err) => {
         throw err
