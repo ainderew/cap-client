@@ -4,13 +4,13 @@ import Tooltip from './tooltip'
 
 interface FileInfoProps {
   name: string
-  lastmodified: string
+  dateuploaded: string
   createdby: string
   status: boolean
   lastused: string
 }
 
-const FileInfo: React.FC<FileInfoProps> = ({ name, lastmodified, createdby, status, lastused }) => {
+const FileInfo: React.FC<FileInfoProps> = ({ name, dateuploaded, createdby, status, lastused }) => {
   return (
     <div className='relative my-4 rounded-xl outline outline-1 outline-neutral-300'>
       <div className='px-10 pt-8'>
@@ -23,8 +23,15 @@ const FileInfo: React.FC<FileInfoProps> = ({ name, lastmodified, createdby, stat
         </div>
         <ul className='grid grid-cols-[45%_20%_20%_10%_5%]'>
           <li className='text-xl'>{name}</li>
-          <li>{lastmodified}</li>
+          <li>{dateuploaded}</li>
           <li>{createdby}</li>
+          <li>
+            <section className='flex items-center justify-center gap-2'>
+              <Tooltip label='Download'>
+                <Image src='/downloadicon.svg' width={24} height={24} alt='' />
+              </Tooltip>
+            </section>
+          </li>
           <li>
             {status ? (
               ''
@@ -35,13 +42,6 @@ const FileInfo: React.FC<FileInfoProps> = ({ name, lastmodified, createdby, stat
                 </Tooltip>
               </section>
             )}
-          </li>
-          <li>
-            <section className='flex items-center justify-center gap-2'>
-              <Tooltip label='Download'>
-                <Image src='/downloadicon.svg' width={24} height={24} alt='' />
-              </Tooltip>
-            </section>
           </li>
         </ul>
       </div>
