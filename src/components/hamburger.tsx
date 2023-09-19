@@ -1,34 +1,74 @@
-import React, { useState } from 'react'
+import React from 'react'
+import Image from 'next/image'
 
-const Nav: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
+import { useRouter } from 'next/router'
 
-  const handleClick = (): void => {
-    setIsOpen(!isOpen)
+const Hamburger: React.FC = () => {
+  const router = useRouter()
+  const handleRedirect = (route: string): void => {
+    router.push(route).catch(err => {
+      throw err
+    })
   }
 
   return (
-    <button onClick={handleClick} className='flex flex-col items-center justify-center'>
-      <span
-        className={`bg-steel-500 block h-0.5 w-6 rounded-sm 
-                    transition-all duration-300 ease-out ${
-                      isOpen ? '-translate-y-1 rotate-45 transform' : '-translate-y-0.5 transform'
-                    }`}
-      ></span>
-      <span
-        className={`bg-steel-500 my-0.5 block h-0.5 w-6 
-                    rounded-sm transition-all duration-300 ease-out ${
-                      isOpen ? 'opacity-0' : 'opacity-100'
-                    }`}
-      ></span>
-      <span
-        className={`bg-steel-500 block h-0.5 w-6 rounded-sm 
-                    transition-all duration-300 ease-out ${
-                      isOpen ? 'translate-y-1 -rotate-45 transform' : 'translate-y-0.5 transform'
-                    }`}
-      ></span>
-    </button>
+    <div>
+      <div className='flex items-end rounded-[1.5rem] border-2 border-solid border-[#77777722] bg-white px-4 py-4 shadow-lg'>
+        <div className='flex h-[3.8rem] w-[3.8rem] justify-center  rounded-full border-2 border-solid border-[#2B99FF] bg-[#76a6d3] text-[2rem] text-[#fff]  '>
+          a
+        </div>
+        <p className='p-2'>John Doe</p>
+      </div>
+      <div className='grid w-full cursor-pointer items-start justify-start gap-8  py-6 text-start'>
+        <div className='grid  gap-8 md:hidden'>
+          <p
+            className='flex md:hidden '
+            onClick={() => {
+              handleRedirect('/register/customer')
+            }}
+          >
+            <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
+              <Image src={'/dashboardIcon.svg'} fill alt='dashboard' />
+            </div>
+            Dashboard
+          </p>
+          <p
+            className='flex md:hidden'
+            onClick={() => {
+              handleRedirect('/register/customer')
+            }}
+          >
+            <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
+              <Image src={'/optionsIcon.svg'} fill alt='options' />
+            </div>
+            Options
+          </p>
+          <p
+            className='flex md:hidden'
+            onClick={() => {
+              handleRedirect('/register/customer')
+            }}
+          >
+            <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
+              <Image src={'/resourcesIcon.svg'} fill alt='resources' />
+            </div>
+            Resources
+          </p>
+        </div>
+        <p
+          className='flex'
+          onClick={() => {
+            handleRedirect('/register/customer')
+          }}
+        >
+          <div className='relative  h-[1.8rem] w-[1.8rem] px-6'>
+            <Image src={'/logOutIcon.svg'} fill alt='logout' />
+          </div>
+          Log out
+        </p>
+      </div>
+    </div>
   )
 }
 
-export default Nav
+export default Hamburger

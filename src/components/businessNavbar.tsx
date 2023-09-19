@@ -1,17 +1,44 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import Hamburger from './hamburger'
+import NotificationBar from './notification'
+
+const data = [
+  {
+    title: 'DATA UPDATE',
+    date: '10/2/2023',
+    message: 'Your data is not up to date it needs to be updated'
+  },
+  {
+    title: 'DATA UPDATE',
+    date: '10/2/2023',
+    message: 'Your data is not up to date it needs to be updated'
+  },
+  {
+    title: 'DATA UPDATE',
+    date: '10/2/2023',
+    message: 'Your data is not up to date it needs to be updated'
+  }
+]
 
 const BusinessNavBar: React.FC = () => {
   const router = useRouter()
   const [clickProfile, setClickProfile] = useState<boolean>(false)
+  const [clickNotification, setClickNotification] = useState<boolean>(false)
+  const [newNotification, setNewNotification] = useState<boolean>(false)
   const handleRedirect = (route: string): void => {
     router.push(route).catch(err => {
       throw err
     })
   }
-  const profile = (): void => {
+  const profileOnClick = (): void => {
     setClickProfile(!clickProfile)
+    setClickNotification(false)
+  }
+  const notificationOnClick = (): void => {
+    setClickNotification(!clickNotification)
+    setClickProfile(false)
   }
 
   return (
@@ -55,13 +82,17 @@ const BusinessNavBar: React.FC = () => {
               <Image src={'/help.svg'} fill alt='help' />
             </div>
           </button>
-          <button onClick={() => {}}>
+          <button onClick={notificationOnClick}>
             <div className='relative h-full w-7'>
-              <Image src={'/notification.svg'} fill alt='notification' />
+              <Image
+                src={newNotification ? 'newNotification.svg' : '/notification.svg'}
+                fill
+                alt='notification'
+              />
             </div>
           </button>
           <div>
-            <button onClick={profile}>
+            <button onClick={profileOnClick}>
               <div className='border-3 flex h-[3rem] w-[3rem]  justify-center overflow-hidden '>
                 <div className='relative  flex h-full w-10 items-center  md:hidden'>
                   <Image
@@ -80,60 +111,12 @@ const BusinessNavBar: React.FC = () => {
       </div>
       {clickProfile ? (
         <div className='absolute right-2 top-[6rem] z-10 min-w-[270px]  rounded-lg  bg-white p-4 text-[1rem] shadow-md drop-shadow-lg md:right-12'>
-          <div className='flex items-end rounded-[1.5rem] border-2 border-solid border-[#77777722] bg-white px-4 py-4 shadow-lg'>
-            <div className='flex h-[3.8rem] w-[3.8rem] justify-center  rounded-full border-2 border-solid border-[#2B99FF] bg-[#76a6d3] text-[2rem] text-[#fff]  '>
-              a
-            </div>
-            <p className='p-2'>John Doe</p>
-          </div>
-          <div className='grid w-full cursor-pointer items-start justify-start gap-8  py-6 text-start'>
-            <div className='grid  gap-8 md:hidden'>
-              <p
-                className='flex md:hidden '
-                onClick={() => {
-                  handleRedirect('/register/customer')
-                }}
-              >
-                <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
-                  <Image src={'/dashboardIcon.svg'} fill alt='dashboard' />
-                </div>
-                Dashboard
-              </p>
-              <p
-                className='flex md:hidden'
-                onClick={() => {
-                  handleRedirect('/register/customer')
-                }}
-              >
-                <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
-                  <Image src={'/optionsIcon.svg'} fill alt='options' />
-                </div>
-                Options
-              </p>
-              <p
-                className='flex md:hidden'
-                onClick={() => {
-                  handleRedirect('/register/customer')
-                }}
-              >
-                <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
-                  <Image src={'/resourcesIcon.svg'} fill alt='resources' />
-                </div>
-                Resources
-              </p>
-            </div>
-            <p
-              className='flex'
-              onClick={() => {
-                handleRedirect('/register/customer')
-              }}
-            >
-              <div className='relative  h-[1.8rem] w-[1.8rem] px-6'>
-                <Image src={'/logOutIcon.svg'} fill alt='logout' />
-              </div>
-              Log out
-            </p>
-          </div>
+          <Hamburger />
+        </div>
+      ) : null}
+      {clickNotification ? (
+        <div className='absolute right-2 top-[6rem] z-10  min-w-[80vw] max-w-[500px] rounded-lg bg-white   text-[1rem] shadow-md drop-shadow-lg sm:min-w-[500px] md:right-12'>
+          <NotificationBar {...data} />
         </div>
       ) : null}
     </div>
