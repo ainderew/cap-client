@@ -3,14 +3,37 @@ import Image from 'next/image'
 import Tooltip from './tooltip'
 
 interface FileInfoProps {
+  id: string
+  businessid: string
   name: string
   dateuploaded: string
-  createdby: string
   status: boolean
   lastused: string
 }
 
-const FileInfo: React.FC<FileInfoProps> = ({ name, dateuploaded, createdby, status, lastused }) => {
+const FileInfo: React.FC<FileInfoProps> = ({
+  id,
+  businessid,
+  name,
+  dateuploaded,
+  status,
+  lastused
+}) => {
+  const handleTrigger = (): void => {
+    fetch(`http://localhost:5000/api/file/trigger/${id}`, {
+      mode: 'cors',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ businessId: businessid })
+    })
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        throw err
+      })
+  }
+
   return (
     <div className='relative my-4 rounded-xl outline outline-1 outline-neutral-300'>
       <div className='px-10 pt-8'>
@@ -21,14 +44,19 @@ const FileInfo: React.FC<FileInfoProps> = ({ name, dateuploaded, createdby, stat
         >
           {status ? 'ACTIVE' : 'DISABLED'}
         </div>
-        <ul className='grid grid-cols-[45%_20%_20%_10%_5%]'>
+        <ul className='grid grid-cols-[60%_25%_10%_5%]'>
           <li className='text-xl'>{name}</li>
           <li>{dateuploaded}</li>
-          <li>{createdby}</li>
           <li>
             <section className='flex items-center justify-center gap-2'>
               <Tooltip label='Download'>
-                <Image src='/downloadicon.svg' width={24} height={24} alt='' />
+                <a
+                  href={`http://localhost:5000/api/file/download/${id}`}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  <Image src='/downloadicon.svg' width={24} height={24} alt='' />
+                </a>
               </Tooltip>
             </section>
           </li>
@@ -38,7 +66,13 @@ const FileInfo: React.FC<FileInfoProps> = ({ name, dateuploaded, createdby, stat
             ) : (
               <section className='flex items-center justify-center gap-2'>
                 <Tooltip label='Activate'>
-                  <Image src='/activate.svg' width={24} height={24} alt='' />
+                  <Image
+                    src='/activate.svg'
+                    width={24}
+                    height={24}
+                    alt=''
+                    onClick={handleTrigger}
+                  />
                 </Tooltip>
               </section>
             )}

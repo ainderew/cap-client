@@ -7,12 +7,16 @@ const UploadSection: React.FC = () => {
   const [fileIsStored, setFileIsStored] = useState<boolean>(false)
   const [fileWrongFormat, setFileWrongFormat] = useState<boolean>(false)
 
+  // businessId is currently static needs to change this later after auth
+  const businessId = '650927dad4f44509bc746fb5'
+
   const fileClick = (): void => {
     if (fileRef.current != null) {
       fileRef.current.click()
     }
   }
 
+  // store the file
   const fileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0]
 
@@ -32,14 +36,18 @@ const UploadSection: React.FC = () => {
   const uploadFile = (): void => {
     if (selectedFile != null) {
       const formData = new FormData()
-      formData.append('filename', selectedFile.name)
+      formData.append('businessId', businessId)
       formData.append('file', selectedFile)
 
-      fetch('', {
+      fetch('http://localhost:5000/api/file/upload', {
         method: 'POST',
         body: formData
       })
-        .then(response => {})
+        .then(res => {
+          console.log(res)
+          setFileIsStored(false)
+          setSelectedFile(null)
+        })
         .catch(error => {
           console.log(error)
         })

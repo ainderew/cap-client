@@ -6,21 +6,25 @@ interface Customer {
   email: string
   password: string
   type: string
+  username: string
 }
+
 const CustomerRegisterUI: React.FC = () => {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [vppassword, setVPPassword] = useState<string>('')
+  const [vpassword, setVPassword] = useState<string>('')
 
-  function submitForm(): void {
+  const submitForm = (): void => {
     const bodyObj: Customer = {
       email,
       password,
-      type: 'customer'
+      type: 'customer',
+      username
     }
 
-    fetch('http://localhost:8987/register/customer', {
+    fetch('http://localhost:5000/api/register/customer', {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -28,6 +32,7 @@ const CustomerRegisterUI: React.FC = () => {
     })
       .then(async res => {
         const test = res.json()
+        console.log(test)
         return await test
       })
       .then(data => {
@@ -44,7 +49,7 @@ const CustomerRegisterUI: React.FC = () => {
   return (
     <div>
       <div className='flex h-[100vh] px-32'>
-        <div className='grid w-full grid-cols-[50%_50%] '>
+        <div className='grid w-full grid-cols-[50%_50%] overflow-x-hidden'>
           <div className='m-[5rem] flex items-center justify-center'>
             <div>
               <div className='mb-[1.5rem]'>
@@ -66,6 +71,17 @@ const CustomerRegisterUI: React.FC = () => {
                 ></input>
               </div>
               <div className='my-[.5rem] font-[400]'>
+                <div className='py-[.5rem]'>Username</div>
+                <input
+                  type='text'
+                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                  value={username}
+                  onChange={e => {
+                    setUsername(e.target.value)
+                  }}
+                ></input>
+              </div>
+              <div className='my-[.5rem] font-[400]'>
                 <div className='py-[.5rem]'>Password</div>
                 <input
                   type='password'
@@ -81,9 +97,9 @@ const CustomerRegisterUI: React.FC = () => {
                 <input
                   type='password'
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-                  value={vppassword}
+                  value={vpassword}
                   onChange={e => {
-                    setVPPassword(e.target.value)
+                    setVPassword(e.target.value)
                   }}
                 ></input>
               </div>
