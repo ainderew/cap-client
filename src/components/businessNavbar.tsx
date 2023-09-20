@@ -3,30 +3,14 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Hamburger from './hamburger'
 import NotificationBar from './notification'
-
-const data = [
-  {
-    title: 'DATA UPDATE',
-    date: '10/2/2023',
-    message: 'Your data is not up to date it needs to be updated'
-  },
-  {
-    title: 'DATA UPDATE',
-    date: '10/2/2023',
-    message: 'Your data is not up to date it needs to be updated'
-  },
-  {
-    title: 'DATA UPDATE',
-    date: '10/2/2023',
-    message: 'Your data is not up to date it needs to be updated'
-  }
-]
+import { usePathname } from 'next/navigation'
 
 const BusinessNavBar: React.FC = () => {
+  const currentRoute = usePathname()
   const router = useRouter()
   const [clickProfile, setClickProfile] = useState<boolean>(false)
   const [clickNotification, setClickNotification] = useState<boolean>(false)
-  const [newNotification, setNewNotification] = useState<boolean>(false)
+  // const [newNotification, setNewNotification] = useState<boolean>(false)
   const handleRedirect = (route: string): void => {
     router.push(route).catch(err => {
       throw err
@@ -54,25 +38,21 @@ const BusinessNavBar: React.FC = () => {
 
         <div className='hidden flex-1 gap-10 px-10 text-[.9rem] font-semibold md:flex'>
           <button
+            className={currentRoute === '/dashboard' ? 'underline underline-offset-4 ' : ''}
             onClick={() => {
-              handleRedirect('/register/customer')
+              handleRedirect('/dashboard')
             }}
           >
             Dashboard
           </button>
+
           <button
+            className={currentRoute === '/files' ? 'underline underline-offset-4 ' : ''}
             onClick={() => {
               handleRedirect('/register/customer')
             }}
           >
-            Options
-          </button>
-          <button
-            onClick={() => {
-              handleRedirect('/register/customer')
-            }}
-          >
-            Resources
+            Data Manaagement
           </button>
         </div>
 
@@ -85,7 +65,7 @@ const BusinessNavBar: React.FC = () => {
           <button onClick={notificationOnClick}>
             <div className='relative h-full w-7'>
               <Image
-                src={newNotification ? 'newNotification.svg' : '/notification.svg'}
+                src={clickNotification ? 'notificationactive.svg' : '/notification.svg'}
                 fill
                 alt='notification'
               />
@@ -94,9 +74,9 @@ const BusinessNavBar: React.FC = () => {
           <div>
             <button onClick={profileOnClick}>
               <div className='border-3 flex h-[3rem] w-[3rem]  justify-center overflow-hidden '>
-                <div className='relative  flex h-full w-10 items-center  md:hidden'>
+                <div className='relative  flex h-full w-[2.2rem] items-center  md:hidden'>
                   <Image
-                    src={clickProfile ? '/burgerActive.svg' : ' /burger.svg'}
+                    src={clickProfile ? ' /burger.svg' : '/burgerActive.svg'}
                     fill
                     alt='burger'
                   />
@@ -115,8 +95,8 @@ const BusinessNavBar: React.FC = () => {
         </div>
       ) : null}
       {clickNotification ? (
-        <div className='absolute right-2 top-[6rem] z-10  min-w-[80vw] max-w-[500px] rounded-lg bg-white   text-[1rem] shadow-md drop-shadow-lg sm:min-w-[500px] md:right-12'>
-          <NotificationBar {...data} />
+        <div className='absolute right-2 top-[6rem] z-10  w-[80vw]  rounded-lg bg-white   text-[1rem] shadow-md drop-shadow-lg sm:w-[500px] md:right-12'>
+          <NotificationBar />
         </div>
       ) : null}
     </div>

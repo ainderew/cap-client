@@ -1,9 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 import { useRouter } from 'next/router'
 
 const Hamburger: React.FC = () => {
+  const currentRoute = usePathname()
   const router = useRouter()
   const handleRedirect = (route: string): void => {
     router.push(route).catch(err => {
@@ -19,32 +21,27 @@ const Hamburger: React.FC = () => {
         </div>
         <p className='p-2'>John Doe</p>
       </div>
-      <div className='grid w-full cursor-pointer items-start justify-start gap-8  py-6 text-start'>
+      <div className='grid w-full cursor-pointer  items-start justify-start gap-8  py-6 text-start'>
         <div className='grid  gap-8 md:hidden'>
-          <p
-            className='flex md:hidden '
-            onClick={() => {
-              handleRedirect('/register/customer')
-            }}
-          >
-            <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
-              <Image src={'/dashboardIcon.svg'} fill alt='dashboard' />
+          <div>
+            <div
+              className='flex hover:text-[#2B99FF] md:hidden'
+              onClick={() => {
+                handleRedirect('/register/customer')
+              }}
+            >
+              <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
+                <Image src={'/dashboardIcon.svg'} fill alt='dashboard' />
+              </div>
+              <button
+                className={currentRoute === '/dashboard' ? 'underline underline-offset-4 ' : ''}
+              >
+                Dashboard
+              </button>
             </div>
-            Dashboard
-          </p>
-          <p
-            className='flex md:hidden'
-            onClick={() => {
-              handleRedirect('/register/customer')
-            }}
-          >
-            <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
-              <Image src={'/optionsIcon.svg'} fill alt='options' />
-            </div>
-            Options
-          </p>
-          <p
-            className='flex md:hidden'
+          </div>
+          <div
+            className='flex hover:text-[#2B99FF] md:hidden'
             onClick={() => {
               handleRedirect('/register/customer')
             }}
@@ -52,11 +49,13 @@ const Hamburger: React.FC = () => {
             <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
               <Image src={'/resourcesIcon.svg'} fill alt='resources' />
             </div>
-            Resources
-          </p>
+            <button className={currentRoute === '/files' ? 'underline underline-offset-4 ' : ''}>
+              Data Management
+            </button>
+          </div>
         </div>
-        <p
-          className='flex'
+        <div
+          className='flex hover:text-[#2B99FF]'
           onClick={() => {
             handleRedirect('/register/customer')
           }}
@@ -65,7 +64,7 @@ const Hamburger: React.FC = () => {
             <Image src={'/logOutIcon.svg'} fill alt='logout' />
           </div>
           Log out
-        </p>
+        </div>
       </div>
     </div>
   )
