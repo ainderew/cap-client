@@ -19,6 +19,15 @@ const NavBar: React.FC = () => {
         <span className='font-semibold'>ChatXpert</span>
       </div>
       {/* <ul className="flex flex-1">
+    <div className='color-white hidden h-24 w-full lg:flex'>
+      <div className='w-full h-full mx-48 flex items-center justify-between border-b-2'>
+        <div className='logo-container flex h-full items-center gap-2'>
+          <div className='relative h-full w-7'>
+            <Image src={'/logo.svg'} fill alt='chatxpert' />
+          </div>
+          <span className='font-semibold'>ChatXpert</span>
+        </div>
+        {/* <ul className="flex flex-1">
         <li className="">Test</li>
         <li className="">Test</li>
         <li className="">Test</li>
@@ -43,15 +52,6 @@ const NavBar: React.FC = () => {
           Login
         </button>
       </div>
-      {/* {hovered ? (
-          <div className="absolute right-5 w-[300px] bg-white p-4 shadow-md">
-            <ul className="flex flex-col">
-              <li className="">test</li>
-              <li className="">test</li>
-              <li className="">test</li>
-            </ul>
-          </div>
-        ) : null} */}
     </div>
   )
 }

@@ -1,14 +1,18 @@
 import React, { type ReactNode } from 'react'
 
-interface Props {
+interface TooltipProps {
   children: ReactNode
   label: string
 }
-function Tooltip ({ children, label }: Props): JSX.Element {
-  return <div className='w-auto h-auto group'>
-    <div className="absolute hidden bg-gray-500 text-white px-2 py-1 text-xs group-hover:flex">{label}</div>
-    {children}
-  </div>
+const Tooltip: React.FC<TooltipProps> = ({ children, label }): JSX.Element => {
+  return (
+    <div className='group h-auto w-auto'>
+      <div className='absolute hidden translate-x-5 bg-gray-500 px-2 py-1 text-xs text-white group-hover:flex'>
+        {label}
+      </div>
+      {children}
+    </div>
+  )
 }
 
 export default Tooltip
