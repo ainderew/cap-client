@@ -1,12 +1,10 @@
-import NavBar from '@/components/navbar'
 import React from 'react'
+import DefaultLayout from './layouts/default'
 
 const Home: React.FC = () => {
   return (
-    <div className='h-screen w-full'>
-      <NavBar />
-      test 4
-    </div>
+    <DefaultLayout/>
+
   )
 }
 

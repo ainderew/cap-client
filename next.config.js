@@ -1,3 +1,5 @@
+const withAntdLess = require('next-plugin-antd-less')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -6,4 +8,8 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+// module.exports = pluginAntdLess(nextConfig)
+module.exports = withAntdLess({
+  lessVarsFilePath: './src/styles/antd-styles.less',
+  ...nextConfig // Spread the nextConfig object to merge the configurations.
+})
