@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import type { ThemeConfig } from 'antd'
 import { ConfigProvider, theme } from 'antd'
 import { useRouter } from 'next/router'
+import DefaultLayout from './layouts/default'
 
 const config: ThemeConfig = {
   // algorithm: theme.darkAlgorithm
@@ -20,13 +21,15 @@ const App: any = ({ Component, pageProps }: AppProps) => {
 
     const allow = ALLOWED_URL.find(link => link === currentUrl)
     if (allow !== undefined) return // add check if user is logged in then disable redirect
-    router.replace('/login').catch((err) => {
+    router.replace('/login').catch(err => {
       throw err
     })
   }, [])
   return (
     <ConfigProvider theme={config}>
-      <Component {...pageProps} />
+      <DefaultLayout>
+        <Component {...pageProps} />
+      </DefaultLayout>
     </ConfigProvider>
   )
 }
