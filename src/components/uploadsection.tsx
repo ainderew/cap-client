@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
+import { useStores } from '@/core/stores/UseStores'
 
 const UploadSection: React.FC = () => {
+	const { authStore } = useStores()
+
   const fileRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [fileIsStored, setFileIsStored] = useState<boolean>(false)
   const [fileWrongFormat, setFileWrongFormat] = useState<boolean>(false)
 
-  // businessId is currently static needs to change this later after auth
-  const businessId = '650927dad4f44509bc746fb5'
+  const businessId = authStore.userProfile?.profile._id
 
   const fileClick = (): void => {
     if (fileRef.current != null) {
@@ -34,7 +36,7 @@ const UploadSection: React.FC = () => {
   }
 
   const uploadFile = (): void => {
-    if (selectedFile != null) {
+    if (selectedFile != null && businessId !== null && businessId !== undefined) {
       const formData = new FormData()
       formData.append('businessId', businessId)
       formData.append('file', selectedFile)
