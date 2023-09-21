@@ -3,12 +3,13 @@ import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 
 import type { ThemeConfig } from 'antd'
-import { ConfigProvider, theme } from 'antd'
+import { ConfigProvider } from 'antd'
 import { useRouter } from 'next/router'
 import DefaultLayout from './layouts/default'
 
 const config: ThemeConfig = {
   // algorithm: theme.darkAlgorithm
+  // Add theme here on free time - %%obsidian remind
 }
 
 const ALLOWED_URL = ['/', '/login']
