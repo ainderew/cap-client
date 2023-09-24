@@ -4,6 +4,7 @@ interface userProfile {
   profile: {
     _id: string
     email: string
+    type: boolean
   }
   authToken: string
 }
@@ -11,7 +12,7 @@ interface userProfile {
 export default class AuthStore {
   userProfile: userProfile | null = null
 
-  constructor () {
+  constructor() {
     makeObservable(this, {
       userProfile: observable,
       loginUser: action

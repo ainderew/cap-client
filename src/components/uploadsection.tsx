@@ -1,99 +1,45 @@
-import React, { useRef, useState } from 'react'
-import Image from 'next/image'
-import { useStores } from '@/core/stores/UseStores'
+import React, { useState } from 'react'
+import { UploadButton } from '@/utils/uploadthing'
+import '@uploadthing/react/styles.css'
 
 const UploadSection: React.FC = () => {
-	const { authStore } = useStores()
+  const [hasError, setHasError] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
-  const fileRef = useRef<HTMLInputElement>(null)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [fileIsStored, setFileIsStored] = useState<boolean>(false)
-  const [fileWrongFormat, setFileWrongFormat] = useState<boolean>(false)
-
-  const businessId = authStore.userProfile?.profile._id
-
-  const fileClick = (): void => {
-    if (fileRef.current != null) {
-      fileRef.current.click()
-    }
-  }
-
-  // store the file
-  const fileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const file = e.target.files?.[0]
-
-    if (file != null) {
-      if (file.name.endsWith('.txt') || file.type === 'text/plain') {
-        setSelectedFile(file)
-        setFileIsStored(true)
-      } else {
-        setFileWrongFormat(true)
-        setTimeout(() => {
-          setFileWrongFormat(false)
-        }, 5000)
-      }
-    }
-  }
-
-  const uploadFile = (): void => {
-    if (selectedFile != null && businessId !== null && businessId !== undefined) {
-      const formData = new FormData()
-      formData.append('businessId', businessId)
-      formData.append('file', selectedFile)
-
-      fetch('http://localhost:5000/api/file/upload', {
-        method: 'POST',
-        body: formData
-      })
-        .then(res => {
-          console.log(res)
-          setFileIsStored(false)
-          setSelectedFile(null)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
+  const handleError = (error: string): void => {
+    setErrorMessage(error)
+    setHasError(true)
+    setTimeout(() => {
+      setHasError(false)
+    }, 5000)
   }
 
   return (
     <div className='mt-8 flex flex-col items-center bg-neutral-200 px-20 py-12 text-center'>
       <p className='my-2 text-3xl font-semibold'>Upload Business Data</p>
-      {fileIsStored ? (
-        <div className='flex flex-col items-center'>
-          <p className='my-2 text-xl font-semibold text-neutral-500'>
-            {selectedFile != null ? selectedFile.name : ''}
-          </p>
-          <button
-            onClick={uploadFile}
-            className='my-2 flex items-center self-center rounded-lg bg-sky-500 px-5 py-2 text-lg font-bold text-white'
-          >
-            <p>Upload File</p>
-          </button>
-        </div>
-      ) : (
-        <div className='flex flex-col items-center'>
-          <p className='text-md my-2 text-neutral-500'>
-            Effortlessly upload and manage your business data with our user-friendly data management
-            platform.
-          </p>
-          <div>
-            <button
-              onClick={() => {
-                fileClick()
+
+      <div className='flex flex-col items-center'>
+        <p className='text-md my-2 text-neutral-500'>
+          Effortlessly upload and manage your business data with our user-friendly data management
+          platform.
+        </p>
+        <div>
+          <div className=''>
+            <UploadButton
+              endpoint='text'
+              onClientUploadComplete={res => {
+                console.log('Upload Complete')
               }}
-              className=' my-2 flex items-center self-center rounded-lg bg-sky-500 px-5 py-2 text-lg font-bold text-white'
-            >
-              <p>Select .txt file</p>
-              <Image src='/documenticon.svg' width={32} height={32} alt='' className='mx-2' />
-            </button>
-          </div>
-          <div className={`text-sm text-red-500 ${fileWrongFormat ? 'block' : 'hidden'}`}>
-            *The file you chose has the wrong format. Choose a text file.
+              onUploadError={(error: Error) => {
+                handleError(error.message)
+              }}
+            />
           </div>
         </div>
-      )}
-      <input ref={fileRef} onChange={fileChange} type='file' className='hidden' />
+        <div className={`text-sm text-red-500 ${hasError ? 'block' : 'hidden'}`}>
+          {errorMessage}
+        </div>
+      </div>
     </div>
   )
 }
