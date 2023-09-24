@@ -27,6 +27,16 @@ const UploadSection: React.FC = () => {
           <div className=''>
             <UploadButton
               endpoint='text'
+              content={{
+                button({ ready }) {
+                  if (ready) return <div className='font-semibold'>Upload .txt file</div>
+                  return 'Loading ...'
+                },
+                allowedContent({ ready, fileTypes, isUploading }) {
+                  if (!ready) return ''
+                  return 'Only .txt files allowed, file size up to 4MB'
+                }
+              }}
               onClientUploadComplete={res => {
                 console.log('Upload Complete')
               }}
