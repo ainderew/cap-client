@@ -11,12 +11,12 @@ const config: ThemeConfig = {
   // algorithm: theme.darkAlgorithm
 }
 
-const ALLOWED_URL = ['/', '/login']
+/* const ALLOWED_URL = ['/', '/login'] */
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
 
-  useEffect(() => {
+/*   useEffect(() => {
     const currentUrl = router.asPath
 
     const allow = ALLOWED_URL.find(link => link === currentUrl)
@@ -24,7 +24,7 @@ const App: any = ({ Component, pageProps }: AppProps) => {
     router.replace('/login').catch(err => {
       throw err
     })
-  }, [])
+  }, []) */
   return (
     <ConfigProvider theme={config}>
       <DefaultLayout>

@@ -5,7 +5,7 @@ interface props {
   children?: ReactElement | null
 }
 
-function DefaultLayout ({ children }: props): React.ReactElement {
+function DefaultLayout({ children }: props): React.ReactElement {
   return (
     <div className='h-screen w-full'>
       <NavBar />

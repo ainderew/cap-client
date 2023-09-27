@@ -10,7 +10,7 @@ interface Business {
   industry: string
 }
 
-const BusinessSignup: React.FC = () => {
+const BusinessRegisterUI: React.FC = () => {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -151,4 +151,4 @@ const BusinessSignup: React.FC = () => {
   )
 }
 
-export default BusinessSignup
+export default BusinessRegisterUI

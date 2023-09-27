@@ -1,4 +1,3 @@
-import BusinessNavBar from '@/components/businessNavbar'
 import DataCard from '@/components/dataCard'
 import Graph from '@/components/graph'
 
@@ -7,7 +6,6 @@ import React from 'react'
 const Dashboard: React.FC = () => {
   return (
     <div className='h-full'>
-      <BusinessNavBar />
       <div className='flex items-center justify-center py-10'>
         <div className=' w-[90%] md:w-[70%] '>
           <div className=' min-h-[10rem] border-4 border-solid border-[#0303031f] drop-shadow-lg'>
