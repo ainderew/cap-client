@@ -12,7 +12,7 @@ interface userProfile {
 export default class AuthStore {
   userProfile: userProfile | null = null
 
-  constructor() {
+  constructor () {
     makeObservable(this, {
       userProfile: observable,
       loginUser: action

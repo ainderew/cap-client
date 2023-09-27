@@ -9,50 +9,62 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
-import { Line, Bar } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend)
 
 const Graph: React.FC = () => {
-  const [chartData, setChartData] = useState<any>({ datasets: [] })
+  const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
+  /*   const [chartData, setChartData] = useState<number[]>() */
+
+  /*   const [chartLabels, setChartLabels] = useState<string[]>() */
+
+  // sample data
+  const analyticsId = '6514301c320a1a8e10b6d90e'
+  const currentDate = new Date()
+  const currentYear = currentDate.getFullYear()
+
+  async function fetchClicksPerMonthInYear (analyticsId: string, year: number): Promise<any> {
+    const url = `http://localhost:5000/api/yearlyclicks/${analyticsId}/${year}`
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        return data
+      } else {
+        throw new Error(`Error: ${response.status} - ${await response.text()}`)
+      }
+    } catch (error) {
+      throw new Error('Failed to fetch data')
+    }
+  }
 
   useEffect(() => {
-    const currentDate = new Date()
-    const currentMonth = currentDate.getMonth() + 1 // Note: January is 0, so we add 1 to get the correct month.
-
-    console.log(`Current month: ${currentMonth}`)
-    setChartData({
-      labels: [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ],
-      datasets: [
-        {
-          label: 'Dataset 1',
-          data: [10, 2, 3, 4, 5, 5, 1],
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)'
-        },
-        {
-          label: 'Dataset 2',
-          data: [1, 2, 3, 4, 5, 5, 100, 3, 6, 3, 4, 6],
-          borderColor: 'rgb(53, 162, 235)',
-          backgroundColor: 'rgba(53, 162, 235, 0.5)',
-          fill: true
-        }
-      ]
-    })
+    fetchClicksPerMonthInYear(analyticsId, currentYear)
+      .then(monthlyData => {
+        setChartDataset({
+          labels: monthlyData.map((item: { month: string }) => item.month),
+          datasets: [
+            {
+              label: currentYear,
+              data: monthlyData.map((item: { clickCount: number }) => item.clickCount),
+              borderColor: 'rgb(255, 99, 132)',
+              backgroundColor: 'rgba(255, 99, 132, 0.5)'
+            }
+          ]
+        })
+      })
+      .catch(error => {
+        console.error('Error:', error.message)
+      })
 
     setChartOptions({
       plugins: {
@@ -69,9 +81,10 @@ const Graph: React.FC = () => {
       responsive: true
     })
   }, [])
+
   return (
     <div className=' h-[25rem]'>
-      <Line options={chartOptions} data={chartData} />
+      <Line options={chartOptions} data={chartDataset} />
     </div>
   )
 }
