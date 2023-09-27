@@ -25,6 +25,10 @@ const Login: React.FC = () => {
         return await test
       })
       .then((data) => {
+        if (data.error !== null && data.error !== undefined) {
+          alert(data.error)
+          return
+        }
         authStore.loginUser(data)
         router.push('/home').catch((err) => {
           throw err

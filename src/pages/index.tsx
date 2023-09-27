@@ -3,7 +3,8 @@ import React from 'react'
 
 const Home: React.FC = () => {
   return (
-    <div className='h-screen w-full'>
+    <div classNa
+    me='h-screen w-full'>
       <NavBar />
       test 4
     </div>
