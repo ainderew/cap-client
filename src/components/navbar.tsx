@@ -1,14 +1,13 @@
-import Image from 'next/image'
 import React from 'react'
-import { useRouter } from 'next/router'
+
 import BusinessNavBar from './businessNavbar'
+import LandingNavbar from './landingNavbar'
+import CustomerNavbar from './customerNavbar'
 
 const NavBar: React.FC = () => {
-  return (
-    <div>
-      <BusinessNavBar />
-    </div>
-  )
+  const body = <CustomerNavbar />
+
+  return <div>{body}</div>
 }
 
 export default NavBar
