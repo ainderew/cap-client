@@ -24,15 +24,15 @@ const DefaultChatNavbar: React.FC = () => {
               handleRedirect('/dashboard')
             }}
           >
-            LOG IN
+            SIGN IN
           </button>
           <button
             className='rounded-[2rem] bg-[#2B99FF] px-[1rem] py-2 font-bold text-[#ffff] hover:text-black sm:px-10'
             onClick={() => {
-              handleRedirect('/dashboard')
+              handleRedirect('/register/business')
             }}
           >
-            LOG OUT
+            SIGN UP
           </button>
         </div>
       </div>

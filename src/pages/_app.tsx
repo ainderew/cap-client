@@ -13,9 +13,9 @@ const config: ThemeConfig = {
   // Add theme here on free time - %%obsidian remind
 }
 // this should be changed cause this might be wrong hahahahahaha
-const ALLOWED_URL = ['/', '/login', '/register/customer', '/register/business', '/business/data-management']
+/* const ALLOWED_URL = ['/', '/login', '/register/customer', '/register/business', '/business/data-management']
 const CUSTOMER_ALLOWED_URL = ['/', '/home']
-const BUSINESS_ALLOWED_URL = ['/', '/business/dashboard', '/business/data-management']
+const BUSINESS_ALLOWED_URL = ['/', '/business/dashboard', '/business/data-management'] */
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
@@ -23,7 +23,7 @@ const App: any = ({ Component, pageProps }: AppProps) => {
   const { authStore } = useStores()
 
   const userType = authStore.userProfile?.profile.type
-
+  /*
   useEffect(() => {
     const currentUrl = router.asPath
 
@@ -43,12 +43,12 @@ const App: any = ({ Component, pageProps }: AppProps) => {
       }
     } else {
       const allow = ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) return // add check if user is logged in then disable redirect
+      if (allow !== undefined) return
       router.replace('/login').catch(err => {
         throw err
       })
     }
-  }, [])
+  }, []) */
   return (
     <ConfigProvider theme={config}>
       <DefaultLayout>

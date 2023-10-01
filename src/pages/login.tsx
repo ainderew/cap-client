@@ -7,13 +7,13 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>('')
   const { authStore } = useStores()
   const router = useRouter()
-  function submitForm(): void {
+  function submitForm (): void {
     const bodyObj = {
       email,
       password
     }
 
-    fetch('http://localhost:8987/login', {
+    fetch('http://localhost:5000/login', {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +34,7 @@ const Login: React.FC = () => {
       })
   }
   return (
-    <div className='flex min-h-[100vh] items-center justify-center font-poppins'>
+    <div className='flex  items-center justify-center font-poppins'>
       <div>
         <div className='text-center text-[5rem] font-[600] tracking-[.5rem]'>LOGIN</div>
         <div className='text-center font-[500]'>Manage customer support with the help of AI</div>
