@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import FileInfo from './fileinfo'
 import { formatDate } from '@/utils/dateformat'
 import { useStores } from '@/core/stores/UseStores'
+import { useFileContext } from '@/core/upload/context'
 
 interface File {
   _id: string
@@ -13,7 +14,7 @@ interface File {
 
 const FileGroup: React.FC = () => {
   const { authStore } = useStores()
-  const [files, setFiles] = useState<File[]>([])
+  const { files, setFiles } = useFileContext()
 
   const businessId = authStore.userProfile?.profile._id
   useEffect(() => {
@@ -45,7 +46,9 @@ const FileGroup: React.FC = () => {
             .slice()
             .sort((a, b) => {
               if (a.status === b.status) {
-                return a.datelastused.localeCompare(b.datelastused)
+                const dateA = new Date(a.datelastused)
+                const dateB = new Date(b.datelastused)
+                return dateB.getTime() - dateA.getTime()
               }
               return a.status ? -1 : 1
             })

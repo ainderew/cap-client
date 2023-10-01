@@ -6,7 +6,7 @@ const General: React.FC = () => {
     <div className='bg-opacity-45 flex h-screen flex-col bg-[#46464673] font-poppins'>
       {/* LEFT */}
       <div className='flex h-screen flex-row p-4'>
-        <div className='m-4 w-2/3 overflow-hidden rounded-md border border-0 drop-shadow-lg'>
+        <div className='m-4 w-2/3 overflow-hidden rounded-md border-0 drop-shadow-lg'>
           <div className='h-40 w-full overflow-hidden '>
             <Image src={'/lorem.png'} width={1000} height={1000} alt='Lorem' />
           </div>

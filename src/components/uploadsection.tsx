@@ -2,8 +2,18 @@ import React, { useState } from 'react'
 import { useStores } from '@/core/stores/UseStores'
 import { UploadButton } from '@/utils/uploadthing'
 import '@uploadthing/react/styles.css'
+import { useFileContext } from '@/core/upload/context'
+
+interface File {
+  _id: string
+  originalname: string
+  status: boolean
+  dateuploaded: string
+  datelastused: string
+}
 
 const UploadSection: React.FC = () => {
+  const { files, setFiles } = useFileContext()
   const { authStore } = useStores()
   const [hasError, setHasError] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
@@ -13,6 +23,14 @@ const UploadSection: React.FC = () => {
     setTimeout(() => {
       setHasError(false)
     }, 5000)
+  }
+
+  const updateStatus = (): void => {
+    const updatedFiles = files.map((file) => ({
+      ...file,
+      status: false
+    }))
+    setFiles(updatedFiles)
   }
 
   const businessid = authStore.userProfile?.profile._id
@@ -32,8 +50,10 @@ const UploadSection: React.FC = () => {
       },
       body: JSON.stringify(data)
     })
-      .then(res => {
-        console.log(res)
+      .then(async res => await (res.json() as Promise<File>))
+      .then(data => {
+        updateStatus()
+        setFiles(prev => [data, ...prev])
       })
       .catch(err => {
         throw err

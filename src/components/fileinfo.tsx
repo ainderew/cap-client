@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Tooltip from './tooltip'
+import { useFileContext } from '@/core/upload/context'
 
 interface FileInfoProps {
   id: string
@@ -19,6 +20,29 @@ const FileInfo: React.FC<FileInfoProps> = ({
   status,
   lastused
 }) => {
+  const { files, setFiles } = useFileContext()
+
+  const updateStatus = (newdate: string): void => {
+    const updatedFiles = files.map((file) => {
+      if (file._id !== id) {
+        if (file.status) {
+          return { ...file, status: false, datelastused: newdate }
+        } else {
+          return {
+            ...file,
+            status: false
+          }
+        }
+      } else {
+        return {
+          ...file,
+          status: true
+        }
+      }
+    })
+    setFiles(updatedFiles)
+  }
+
   const handleTrigger = (): void => {
     fetch(`http://localhost:5000/api/file/trigger/${id}`, {
       mode: 'cors',
@@ -26,8 +50,11 @@ const FileInfo: React.FC<FileInfoProps> = ({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ businessId: businessid })
     })
-      .then(res => {
-        console.log(res)
+      .then(async res => await (res.json())
+      )
+      .then(data => {
+        const date = data.datelastused as string | ''
+        updateStatus(date)
       })
       .catch(err => {
         throw err
