@@ -40,7 +40,7 @@ const BusinessNavBar: React.FC = () => {
           <button
             className={currentRoute === '/dashboard' ? 'underline underline-offset-4 ' : ''}
             onClick={() => {
-              handleRedirect('/dashboard')
+              handleRedirect('/business/dashboard')
             }}
           >
             Dashboard
@@ -49,7 +49,7 @@ const BusinessNavBar: React.FC = () => {
           <button
             className={currentRoute === '/files' ? 'underline underline-offset-4 ' : ''}
             onClick={() => {
-              handleRedirect('/register/customer')
+              handleRedirect('/business/data-management')
             }}
           >
             Data Manaagement

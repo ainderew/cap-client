@@ -25,9 +25,16 @@ const Login: React.FC = () => {
       })
       .then(data => {
         authStore.loginUser(data)
-        router.push('/home').catch(err => {
-          throw err
-        })
+        console.log(authStore.userProfile?.profile)
+        if (authStore.userProfile?.profile.type === true) {
+          router.push('/business/dashboard').catch((err) => {
+            throw err
+          })
+        } else if (authStore.userProfile?.profile.type === false) {
+          router.push('/home').catch((err) => {
+            throw err
+          })
+        }
       })
       .catch(err => {
         throw err

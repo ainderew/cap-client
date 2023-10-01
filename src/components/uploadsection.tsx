@@ -1,17 +1,63 @@
 import React, { useState } from 'react'
+import { useStores } from '@/core/stores/UseStores'
 import { UploadButton } from '@/utils/uploadthing'
 import '@uploadthing/react/styles.css'
+import { useFileContext } from '@/core/upload/context'
+
+interface File {
+  _id: string
+  originalname: string
+  status: boolean
+  dateuploaded: string
+  datelastused: string
+}
 
 const UploadSection: React.FC = () => {
+  const { files, setFiles } = useFileContext()
+  const { authStore } = useStores()
   const [hasError, setHasError] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
-
   const handleError = (error: string): void => {
     setErrorMessage(error)
     setHasError(true)
     setTimeout(() => {
       setHasError(false)
     }, 5000)
+  }
+
+  const updateStatus = (): void => {
+    const updatedFiles = files.map((file) => ({
+      ...file,
+      status: false
+    }))
+    setFiles(updatedFiles)
+  }
+
+  const businessid = authStore.userProfile?.profile._id
+  const data = {
+    businessId: businessid,
+    originalname: '',
+    blobname: '',
+    path: ''
+  }
+
+  const sendFileData = (): void => {
+    fetch('http://localhost:5000/api/file/fileupload', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(async res => await (res.json() as Promise<File>))
+      .then(data => {
+        updateStatus()
+        setFiles(prev => [data, ...prev])
+      })
+      .catch(err => {
+        throw err
+      })
   }
 
   return (
@@ -37,8 +83,15 @@ const UploadSection: React.FC = () => {
                   return 'Only .txt files allowed, file size up to 4MB'
                 }
               }}
-              onClientUploadComplete={res => {
-                console.log('Upload Complete')
+              onClientUploadComplete={(res) => {
+                console.log(res)
+                if (res != null) {
+                  const { key, url, name } = res[0]
+                  data.blobname = key
+                  data.originalname = name
+                  data.path = url
+                  sendFileData()
+                }
               }}
               onUploadError={(error: Error) => {
                 handleError(error.message)
