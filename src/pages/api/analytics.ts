@@ -35,3 +35,13 @@ export const getMonthlyData = async (businessId: string, year: number, month: nu
 
   return data
 }
+
+export const createAnalytics = async (businessId: string): Promise<any> => {
+  const response = await fetch(`http://localhost:5000/api/monthlyclicks/${businessId}`)
+  if (!response.ok) {
+    throw new Error('Request failed')
+  }
+  const data = await response.json()
+
+  return data
+}

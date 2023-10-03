@@ -19,6 +19,11 @@ const BusinessRegisterUI: React.FC = () => {
   const [size, setSize] = useState<number>(0)
   const [industry, setIndustry] = useState<string>('')
 
+  const handleRedirect = (route: string): void => {
+    router.push(route).catch(err => {
+      throw err
+    })
+  }
   const submitForm = (): void => {
     const bodyObj: Business = {
       email,
@@ -130,7 +135,11 @@ const BusinessRegisterUI: React.FC = () => {
                   ></input>
                 </div>
               </div>
-
+                    <div className='text-[.9rem] text-[#878787]'>
+                      <p>Register as <a className='font-semibold text-[#2B99FF] hover:text-black cursor-pointer' onClick={() => {
+                        handleRedirect('/register/customer')
+                      }}>Customer</a> instead</p>
+                    </div>
               <div className='mt-[3rem] font-[600]'>
                 <button
                   onClick={submitForm}

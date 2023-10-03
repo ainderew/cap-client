@@ -13,17 +13,18 @@ const NavBar: React.FC = () => {
 
   const currentPath = router.asPath
   const { authStore } = useStores()
-  const Type = authStore.userProfile?.profile.type
-  console.log(Type)
+  const userType = authStore.userProfile?.profile.type
+  console.log(userType)
   let body = <DefaultChatNavbar />
-  if (Type !== null && Type !== undefined) {
-    if (Type) {
+  if (userType !== null && userType !== undefined) {
+    if (!userType) {
       body = <CustomerNavbar />
-    } else if (!Type) {
+    } else if (userType) {
       body = <BusinessNavBar />
+      console.log('test', currentPath)
     }
-  } else if (currentPath === '/') {
-    body = <LandingNavbar />
+  } else {
+    body = <DefaultChatNavbar/>
   }
   return <div className=' top-0'>{body}</div>
 }

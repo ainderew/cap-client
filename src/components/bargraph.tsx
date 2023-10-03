@@ -70,7 +70,7 @@ const BarGraph: React.FC<{
         },
         title: {
           display: showTicks,
-          text: 'MONTHLY DATA',
+          text: 'This Year Interactions',
           font: {
             size: 16
           }

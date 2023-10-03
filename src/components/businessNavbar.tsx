@@ -32,13 +32,12 @@ const BusinessNavBar: React.FC = () => {
           <div className='relative h-full  w-8 md:flex'>
             <Image src={'/logo.svg'} fill alt='chatxpert' />
           </div>
-
           <span className=' text-[1.2rem] font-bold '>ChatXpert</span>
         </div>
 
         <div className='hidden flex-1 gap-10 px-10 text-[.9rem] font-semibold md:flex'>
           <button
-            className={currentRoute === '/dashboard' ? 'underline underline-offset-4 ' : ''}
+            className={currentRoute === '/business/dashboard' ? 'underline underline-offset-4 ' : ''}
             onClick={() => {
               handleRedirect('/business/dashboard')
             }}
@@ -47,12 +46,12 @@ const BusinessNavBar: React.FC = () => {
           </button>
 
           <button
-            className={currentRoute === '/files' ? 'underline underline-offset-4 ' : ''}
+            className={currentRoute === '/business/data-management' ? 'underline underline-offset-4 ' : ''}
             onClick={() => {
               handleRedirect('/business/data-management')
             }}
           >
-            Data Manaagement
+            Data Management
           </button>
         </div>
 
@@ -65,7 +64,7 @@ const BusinessNavBar: React.FC = () => {
           <button onClick={notificationOnClick}>
             <div className='relative h-full w-7'>
               <Image
-                src={clickNotification ? 'notificationactive.svg' : '/notification.svg'}
+                src={clickNotification ? '/notificationActive.svg' : '/notification.svg'}
                 fill
                 alt='notification'
               />

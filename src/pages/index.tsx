@@ -14,7 +14,7 @@ const Home: React.FC = () => {
             </div>
           </section>
           <section className=' group m-10 flex gap-5 text-sm'>
-            <button className='rounded-md bg-blue-500 px-8 py-1 text-white'>SIGN IN</button>
+
             <button className='flex rounded-md border border-blue-500 px-6 py-1 text-blue-500'>
               Start Chatting{' '}
               <div className='translate-x-0 transition-all group-hover:translate-x-1'>&#x279D;</div>

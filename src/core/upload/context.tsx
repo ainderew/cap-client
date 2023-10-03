@@ -25,9 +25,11 @@ export const FileProvider: React.FC<ProviderProps> = ({ children }) => {
   const [files, setFiles] = useState<File[]>(initialFiles)
 
   return (
+    <div>
     <FileContext.Provider value={{ files, setFiles }}>
       {children}
     </FileContext.Provider>
+    </div>
   )
 }
 

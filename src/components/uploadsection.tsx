@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useStores } from '@/core/stores/UseStores'
 import { UploadButton } from '@/utils/uploadthing'
-import '@uploadthing/react/styles.css'
+/* import '@uploadthing/react/styles.css' */
 import { useFileContext } from '@/core/upload/context'
 
 interface File {
@@ -70,7 +70,7 @@ const UploadSection: React.FC = () => {
           platform.
         </p>
         <div>
-          <div className=''>
+          <div className='bg-blue-500'>
             <UploadButton
               endpoint='text'
               content={{

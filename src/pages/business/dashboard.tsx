@@ -3,16 +3,26 @@ import Clock from '@/components/clock'
 import DataCard from '@/components/dataCard'
 import DoughnutGraph from '@/components/doughnutChart'
 import LineGraph from '@/components/linegraph'
+import Image from 'next/image'
+import { useStores } from '@/core/stores/UseStores'
 import {
   getYearlyData,
-  type clickYealy,
   getMonthlyData,
   getYearData
-} from '@/hooks/analytics'
+} from '@/pages/api/analytics'
 
 import React, { useEffect, useState } from 'react'
 
 const Dashboard: React.FC = () => {
+  const [yearlyData, setYearlyData] = useState<number[]>([])
+  const [yearlyLabel, setYearlyLabel] = useState<string[]>([])
+  const [monthlyData, setMonthlyData] = useState<number[]>([])
+  const [monthlyLabel, setMonthlyLabel] = useState<string[]>([])
+
+  const [currentYearly, setCurrentYearly] = useState<number>(0)
+  const [prevYearly, setPrevYearly] = useState<number>(0)
+  const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
+  const [isSelected, setIsSelected] = useState<boolean>(false)
   const colorPalette = [
     '#fd7f6f',
     '#7eb0d5',
@@ -24,68 +34,58 @@ const Dashboard: React.FC = () => {
     '#fdcce5',
     '#8bd3c7'
   ]
-
-  const [yearly, setYearly] = useState<clickYealy[]>([])
-  const [monthly, setMonthly] = useState<clickYealy[]>([])
-  const [currentYearly, setCurrentYearly] = useState<number>(0)
-  const [prevYearly, setPrevYearly] = useState<number>(0)
-  const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
-
   const currentDate = new Date()
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   }
-
   const formattedDate = currentDate.toLocaleDateString(undefined, options)
-
-  /*   const businessId = authStore.userProfile?.profile._id */
-  const businessId = '6514301c320a1a8e10b6d90e'
+  const { authStore } = useStores()
+  const businessId = authStore.userProfile?.profile._id
+  console.log(businessId)
+  /*   const businessId = '6514301c320a1a8e10b6d90e' */
   const currentYear = currentDate.getFullYear()
   const currentMonth = currentDate.getMonth()
   const [selectedMonthnum, setSelectedMonthnum] = useState(currentMonth)
+
   useEffect(() => {
     const fetchClicks = async (): Promise<any> => {
       try {
-        const yearlyData = await getYearlyData(businessId, currentYear)
-        const monthlyData = await getMonthlyData(
-          businessId,
-          currentYear,
-          selectedMonthnum + 1
-        )
-        const CurrentYearlyData = await getYearData(businessId, currentYear)
-        const prevYearlyData = await getYearData(businessId, currentYear - 1)
+        if (businessId !== null && businessId !== undefined) {
+          const yearlyData = await getYearlyData(businessId, currentYear)
+          const monthlyData = await getMonthlyData(
+            businessId,
+            currentYear,
+            selectedMonthnum + 1
+          )
+          const CurrentYearlyData = await getYearData(businessId, currentYear)
+          const prevYearlyData = await getYearData(businessId, currentYear - 1)
 
-        setYearly(yearlyData)
-        setMonthly(monthlyData)
-        setCurrentYearly(CurrentYearlyData)
-        setPrevYearly(prevYearlyData)
-        setIsRetrieved(true)
+          setYearlyData(yearlyData.map((item: { click: any }) => item.click))
+          setYearlyLabel(yearlyData.map((item: { label: any }) => item.label))
+          setMonthlyData(monthlyData.map((item: { click: any }) => item.click))
+          setMonthlyLabel(monthlyData.map((item: { label: any }) => item.label))
+          setCurrentYearly(CurrentYearlyData)
+          setPrevYearly(prevYearlyData)
+          setIsRetrieved(true)
+          setIsSelected(true)
+        }
       } catch (error) {
         console.log(error)
       }
     }
 
     void fetchClicks()
-  }, [])
+  }, [selectedMonthnum])
 
-  const monthLabels = yearly.map((item) => item.label)
-  const monthlyClicks = yearly.map((item) => item.click)
-
-  const dailyLabels = monthly.map((item) => item.label)
-  const dailyClicks = monthly.map((item) => item.click)
-
-  const [selectedMonthstr, setSelectedMonthstr] = useState(monthLabels[currentMonth + 1])
-
+  const [selectedMonthstr, setSelectedMonthstr] = useState(yearlyLabel[currentMonth + 1])
   const handleMonthChange = (event: { target: { value: string } }): void => {
-    const selectedValue = parseInt(event.target.value, 10) // Parse the selected value as an integer
+    const selectedValue = parseInt(event.target.value, 10)
     setSelectedMonthnum(selectedValue)
-    setSelectedMonthstr(monthLabels[selectedValue])
-    console.log(selectedValue)
-    console.log(monthLabels[selectedValue])
+    setSelectedMonthstr(yearlyLabel[selectedValue])
+    setIsSelected(false)
   }
-  /*  console.log(dailyClicks) */
 
   return (
     <div className='  font-poppins'>
@@ -111,24 +111,36 @@ const Dashboard: React.FC = () => {
 
               </div>
 
-              <div className='col-span-3 md:block hidden border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
-                <BarGraph
-                  months={monthLabels}
-                  clickCounts={monthlyClicks}
-                  axis={'x'}
-                  colors={colorPalette}
-                  showTicks={true}
-                />
-              </div>
-              <div className='col-span-3 md:hidden block border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
-                <BarGraph
-                  months={monthLabels}
-                  clickCounts={monthlyClicks}
-                  axis={'y'}
-                  colors={colorPalette}
-                  showTicks={true}
-                />
-              </div>
+             { isRetrieved ? (<div className='col-span-3'> <div className='col-span-3 md:block hidden border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
+              <BarGraph
+                months={yearlyLabel}
+                clickCounts={yearlyData}
+                axis={'x'}
+                colors={colorPalette}
+                showTicks={true}
+              />
+            </div>
+            <div className='col-span-3 md:hidden block border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
+              <BarGraph
+                months={yearlyLabel}
+                clickCounts={yearlyData}
+                axis={'y'}
+                colors={colorPalette}
+                showTicks={true}
+              />
+            </div>
+            </div>
+             ) : (
+              <div className=' col-span-3 min-h-[30rem]'>
+              <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+               <div className="relative h-[20%] w-[20%]">
+                 <Image className="float" src={'/logo.svg'} fill alt="loading" />
+               </div>
+               <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
+             </div>
+             </div>
+             )}
+
             </div>
           </section>
 
@@ -144,9 +156,9 @@ const Dashboard: React.FC = () => {
               />
               <DataCard
                 title={'Queries This Month'}
-                data={monthlyClicks[currentMonth]}
+                data={yearlyData[currentMonth]}
                 prevData={
-                  monthlyClicks[currentMonth === 1 ? 11 : currentMonth - 1]
+                  yearlyData[currentMonth === 1 ? 11 : currentMonth - 1]
                 }
                 isRetrieved={isRetrieved}
               />
@@ -170,28 +182,44 @@ const Dashboard: React.FC = () => {
           <div>
           <p>Select Month: {selectedMonthstr}</p>
       <select value={selectedMonthnum} onChange={handleMonthChange}>
-      {monthLabels.map((label, index) => (
+      {yearlyLabel.map((label, index) => (
           <option key={index} value={index}>
             {label}
           </option>
       ))}
-        {/* map monthLabels  */}
+
       </select>
 
     </div>
           <div className=' grid grid-cols-5 gap-4'>
-          <div className='h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
-            <LineGraph months={dailyLabels} clickCounts={dailyClicks} />
-        </div>
+
+        {isSelected ? (<div className='min-h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
+            <LineGraph months={monthlyLabel} clickCounts={monthlyData} />
+        </div>) : (<div className='h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
+                 <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+                  <div className="relative h-[20%] w-[20%]">
+                    <Image className="float" src={'/logo.svg'} fill alt="loading" />
+                  </div>
+                  <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
+                </div>
+                </div>
+        )}
           <div className=' min-h-full col-span-5 md:col-span-2 '>
-
-            <div className='grid text-center h-[25rem]'>
-
+          {isRetrieved ? (<div className='grid text-center h-[25rem]'>
               <DoughnutGraph
                 months={['12-18', '19-26', '26-46', '46 above']}
                 clickCounts={[33, 4, 55, 4, 6]}
               />
-            </div>
+            </div>) : (<div className=' col-span-3 h-[25rem]'>
+                 <div className="">
+                  <div className="relative min-h-[20%] w-[20%]">
+                    <Image className="float" src={'/logo.svg'} fill alt="loading" />
+                  </div>
+                  <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
+                </div>
+                </div>
+          )}
+
           </div>
           </div>
 

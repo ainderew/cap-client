@@ -1,3 +1,4 @@
+import { DatePicker, type DatePickerProps } from 'antd'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -7,21 +8,62 @@ interface Customer {
   password: string
   type: string
   username: string
+  birthdate: Date
+  age: number
 }
 
 const CustomerRegisterUI: React.FC = () => {
   const router = useRouter()
+  const currentDate = new Date()
   const [email, setEmail] = useState<string>('')
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [birthdate, setBirthdate] = useState<Date>(new Date())
   const [vpassword, setVPassword] = useState<string>('')
+  const [age, setAge] = useState<number>(0)
+  const handleRedirect = (route: string): void => {
+    router.push(route).catch(err => {
+      throw err
+    })
+  }
+
+  const onChange: DatePickerProps['onChange'] = (data, dateString) => {
+    if (dateString !== null && dateString !== '') {
+      console.log(dateString)
+      const inputDateStr = dateString
+      const dob = new Date(inputDateStr)
+      dob.setHours(0)
+      dob.setMinutes(0)
+      dob.setSeconds(0)
+      dob.setMilliseconds(0)
+      console.log(dob.toISOString())
+
+      const now = currentDate
+      let yearsDiff = now.getFullYear() - dob.getFullYear()
+      const monthsDiff = now.getMonth() - dob.getMonth()
+      const daysDiff = now.getDate() - dob.getDate()
+
+      if (monthsDiff < 0 || (monthsDiff === 0 && daysDiff < 0)) {
+        yearsDiff--
+      }
+      setAge(yearsDiff)
+      console.log(age)
+      setBirthdate(dob)
+      console.log(dob)
+    } else {
+      console.log('Test')
+    }
+  }
 
   const submitForm = (): void => {
     const bodyObj: Customer = {
       email,
       password,
       type: 'customer',
-      username
+      username,
+      birthdate,
+      age
+
     }
 
     fetch('http://localhost:5000/api/register/customer', {
@@ -48,8 +90,8 @@ const CustomerRegisterUI: React.FC = () => {
 
   return (
     <div>
-      <div className='flex h-[100vh] px-32'>
-        <div className='grid w-full grid-cols-[50%_50%] overflow-x-hidden'>
+      <div className='flex min-h-screen px-32'>
+        <div className='grid w-full grid-cols-[50%_50%] '>
           <div className='m-[5rem] flex items-center justify-center'>
             <div>
               <div className='mb-[1.5rem]'>
@@ -103,6 +145,16 @@ const CustomerRegisterUI: React.FC = () => {
                   }}
                 ></input>
               </div>
+              <div className='my-[.5rem] font-[400]'>
+                <div className='py-[.5rem]'>Date of Birth</div>
+                <DatePicker onChange={onChange} className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'/>
+              </div>
+
+              <div className='text-[.9rem] text-[#878787]'>
+                      <p>Register as <a className='font-semibold text-[#2B99FF] hover:text-black cursor-pointer' onClick={() => {
+                        handleRedirect('/register/business')
+                      }}>Business</a> instead</p>
+                    </div>
               <div className='mt-[3rem] font-[600]'>
                 <button
                   onClick={submitForm}
