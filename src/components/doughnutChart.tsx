@@ -15,6 +15,15 @@ const colorPalette = [
   '#8bd3c7'
 ]
 
+/* interface ageCount {
+  teen: number
+  youngAdult: number
+  adult: number
+  midAdult: number
+  senior: number
+
+} */
+
 const DoughnutGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({
   months,
   clickCounts

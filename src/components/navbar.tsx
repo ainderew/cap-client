@@ -6,7 +6,6 @@ import { useStores } from '@/core/stores/UseStores'
 import { useRouter } from 'next/router'
 import DefaultChatNavbar from './defaultChatNavbar'
 import CustomerNavbar from './customerNavbar'
-import LandingNavbar from './landingNavbar'
 
 const NavBar: React.FC = () => {
   const router = useRouter()

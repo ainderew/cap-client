@@ -24,6 +24,12 @@ const Dashboard: React.FC = () => {
   const [prevYearly, setPrevYearly] = useState<number>(0)
   const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
   const [isSelected, setIsSelected] = useState<boolean>(false)
+  const [teen, setTeen] = useState<number>(0)
+  const [youngAdult, setYoungAdult] = useState<number>(0)
+  const [adult, setAdult] = useState<number>(0)
+  const [midAdult, setMidAdult] = useState<number>(0)
+  const [senior, setSenior] = useState<number>(0)
+  /* const [ages, setAges] = useState<ageCount>() */
   const colorPalette = [
     '#fd7f6f',
     '#7eb0d5',
@@ -63,7 +69,12 @@ const Dashboard: React.FC = () => {
           console.log(yearlyData.labels)
           const CurrentYearlyData = await getYearData(businessId, currentYear)
           const prevYearlyData = await getYearData(businessId, currentYear - 1)
-
+          console.log(monthlyData.ageCounts)
+          setTeen(monthlyData.ageCounts.teen)
+          setAdult(monthlyData.ageCounts.adult)
+          setYoungAdult(monthlyData.ageCounts.youngAdult)
+          setMidAdult(monthlyData.ageCounts.midAdult)
+          setSenior(monthlyData.ageCounts.seniors)
           setYearlyData(yearlyData.clicks)
           setYearlyLabel(yearlyData.labels)
           setMonthlyData(monthlyData.clicks)
@@ -215,7 +226,7 @@ const Dashboard: React.FC = () => {
           {isRetrieved ? (<div className='grid text-center h-[25rem]'>
               <DoughnutGraph
                 months={['12-18', '19-26', '26-46', '46 above']}
-                clickCounts={[33, 4, 55, 4, 6]}
+                clickCounts={[teen, youngAdult, adult, midAdult, senior]}
               />
             </div>) : (<div className=' col-span-3 h-[25rem]'>
                  <div className="">
