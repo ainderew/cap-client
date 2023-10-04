@@ -14,7 +14,7 @@ interface File {
 
 const FileGroup: React.FC = () => {
   const { authStore } = useStores()
-  const { files, setFiles } = useFileContext()
+  const { files, setFiles, isLoading } = useFileContext()
 
   const businessId = authStore.userProfile?.profile._id
   useEffect(() => {
@@ -30,7 +30,7 @@ const FileGroup: React.FC = () => {
           console.log(error)
         })
     }
-  }, [businessId])
+  }, [businessId, isLoading])
 
   return (
     <div className='mt-5'>

@@ -20,28 +20,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
   status,
   lastused
 }) => {
-  const { files, setFiles } = useFileContext()
-
-  const updateStatus = (newdate: string): void => {
-    const updatedFiles = files.map((file) => {
-      if (file._id !== id) {
-        if (file.status) {
-          return { ...file, status: false, datelastused: newdate }
-        } else {
-          return {
-            ...file,
-            status: false
-          }
-        }
-      } else {
-        return {
-          ...file,
-          status: true
-        }
-      }
-    })
-    setFiles(updatedFiles)
-  }
+  const { setIsLoading } = useFileContext()
 
   const handleTrigger = (): void => {
     fetch(`http://localhost:5000/api/file/trigger/${id}`, {
@@ -53,12 +32,12 @@ const FileInfo: React.FC<FileInfoProps> = ({
       .then(async res => await (res.json())
       )
       .then(data => {
-        const date = data.datelastused as string | ''
-        updateStatus(date)
+        setIsLoading(true)
       })
       .catch(err => {
         throw err
       })
+    setIsLoading(false)
   }
 
   return (
