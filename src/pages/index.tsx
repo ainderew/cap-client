@@ -2,12 +2,6 @@ import React from 'react'
 
 const Home: React.FC = () => {
   return (
-<<<<<<< HEAD
-    <div classNa
-    me='h-screen w-full'>
-      <NavBar />
-      test 4
-=======
     <div className='flex h-screen w-full flex-col items-center'>
       <div className='flex w-9/12 flex-col gap-10'>
         <header className='flex w-full flex-col items-center'>
@@ -70,7 +64,6 @@ const Home: React.FC = () => {
         </article>
       </div>
       <footer>Footer</footer>
->>>>>>> c67eb491ddb3c5afb3149d43da722eb214be8a30
     </div>
   )
 }
