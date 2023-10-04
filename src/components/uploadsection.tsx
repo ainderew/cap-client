@@ -1,89 +1,92 @@
-import React, { useRef, useState } from 'react'
-import Image from 'next/image'
+import React, { useState } from 'react'
+import { useStores } from '@/core/stores/UseStores'
+import { UploadButton } from '@/utils/uploadthing'
+import { useFileContext } from '@/core/upload/context'
 
 const UploadSection: React.FC = () => {
-  const fileRef = useRef<HTMLInputElement>(null)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [fileIsStored, setFileIsStored] = useState<boolean>(false)
-  const [fileWrongFormat, setFileWrongFormat] = useState<boolean>(false)
-
-  const fileClick = (): void => {
-    if (fileRef.current != null) {
-      fileRef.current.click()
-    }
+  const { setIsLoading } = useFileContext()
+  const { authStore } = useStores()
+  const [hasError, setHasError] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const handleError = (error: string): void => {
+    setErrorMessage(error)
+    setHasError(true)
+    setTimeout(() => {
+      setHasError(false)
+    }, 5000)
   }
 
-  const fileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const file = e.target.files?.[0]
-
-    if (file != null) {
-      if (file.name.endsWith('.txt') || file.type === 'text/plain') {
-        setSelectedFile(file)
-        setFileIsStored(true)
-      } else {
-        setFileWrongFormat(true)
-        setTimeout(() => {
-          setFileWrongFormat(false)
-        }, 5000)
-      }
-    }
+  const businessid = authStore.userProfile?.profile._id
+  const data = {
+    businessId: businessid,
+    originalname: '',
+    blobname: '',
+    path: ''
   }
 
-  const uploadFile = (): void => {
-    if (selectedFile != null) {
-      const formData = new FormData()
-      formData.append('filename', selectedFile.name)
-      formData.append('file', selectedFile)
-
-      fetch('', {
-        method: 'POST',
-        body: formData
+  const sendFileData = (): void => {
+    fetch('http://localhost:5000/api/file/fileupload', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(async res => await (res.json())
+      )
+      .then(data => {
+        setIsLoading(true)
       })
-        .then(response => {})
-        .catch(error => {
-          console.log(error)
-        })
-    }
+      .catch(err => {
+        throw err
+      })
+    setIsLoading(false)
   }
 
   return (
     <div className='mt-8 flex flex-col items-center bg-neutral-200 px-20 py-12 text-center'>
       <p className='my-2 text-3xl font-semibold'>Upload Business Data</p>
-      {fileIsStored ? (
-        <div className='flex flex-col items-center'>
-          <p className='my-2 text-xl font-semibold text-neutral-500'>
-            {selectedFile != null ? selectedFile.name : ''}
-          </p>
-          <button
-            onClick={uploadFile}
-            className='my-2 flex items-center self-center rounded-lg bg-sky-500 px-5 py-2 text-lg font-bold text-white'
-          >
-            <p>Upload File</p>
-          </button>
-        </div>
-      ) : (
-        <div className='flex flex-col items-center'>
-          <p className='text-md my-2 text-neutral-500'>
-            Effortlessly upload and manage your business data with our user-friendly data management
-            platform.
-          </p>
-          <div>
-            <button
-              onClick={() => {
-                fileClick()
+
+      <div className='flex flex-col items-center'>
+        <p className='text-md my-2 text-neutral-500'>
+          Effortlessly upload and manage your business data with our user-friendly data management
+          platform.
+        </p>
+        <div>
+          <div className=''>
+            <UploadButton
+              endpoint='text'
+              content={{
+                button ({ ready }) {
+                  if (ready) return <div className='font-semibold bg-blue-500 px-12 py-4'>Upload .txt file</div>
+                  return 'Loading ...'
+                },
+                allowedContent ({ ready }) {
+                  if (!ready) return ''
+                  return 'Only .txt files allowed, file size up to 4MB'
+                }
               }}
-              className=' my-2 flex items-center self-center rounded-lg bg-sky-500 px-5 py-2 text-lg font-bold text-white'
-            >
-              <p>Select .txt file</p>
-              <Image src='/documenticon.svg' width={32} height={32} alt='' className='mx-2' />
-            </button>
-          </div>
-          <div className={`text-sm text-red-500 ${fileWrongFormat ? 'block' : 'hidden'}`}>
-            *The file you chose has the wrong format. Choose a text file.
+              onClientUploadComplete={(res) => {
+                console.log(res)
+                if (res != null) {
+                  const { key, url, name } = res[0]
+                  data.blobname = key
+                  data.originalname = name
+                  data.path = url
+                  sendFileData()
+                }
+              }}
+              onUploadError={(error: Error) => {
+                handleError(error.message)
+              }}
+            />
           </div>
         </div>
-      )}
-      <input ref={fileRef} onChange={fileChange} type='file' className='hidden' />
+        <div className={`text-sm text-red-500 ${hasError ? 'block' : 'hidden'}`}>
+          {errorMessage}
+        </div>
+      </div>
     </div>
   )
 }
