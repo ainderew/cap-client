@@ -1,9 +1,12 @@
-export interface clickYealy {
-  label: string
-  daily: number
-  click: number
-  age: number
-
+export interface ClicksForm {
+  label: string[]
+  click: number[]
+  agesData: {
+    teen: number
+    youngAdult: number
+    adult: number
+    senior: number
+  }
 }
 const url = 'http://localhost:5000'
 export const getYearData = async (businessId: string, year: number): Promise<any> => {

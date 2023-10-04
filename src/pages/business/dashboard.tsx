@@ -8,82 +8,73 @@ import { useStores } from '@/core/stores/UseStores'
 import {
   getYearlyData,
   getMonthlyData,
-  getYearData
+  getYearData,
+  type ClicksForm
 } from '@/pages/api/analytics'
 
 import React, { useEffect, useState } from 'react'
-/* import LoadingPage from '@/components/loadingPage' */
 
+const options: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+}
+const colorPalette = [
+  '#fd7f6f',
+  '#7eb0d5',
+  '#b2e061',
+  '#bd7ebe',
+  '#ffb55a',
+  '#ffee65',
+  '#beb9db',
+  '#fdcce5',
+  '#8bd3c7'
+]
 const Dashboard: React.FC = () => {
+  const currentDate = new Date()
   const [yearlyData, setYearlyData] = useState<number[]>([])
   const [yearlyLabel, setYearlyLabel] = useState<string[]>([])
-  const [monthlyData, setMonthlyData] = useState<number[]>([])
-  const [monthlyLabel, setMonthlyLabel] = useState<string[]>([])
-  /*   const [isLoading, setIsLoading] = useState<boolean>(false) */
   const [currentYearly, setCurrentYearly] = useState<number>(0)
-  const [prevYearly, setPrevYearly] = useState<number>(0)
   const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
   const [isSelected, setIsSelected] = useState<boolean>(false)
-  const [teen, setTeen] = useState<number>(0)
-  const [youngAdult, setYoungAdult] = useState<number>(0)
-  const [adult, setAdult] = useState<number>(0)
-  const [midAdult, setMidAdult] = useState<number>(0)
-  const [senior, setSenior] = useState<number>(0)
-  /* const [ages, setAges] = useState<ageCount>() */
-  const colorPalette = [
-    '#fd7f6f',
-    '#7eb0d5',
-    '#b2e061',
-    '#bd7ebe',
-    '#ffb55a',
-    '#ffee65',
-    '#beb9db',
-    '#fdcce5',
-    '#8bd3c7'
-  ]
-  const currentDate = new Date()
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }
+  const [monthData, setMonthData] = useState<ClicksForm>({
+    label: [],
+    click: [],
+    agesData: {
+      teen: 0,
+      youngAdult: 0,
+      adult: 0,
+      senior: 0
+    }
+
+  })
+
   const formattedDate = currentDate.toLocaleDateString(undefined, options)
   const { authStore } = useStores()
   const businessId = authStore.userProfile?.profile._id
-  console.log(businessId)
-  /*   const businessId = '6514301c320a1a8e10b6d90e' */
-  const currentYear = currentDate.getFullYear()
-  const currentMonth = currentDate.getMonth()
-  const [selectedMonthnum, setSelectedMonthnum] = useState(currentMonth)
+
+  const [selectedMonthnum, setSelectedMonthnum] = useState(currentDate.getMonth())
 
   useEffect(() => {
     const fetchClicks = async (): Promise<any> => {
       try {
+        console.log(businessId)
         if (businessId !== null && businessId !== undefined) {
-          const yearlyData = await getYearlyData(businessId, currentYear)
+          const yearlyData = await getYearlyData(businessId, currentDate.getFullYear())
           const monthlyData = await getMonthlyData(
             businessId,
-            currentYear,
+            currentDate.getFullYear(),
             selectedMonthnum + 1
           )
-          console.log(yearlyData.labels)
-          const CurrentYearlyData = await getYearData(businessId, currentYear)
-          const prevYearlyData = await getYearData(businessId, currentYear - 1)
-          console.log(monthlyData.ageCounts)
-          setTeen(monthlyData.ageCounts.teen)
-          setAdult(monthlyData.ageCounts.adult)
-          setYoungAdult(monthlyData.ageCounts.youngAdult)
-          setMidAdult(monthlyData.ageCounts.midAdult)
-          setSenior(monthlyData.ageCounts.seniors)
+          const CurrentYearlyData = await getYearData(businessId, currentDate.getFullYear())
+
           setYearlyData(yearlyData.clicks)
           setYearlyLabel(yearlyData.labels)
-          setMonthlyData(monthlyData.clicks)
-          setMonthlyLabel(monthlyData.labels)
+          setMonthData(monthlyData)
           setCurrentYearly(CurrentYearlyData)
-          setPrevYearly(prevYearlyData)
+
           setIsRetrieved(true)
           setIsSelected(true)
-          /*        setIsLoading(true) */
         }
       } catch (error) {
         console.log(error)
@@ -93,7 +84,7 @@ const Dashboard: React.FC = () => {
     void fetchClicks()
   }, [selectedMonthnum])
 
-  const [selectedMonthstr, setSelectedMonthstr] = useState(yearlyLabel[currentMonth + 1])
+  const [selectedMonthstr, setSelectedMonthstr] = useState(yearlyLabel[currentDate.getMonth() + 1])
   const handleMonthChange = (event: { target: { value: string } }): void => {
     const selectedValue = parseInt(event.target.value, 10)
     setSelectedMonthnum(selectedValue)
@@ -169,27 +160,22 @@ const Dashboard: React.FC = () => {
               <DataCard
                 title={'Queries This Year'}
                 data={currentYearly}
-                prevData={prevYearly}
                 isRetrieved={isRetrieved}
               />
               <DataCard
                 title={'Queries This Month'}
-                data={yearlyData[currentMonth]}
-                prevData={
-                  yearlyData[currentMonth === 1 ? 11 : currentMonth - 1]
-                }
+                data={yearlyData[currentDate.getMonth()]}
+
                 isRetrieved={isRetrieved}
               />
               <DataCard
                 title={'Average Monthly Queries'}
                 data={110}
-                prevData={1000}
                 isRetrieved={isRetrieved}
               />
               <DataCard
                 title={'Average Daily Queries'}
                 data={20}
-                prevData={0}
                 isRetrieved={isRetrieved}
               />
             </div>
@@ -212,7 +198,7 @@ const Dashboard: React.FC = () => {
           <div className=' grid grid-cols-5 gap-4'>
 
         {isSelected ? (<div className='min-h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
-            <LineGraph months={monthlyLabel} clickCounts={monthlyData} />
+            <LineGraph months={monthData.label} clickCounts={monthData.click} />
         </div>) : (<div className='h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
                  <div className="flex h-full w-full flex-col items-center justify-center gap-4">
                   <div className="relative h-[20%] w-[20%]">
@@ -225,8 +211,8 @@ const Dashboard: React.FC = () => {
           <div className=' min-h-full col-span-5 md:col-span-2 '>
           {isRetrieved ? (<div className='grid text-center h-[25rem]'>
               <DoughnutGraph
-                months={['12-18', '19-26', '26-46', '46 above']}
-                clickCounts={[teen, youngAdult, adult, midAdult, senior]}
+                months={['12-18', '19-26', '26-60', '60 above']}
+                clickCounts={[monthData.agesData?.teen, monthData.agesData?.youngAdult, monthData.agesData?.adult, monthData.agesData?.senior]}
               />
             </div>) : (<div className=' col-span-3 h-[25rem]'>
                  <div className="">
