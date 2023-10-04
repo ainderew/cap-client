@@ -70,12 +70,12 @@ const UploadSection: React.FC = () => {
           platform.
         </p>
         <div>
-          <div className='bg-blue-500'>
+          <div>
             <UploadButton
               endpoint='text'
               content={{
                 button ({ ready }) {
-                  if (ready) return <div className='font-semibold'>Upload .txt file</div>
+                  if (ready) return <div className='font-semibold bg-blue-500 px-10 py-4'>Upload .txt file</div>
                   return 'Loading ...'
                 },
                 allowedContent ({ ready }) {

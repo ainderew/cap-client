@@ -12,13 +12,14 @@ import {
 } from '@/pages/api/analytics'
 
 import React, { useEffect, useState } from 'react'
+/* import LoadingPage from '@/components/loadingPage' */
 
 const Dashboard: React.FC = () => {
   const [yearlyData, setYearlyData] = useState<number[]>([])
   const [yearlyLabel, setYearlyLabel] = useState<string[]>([])
   const [monthlyData, setMonthlyData] = useState<number[]>([])
   const [monthlyLabel, setMonthlyLabel] = useState<string[]>([])
-
+  /*   const [isLoading, setIsLoading] = useState<boolean>(false) */
   const [currentYearly, setCurrentYearly] = useState<number>(0)
   const [prevYearly, setPrevYearly] = useState<number>(0)
   const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
@@ -59,17 +60,19 @@ const Dashboard: React.FC = () => {
             currentYear,
             selectedMonthnum + 1
           )
+          console.log(yearlyData.labels)
           const CurrentYearlyData = await getYearData(businessId, currentYear)
           const prevYearlyData = await getYearData(businessId, currentYear - 1)
 
-          setYearlyData(yearlyData.map((item: { click: any }) => item.click))
-          setYearlyLabel(yearlyData.map((item: { label: any }) => item.label))
-          setMonthlyData(monthlyData.map((item: { click: any }) => item.click))
-          setMonthlyLabel(monthlyData.map((item: { label: any }) => item.label))
+          setYearlyData(yearlyData.clicks)
+          setYearlyLabel(yearlyData.labels)
+          setMonthlyData(monthlyData.clicks)
+          setMonthlyLabel(monthlyData.labels)
           setCurrentYearly(CurrentYearlyData)
           setPrevYearly(prevYearlyData)
           setIsRetrieved(true)
           setIsSelected(true)
+          /*        setIsLoading(true) */
         }
       } catch (error) {
         console.log(error)
@@ -89,10 +92,11 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className='  font-poppins'>
+
       <div className='px-4 lg:px-[5rem]  2xl:px-[15rem]  '>
         <div className=' mt-10 grid  grid-cols-8 justify-center gap-2'>
 
-        <section className='col-span-8   '>
+        <section className='col-span-8'>
             <div className='grid  grid-cols-1  gap-2 pt-2 lg:grid-cols-4'>
 
               <div className='flex md:h-[30rem] h-[10rem] text-white  col-span-4 md:col-span-1   flex-col  justify-center   rounded-md md:rounded-[2rem] bg-[#3ba0ff]'
@@ -110,8 +114,10 @@ const Dashboard: React.FC = () => {
                 </div>
 
               </div>
-
-             { isRetrieved ? (<div className='col-span-3'> <div className='col-span-3 md:block hidden border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
+              <div className='col-span-3'>
+              {isRetrieved ? (
+             <div>
+            <div className='col-span-3 md:block hidden border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
               <BarGraph
                 months={yearlyLabel}
                 clickCounts={yearlyData}
@@ -130,17 +136,18 @@ const Dashboard: React.FC = () => {
               />
             </div>
             </div>
-             ) : (
-              <div className=' col-span-3 min-h-[30rem]'>
-              <div className="flex h-full w-full flex-col items-center justify-center gap-4">
-               <div className="relative h-[20%] w-[20%]">
-                 <Image className="float" src={'/logo.svg'} fill alt="loading" />
-               </div>
-               <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
-             </div>
-             </div>
-             )}
 
+              ) : (
+                <div className='h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
+                 <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+                  <div className="relative h-[20%] w-[20%]">
+                    <Image className="float" src={'/logo.svg'} fill alt="loading" />
+                  </div>
+                  <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
+                </div>
+                </div>
+              )}
+</div>
             </div>
           </section>
 

@@ -27,7 +27,7 @@ const Login: React.FC = () => {
         authStore.loginUser(data)
         console.log(authStore.userProfile?.profile)
         if (authStore.userProfile?.profile.type === true) {
-          router.push('/business/data-management').catch((err) => {
+          router.push('/business/dashboard').catch((err) => {
             throw err
           })
         } else if (authStore.userProfile?.profile.type === false) {

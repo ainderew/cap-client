@@ -1,5 +1,4 @@
 import { DatePicker, type DatePickerProps } from 'antd'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
@@ -90,19 +89,20 @@ const CustomerRegisterUI: React.FC = () => {
 
   return (
     <div>
-      <div className='flex min-h-screen px-32'>
-        <div className='grid w-full grid-cols-[50%_50%] '>
-          <div className='m-[5rem] flex items-center justify-center'>
+      <div className='flex min-h-full font-poppins'>
+        <div className='grid w-full  overflow-x-hidden'>
+          <div className=' flex items-center justify-center'>
             <div>
               <div className='mb-[1.5rem]'>
                 <div className='text-[3.5rem] font-[700] tracking-[.5rem]'>WELCOME</div>
-                <div className='text-[2.25rem] font-[600] tracking-[.45rem]'>Sign up with us</div>
-                <div className='font-[600] tracking-[.1rem]'>
+              <div className='text-[1] font-[600]'>Enter your account details</div>
+              {/*   <div className='font-[600] tracking-[.1rem]'>
                   Manage customer support with the help of AI
-                </div>
+                </div> */}
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Email</div>
+              <section className='font-[400] text-[.9rem] flex flex-col gap-2'>
+              <div >
+                <div >Email</div>
                 <input
                   type='text'
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
@@ -112,8 +112,8 @@ const CustomerRegisterUI: React.FC = () => {
                   }}
                 ></input>
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Username</div>
+              <div className='  '>
+                <div >Username</div>
                 <input
                   type='text'
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
@@ -123,8 +123,8 @@ const CustomerRegisterUI: React.FC = () => {
                   }}
                 ></input>
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Password</div>
+              <div className='  '>
+                <div >Password</div>
                 <input
                   type='password'
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
@@ -134,8 +134,8 @@ const CustomerRegisterUI: React.FC = () => {
                   }}
                 ></input>
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Verify Password</div>
+              <div className='  '>
+                <div >Verify Password</div>
                 <input
                   type='password'
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
@@ -145,8 +145,8 @@ const CustomerRegisterUI: React.FC = () => {
                   }}
                 ></input>
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Date of Birth</div>
+              <div className='  '>
+                <div >Date of Birth</div>
                 <DatePicker onChange={onChange} className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'/>
               </div>
 
@@ -155,23 +155,15 @@ const CustomerRegisterUI: React.FC = () => {
                         handleRedirect('/register/business')
                       }}>Business</a> instead</p>
                     </div>
-              <div className='mt-[3rem] font-[600]'>
+              <div className='mt-[1rem] font-[600]'>
                 <button
                   onClick={submitForm}
-                  className='w-[10rem] rounded-[.3rem] bg-[#D9D9D9] px-[1.5rem] py-[.3rem] text-[.8rem] font-[600]'
+                  className='w-[20rem] rounded-[.3rem] bg-[#2B99FF] text-white px-[1.5rem] py-[.3rem] text-[.8rem] font-[600]'
                 >
                   Proceed
                 </button>
               </div>
-            </div>
-          </div>
-          <div className='flex items-center justify-center'>
-            <div className='z-99 relative h-[50%] w-[60%]'>
-              <Image src='/images/bsignupimage.svg' fill alt='human registering' />
-            </div>
-            <div className='absolute bottom-0 right-0'>
-              <div className='relative h-[400px] w-[400px]'></div>
-              <Image src={'/ball.svg'} fill alt='ball' />
+              </section>
             </div>
           </div>
         </div>
