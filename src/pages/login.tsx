@@ -1,6 +1,7 @@
 import { useStores } from '@/core/stores/UseStores'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import { config } from '../../config'
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('')
@@ -14,7 +15,7 @@ const Login: React.FC = () => {
       password
     }
 
-    fetch('http://localhost:5000/login', {
+    fetch(`${config.BACKEND_ENDPOINT}/login`, {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

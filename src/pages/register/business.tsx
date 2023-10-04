@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { config } from '../../../config'
 
 interface Business {
   email: string
@@ -29,7 +30,7 @@ const BusinessSignup: React.FC = () => {
       industry
     }
 
-    fetch('http://localhost:5000/api/register/business', {
+    fetch(`${config.BACKEND_ENDPOINT}/api/register/business`, {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

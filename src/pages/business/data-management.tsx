@@ -1,6 +1,6 @@
 import FileGroup from '@/components/filegroup'
 import NavBar from '@/components/navbar'
-import UploadSection from '@/components/uploadsection'
+import UploadSection from '@/components/uploadSection/uploadsection'
 import { FileProvider } from '@/core/upload/context'
 import React from 'react'
 

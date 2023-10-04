@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Tooltip from './tooltip'
 import { useFileContext } from '@/core/upload/context'
+import { config } from '../../config'
 
 interface FileInfoProps {
   id: string
@@ -23,7 +24,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
   const { setIsLoading } = useFileContext()
 
   const handleTrigger = (): void => {
-    fetch(`http://localhost:5000/api/file/trigger/${id}`, {
+    fetch(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`, {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -57,7 +58,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
             <section className='flex items-center justify-center gap-2'>
               <Tooltip label='Download'>
                 <a
-                  href={`http://localhost:5000/api/file/download/${id}`}
+                  href={`${config.BACKEND_ENDPOINT}/api/file/download/${id}`}
                   target='_blank'
                   rel='noreferrer'
                 >

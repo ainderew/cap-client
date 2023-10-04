@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { config } from '../../../config'
 
 interface Customer {
   email: string
@@ -24,7 +25,7 @@ const CustomerRegisterUI: React.FC = () => {
       username
     }
 
-    fetch('http://localhost:5000/api/register/customer', {
+    fetch(`${config.BACKEND_ENDPOINT}/api/register/customer`, {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
