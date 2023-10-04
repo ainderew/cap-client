@@ -14,7 +14,7 @@ const Login: React.FC = () => {
       password
     }
 
-    fetch('http://localhost:8987/login', {
+    fetch('http://localhost:5000/login', {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -30,9 +30,16 @@ const Login: React.FC = () => {
           return
         }
         authStore.loginUser(data)
-        router.push('/home').catch((err) => {
-          throw err
-        })
+        console.log(authStore.userProfile?.profile)
+        if (authStore.userProfile?.profile.type === true) {
+          router.push('/business/dashboard').catch((err) => {
+            throw err
+          })
+        } else if (authStore.userProfile?.profile.type === false) {
+          router.push('/home').catch((err) => {
+            throw err
+          })
+        }
       })
       .catch((err) => {
         throw err

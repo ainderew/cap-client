@@ -4,6 +4,7 @@ interface userProfile {
   profile: {
     _id: string
     email: string
+    type: boolean
   }
   authToken: string
 }
