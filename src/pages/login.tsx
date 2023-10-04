@@ -23,7 +23,11 @@ const Login: React.FC = () => {
         const test = res.json()
         return await test
       })
-      .then(data => {
+      .then((data) => {
+        if (data.error !== null && data.error !== undefined) {
+          alert(data.error)
+          return
+        }
         authStore.loginUser(data)
         console.log(authStore.userProfile?.profile)
         if (authStore.userProfile?.profile.type === true) {

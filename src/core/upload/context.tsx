@@ -10,7 +10,9 @@ interface File {
 
 interface FileContextType {
   files: File[]
+  isLoading: boolean
   setFiles: React.Dispatch<React.SetStateAction<File[]>>
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const initialFiles: File[] = []
@@ -23,13 +25,13 @@ interface ProviderProps {
 
 export const FileProvider: React.FC<ProviderProps> = ({ children }) => {
   const [files, setFiles] = useState<File[]>(initialFiles)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   return (
-    <div>
-    <FileContext.Provider value={{ files, setFiles }}>
+    <FileContext.Provider value={{ files, isLoading, setFiles, setIsLoading }}>
       {children}
     </FileContext.Provider>
-    </div>
+
   )
 }
 
