@@ -3,6 +3,14 @@ import { useStores } from '@/core/stores/UseStores'
 import { UploadButton } from '@/utils/uploadthing'
 import { useFileContext } from '@/core/upload/context'
 
+interface File {
+  _id: string
+  originalname: string
+  status: boolean
+  dateuploaded: string
+  datelastused: string
+}
+
 const UploadSection: React.FC = () => {
   const { setIsLoading } = useFileContext()
   const { authStore } = useStores()
@@ -33,15 +41,20 @@ const UploadSection: React.FC = () => {
       },
       body: JSON.stringify(data)
     })
-      .then(async res => await (res.json())
-      )
-      .then(data => {
+      .then(async res => await (res.json() as Promise<File>))
+      .then(() => {
         setIsLoading(true)
       })
       .catch(err => {
         throw err
       })
-    setIsLoading(false)
+      .finally(
+        () => {
+          setTimeout(() => {
+            setIsLoading(false)
+          }, 1000)
+        }
+      )
   }
 
   return (
@@ -56,10 +69,11 @@ const UploadSection: React.FC = () => {
         <div>
           <div className=''>
             <UploadButton
+              className='bg-blue-500'
               endpoint='text'
               content={{
                 button ({ ready }) {
-                  if (ready) return <div className='font-semibold bg-blue-500 px-12 py-4'>Upload .txt file</div>
+                  if (ready) return <div className='font-semibold'>Upload .txt file</div>
                   return 'Loading ...'
                 },
                 allowedContent ({ ready }) {
