@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react'
-import { useStores } from '@/core/stores/UseStores'
+import checkToken from '@/utils/checkToken'
 
 interface fetchStateTypes {
   loading: boolean
   data: unknown
 }
+interface useFetchDataReturnType {
+  loading: boolean
+  data: unknown
+  refetch: () => void
+}
 
-type Filter = Record<string, unknown>
-
-export default function useFetchData (endpoint: string, variables?: Filter): fetchStateTypes {
+export default function useFetchData (endpoint: string): useFetchDataReturnType {
   const [fetchStates, setFetchedStates] = useState<fetchStateTypes>({
     loading: false,
     data: null
   })
-  const { authStore: { userProfile } } = useStores()
-  const accountId = userProfile?.profile._id
-
-  const filter: Filter = variables ?? {}
 
   useEffect(() => {
     setFetchedStates(prev => {
@@ -25,30 +24,34 @@ export default function useFetchData (endpoint: string, variables?: Filter): fet
         loading: true
       }
     })
-
-    if (accountId !== null) {
-      filter.accountId = accountId
-    }
+    refetch()
   }, [])
 
-  fetch(endpoint, {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(filter)
-  })
-    .then(async res => await res.json())
-    .then(data => {
-      setFetchedStates({
-        loading: false,
-        data
-      })
-    })
-    .catch(err => {
-      throw err
+  function refetch (): void {
+    setFetchedStates({
+      ...fetchStates,
+      loading: true
     })
 
-  return fetchStates
+    fetch(endpoint, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${checkToken() ?? ''}`
+      }
+    })
+      .then(async res => await res.json())
+      .then(data => {
+        setFetchedStates({
+          loading: false,
+          data
+        })
+      })
+      .catch(err => {
+        throw err
+      })
+  }
+
+  return { ...fetchStates, refetch }
 }

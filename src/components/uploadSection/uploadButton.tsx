@@ -1,12 +1,14 @@
 import React from 'react'
 import { UploadButton } from '@/utils/uploadthing'
 import { Button, message } from 'antd'
+import useStores from '@/core/stores/UseStores'
+import useHandleUpload from './hooks/useHandleUpload'
+import { type UploadFileResponse } from 'uploadthing/client'
 
-interface propsUploadButtonWrapper {
-  handleLoadingWhileUploading: (value: boolean) => void
-}
+export default function UploadButtonWrapper (): React.ReactElement {
+  const { sendFileData } = useHandleUpload()
+  const { uiStore: { setIsUploadingFile } } = useStores()
 
-export default function UploadButtonWrapper ({ handleLoadingWhileUploading }: propsUploadButtonWrapper): React.ReactElement {
   function handleError (error: string): void {
     void message.error(error)
   }
@@ -15,8 +17,9 @@ export default function UploadButtonWrapper ({ handleLoadingWhileUploading }: pr
   className='z-10'
     endpoint='text'
     content={{
-      button () {
-        return <Button className='-z-10 hover:bg-white w-full h-full bg-blue-400 text-white'>Upload .txt file</Button>
+      button ({ ready }) {
+        if (ready) return <Button className='-z-10 hover:bg-white w-full h-full bg-blue-400 text-white'>Upload .txt file</Button>
+        return <>loading</>
       },
 
       allowedContent () {
@@ -24,11 +27,12 @@ export default function UploadButtonWrapper ({ handleLoadingWhileUploading }: pr
       }
     }}
 
-    onUploadBegin={() => { handleLoadingWhileUploading(true) }}
+    onUploadBegin={() => { setIsUploadingFile(true) }}
 
     onClientUploadComplete={(res) => {
       if (res != null) {
-        handleLoadingWhileUploading(false)
+        const data: UploadFileResponse = res[0]
+        void sendFileData(data)
       }
     }}
     onUploadError={(error: Error) => {

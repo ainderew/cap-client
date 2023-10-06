@@ -1,37 +1,44 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import FileInfo from './fileinfo'
 import { formatDate } from '@/utils/dateformat'
-import { useStores } from '@/core/stores/UseStores'
-import { useFileContext } from '@/core/upload/context'
+import useStores from '@/core/stores/UseStores'
 import { config } from '../../config'
-
-interface File {
-  _id: string
-  originalname: string
-  status: boolean
-  dateuploaded: string
-  datelastused: string
-}
+import useFetchData from '@/hooks/useFetchData'
+import { Empty, Spin } from 'antd'
+import { observer } from 'mobx-react'
 
 const FileGroup: React.FC = () => {
-  const { authStore } = useStores()
-  const { files, setFiles, isLoading } = useFileContext()
+  const { authStore, uiStore: { isUploadingFile } } = useStores()
+  const [files, setFiles] = useState<any>([])
+  const businessId = authStore.userProfile?._id
 
-  const businessId = authStore.userProfile?.profile._id
+  const { data, loading, refetch } = useFetchData(
+    `${config.BACKEND_ENDPOINT}/api/file/getallfiles/${businessId ?? ''}`
+  )
+
   useEffect(() => {
-    if (businessId !== null && businessId !== undefined) {
-      fetch(`${config.BACKEND_ENDPOINT}/api/file/getallfiles/${businessId}`, {
-        method: 'GET'
-      })
-        .then(async res => await (res.json() as Promise<File[]>))
-        .then(data => {
-          setFiles(data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  }, [businessId, isLoading])
+    if (data === null) return
+
+    setFiles(data)
+  }, [data])
+
+  useEffect(() => {
+    if (isUploadingFile) return
+
+    refetch()
+  }, [isUploadingFile])
+
+  if (loading) {
+    return <div className="w-full h-full flex items-center justify-center">
+     <Spin />
+  </div>
+  }
+
+  if (data === null) {
+    return <div className="">
+      <Empty/>
+    </div>
+  }
 
   return (
     <div className='mt-5'>
@@ -40,38 +47,44 @@ const FileGroup: React.FC = () => {
         <ul className='my-2 grid grid-cols-[60%_25%_15%] rounded-md bg-blue-400 px-10 py-1 font-medium text-white'>
           <li className='flex items-center'>File Name</li>
           <li className='flex items-center'>Date Uploaded</li>
-          <li className='flex items-center justify-center text-center'>Action</li>
+          <li className='flex items-center justify-center text-center'>
+            Action
+          </li>
         </ul>
         <div>
-          {files
-            .slice()
-            .sort((a, b) => {
-              if (a.status === b.status) {
-                const dateA = new Date(a.datelastused)
-                const dateB = new Date(b.datelastused)
-                return dateB.getTime() - dateA.getTime()
-              }
-              return a.status ? -1 : 1
-            })
-            .map((val, key) => (
-              <div key={key}>
-                {businessId !== null && businessId !== undefined ? (
-                  <FileInfo
-                    key={key}
-                    id={val._id}
-                    businessid={businessId}
-                    name={val.originalname}
-                    dateuploaded={formatDate(val.dateuploaded)}
-                    status={val.status}
-                    lastused={formatDate(val.datelastused)}
-                  />
-                ) : null}
-              </div>
-            ))}
+          {loading ? (
+            <Spin />
+          ) : (
+            files
+              .slice()
+              .sort((a: any, b: any) => {
+                if (a.status === b.status) {
+                  const dateA = new Date(a.datelastused)
+                  const dateB = new Date(b.datelastused)
+                  return dateB.getTime() - dateA.getTime()
+                }
+                return a.status !== null ? -1 : 1
+              })
+              .map((val: any, key: any) => (
+                <div key={key}>
+                  {businessId !== null && businessId !== undefined ? (
+                    <FileInfo
+                      key={key}
+                      id={val._id}
+                      businessid={businessId}
+                      name={val.originalname}
+                      dateuploaded={formatDate(val.dateuploaded)}
+                      status={val.status}
+                      lastused={formatDate(val.datelastused)}
+                    />
+                  ) : null}
+                </div>
+              ))
+          )}
         </div>
       </section>
     </div>
   )
 }
 
-export default FileGroup
+export default observer(FileGroup)

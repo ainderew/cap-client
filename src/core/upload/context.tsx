@@ -27,10 +27,6 @@ export const FileProvider: React.FC<ProviderProps> = ({ children }) => {
   const [files, setFiles] = useState<File[]>(initialFiles)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  useEffect(() => {
-    console.log(isLoading)
-  }, [isLoading])
-
   return (
     <FileContext.Provider value={{ files, isLoading, setFiles, setIsLoading }}>
       {children}

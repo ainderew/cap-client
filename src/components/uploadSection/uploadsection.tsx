@@ -1,16 +1,16 @@
 import React from 'react'
-import useHandleUpload from './hooks/useHandleUpload'
 import UploadButtonWrapper from './uploadButton'
+import useStores from '@/core/stores/UseStores'
 import { Spin } from 'antd'
+import { observer } from 'mobx-react'
 
 const UploadSection: React.FC = () => {
-  const { isLoadingUpload, handleLoadingWhileUploading } = useHandleUpload()
-
+  const { uiStore: { isUploadingFile } } = useStores()
   return (
     <div className='mt-8 flex flex-col gap-4 items-center bg-neutral-200 p-12 text-center'>
       <h3 className='my-2 text-3xl font-semibold'>Upload Business Data</h3>
 
-      {isLoadingUpload ? <Spin /> : <UploadButtonWrapper handleLoadingWhileUploading={handleLoadingWhileUploading} />}
+      {isUploadingFile ? <Spin /> : <UploadButtonWrapper />}
 
         <p className='text-md my-2 text-neutral-500'>
           Effortlessly upload and manage your business data with our
@@ -20,4 +20,4 @@ const UploadSection: React.FC = () => {
   )
 }
 
-export default UploadSection
+export default observer(UploadSection)

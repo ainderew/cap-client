@@ -13,7 +13,6 @@ const companies = [
 ]
 const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
   const handleClick = useCallback(() => {
-    console.log('HERE') // Call the parent's click handler
     modalOpener(true)
   }, [])
 
