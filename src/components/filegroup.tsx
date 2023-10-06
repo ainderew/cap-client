@@ -3,6 +3,7 @@ import FileInfo from './fileinfo'
 import { formatDate } from '@/utils/dateformat'
 import { useStores } from '@/core/stores/UseStores'
 import { useFileContext } from '@/core/upload/context'
+import { config } from '../../config'
 
 interface File {
   _id: string
@@ -19,7 +20,7 @@ const FileGroup: React.FC = () => {
   const businessId = authStore.userProfile?.profile._id
   useEffect(() => {
     if (businessId !== null && businessId !== undefined) {
-      fetch(`http://localhost:5000/api/file/getallfiles/${businessId}`, {
+      fetch(`${config.BACKEND_ENDPOINT}/api/file/getallfiles/${businessId}`, {
         method: 'GET'
       })
         .then(async res => await (res.json() as Promise<File[]>))
@@ -36,7 +37,7 @@ const FileGroup: React.FC = () => {
     <div className='mt-5'>
       <p className='font-semibold'>Recent Changes</p>
       <section>
-        <ul className='my-2 grid grid-cols-[60%_25%_15%] rounded-md bg-sky-500 px-10 py-1 font-semibold text-white'>
+        <ul className='my-2 grid grid-cols-[60%_25%_15%] rounded-md bg-blue-400 px-10 py-1 font-medium text-white'>
           <li className='flex items-center'>File Name</li>
           <li className='flex items-center'>Date Uploaded</li>
           <li className='flex items-center justify-center text-center'>Action</li>
