@@ -44,10 +44,10 @@ const DoughnutGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({
 
     setChartOptions({
       plugins: {
-        legend: {
+      /*   legend: {
           display: true,
           position: 'bottom'
-        },
+        }, */
         title: {
           display: true,
           text: 'Monthly Age Demographic'
@@ -60,7 +60,7 @@ const DoughnutGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({
   }, [months, clickCounts])
 
   return (
-    <div className='h-full shadow-lg'>
+    <div className='h-full w-full shadow-lg'>
       <Doughnut options={chartOptions} data={chartDataset} />
     </div>
   )

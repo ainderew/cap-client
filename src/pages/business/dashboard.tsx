@@ -8,7 +8,8 @@ import {
   getYearlyData,
   getMonthlyData,
   getYearData,
-  type ClicksForm
+  type ClicksForm,
+  type YearForm
 } from '@/pages/api/analytics'
 
 import React, { useEffect, useState } from 'react'
@@ -32,8 +33,8 @@ const colorPalette = [
 ]
 const Dashboard: React.FC = () => {
   const currentDate = new Date()
-  const [yearlyData, setYearlyData] = useState<number[]>([])
-  const [yearlyLabel, setYearlyLabel] = useState<string[]>([])
+  const [yearlyData, setYearlyData] = useState<YearForm>({ labels: [], clicks: [] })
+
   const [currentYearly, setCurrentYearly] = useState<number>(0)
   const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
   const [isSelected, setIsSelected] = useState<boolean>(false)
@@ -67,13 +68,9 @@ const Dashboard: React.FC = () => {
             selectedMonthnum + 1
           )
           const CurrentYearlyData = await getYearData(businessId, currentDate.getFullYear())
-
-          setYearlyData(yearlyData.clicks)
-          setYearlyLabel(yearlyData.labels)
+          setYearlyData(yearlyData)
           setMonthData(monthlyData)
           setCurrentYearly(CurrentYearlyData)
-          console.log(businessId)
-          console.log(monthData.labels)
           setIsRetrieved(true)
           setIsSelected(true)
         }
@@ -85,11 +82,11 @@ const Dashboard: React.FC = () => {
     void fetchClicks()
   }, [selectedMonthnum])
 
-  const [selectedMonthstr, setSelectedMonthstr] = useState(yearlyLabel[currentDate.getMonth() + 1])
+  const [selectedMonthstr, setSelectedMonthstr] = useState(yearlyData.labels[currentDate.getMonth() + 1])
   const handleMonthChange = (event: { target: { value: string } }): void => {
     const selectedValue = parseInt(event.target.value, 10)
     setSelectedMonthnum(selectedValue)
-    setSelectedMonthstr(yearlyLabel[selectedValue])
+    setSelectedMonthstr(yearlyData.labels[selectedValue])
     setIsSelected(false)
   }
 
@@ -122,8 +119,8 @@ const Dashboard: React.FC = () => {
              <div>
             <div className='col-span-3 md:block hidden border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
               <BarGraph
-                months={yearlyLabel}
-                clickCounts={yearlyData}
+                months={yearlyData.labels}
+                clickCounts={yearlyData.clicks}
                 axis={'x'}
                 colors={colorPalette}
                 showTicks={true}
@@ -131,8 +128,8 @@ const Dashboard: React.FC = () => {
             </div>
             <div className='col-span-3 md:hidden block border-solid border-2 rounded-lg border-[#5d5d5d29] h-[30rem] '>
               <BarGraph
-                months={yearlyLabel}
-                clickCounts={yearlyData}
+                months={yearlyData.labels}
+                clickCounts={yearlyData.clicks}
                 axis={'y'}
                 colors={colorPalette}
                 showTicks={true}
@@ -145,11 +142,10 @@ const Dashboard: React.FC = () => {
             <Loading/>
                 </div>
               )}
-</div>
+      </div>
             </div>
           </section>
 
-          {/* labels */}
           <section className='col-span-8 mt-10'>
             <span className='text-[1.4rem] font-semibold'>Current Data </span>
             <div className=' grid w-full  grid-cols-2 gap-2   md:grid-cols-4 '>
@@ -160,18 +156,18 @@ const Dashboard: React.FC = () => {
               />
               <DataCard
                 title={'Queries This Month'}
-                data={yearlyData[currentDate.getMonth()]}
+                data={yearlyData.clicks[currentDate.getMonth()]}
 
                 isRetrieved={isRetrieved}
               />
               <DataCard
                 title={'Average Monthly Queries'}
-                data={110}
+                data={yearlyData.clicks[currentDate.getMonth()] / 12}
                 isRetrieved={isRetrieved}
               />
               <DataCard
                 title={'Average Daily Queries'}
-                data={20}
+                data={yearlyData.clicks[currentDate.getMonth()] / 365}
                 isRetrieved={isRetrieved}
               />
             </div>
@@ -182,7 +178,7 @@ const Dashboard: React.FC = () => {
           <div>
           <p>Select Month: {selectedMonthstr}</p>
       <select value={selectedMonthnum} onChange={handleMonthChange}>
-      {yearlyLabel.map((label, index) => (
+      {yearlyData.labels.map((label, index) => (
           <option key={index} value={index}>
             {label}
           </option>
@@ -193,14 +189,14 @@ const Dashboard: React.FC = () => {
     </div>
           <div className=' grid grid-cols-5 gap-4'>
 
-        {isSelected ? (<div className='min-h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
+        {isSelected ? (<div className='min-h-[25rem] shadow-md col-span-5 xl:col-span-3 md:h-[32rem] order-first'>
             <LineGraph months={monthData.labels} clickCounts={monthData.clicks} />
         </div>) : (<div className='h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
             <Loading/>
                 </div>
         )}
-          <div className=' min-h-full col-span-5 md:col-span-2 '>
-          {isRetrieved ? (<div className='grid text-center h-[25rem]'>
+          <div className='flex min-h-full col-span-5 xl:col-span-2 w-auto items-center justify-center'>
+          {isRetrieved ? (<div className='grid text-center w-10 h-10' >
               <DoughnutGraph
                 months={['12-18', '19-26', '26-60', '60 above']}
                 clickCounts={[monthData.ageCounts?.teen, monthData.ageCounts?.youngAdult, monthData.ageCounts?.adult, monthData.ageCounts?.senior]}

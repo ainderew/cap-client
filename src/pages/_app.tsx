@@ -13,7 +13,7 @@ const config: ThemeConfig = {
 
 const ALLOWED_URL = ['/', '/login', '/register/customer', '/register/business', '/business/data-management']
 const CUSTOMER_ALLOWED_URL = ['/', '/home']
-const BUSINESS_ALLOWED_URL = ['/', '/business/dashboard', '/business/data-management']
+const BUSINESS_ALLOWED_URL = ['/business/dashboard', '/business/data-management']
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
@@ -24,29 +24,25 @@ const App: any = ({ Component, pageProps }: AppProps) => {
     const currentUrl = router.asPath
 
     if (userType === false) {
-      const allow = CUSTOMER_ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) {
+      /*  const allow = CUSTOMER_ALLOWED_URL.find(link => link === currentUrl) */
+      const allow = CUSTOMER_ALLOWED_URL.includes(currentUrl)
+      if (!allow) {
         router.replace('/home').catch(err => {
-          throw err
-        })
-      } else {
-        // Redirect to the login page if not allowed
-        router.replace('/login').catch(err => {
           throw err
         })
       }
     } else if (userType === true) {
-      const allow = BUSINESS_ALLOWED_URL.find(link => link === currentUrl)
-      if (allow === undefined) {
-        // Redirect to the business dashboard if not allowed
+      const allow = BUSINESS_ALLOWED_URL.includes(currentUrl) /* (link => link === currentUrl) */
+      console.log('mark', allow)
+      if (!allow) {
         router.replace('/business/dashboard').catch(err => {
           throw err
         })
       }
     } else {
       const allow = ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) return // User is allowed to access the page
-      // Redirect to the login page if not allowed
+      if (allow !== undefined) return
+
       router.replace('/login').catch(err => {
         throw err
       })

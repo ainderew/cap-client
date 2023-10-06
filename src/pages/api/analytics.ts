@@ -8,6 +8,13 @@ export interface ClicksForm {
     senior: number
   }
 }
+
+export interface YearForm {
+  labels: string[]
+  clicks: number[]
+
+}
+
 const url = 'http://localhost:5000'
 export const getYearData = async (businessId: string, year: number): Promise<any> => {
   const response = await fetch(`${url}/api/clicks/${businessId}/${year}`)
