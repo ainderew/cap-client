@@ -43,7 +43,7 @@ const Hamburger: React.FC = () => {
           <div
             className='flex hover:text-[#2B99FF] md:hidden'
             onClick={() => {
-              handleRedirect('/register/customer')
+              handleRedirect('/business/data-management')
             }}
           >
             <div className='relative h-[1.8rem] w-[1.8rem] px-6'>
@@ -57,7 +57,7 @@ const Hamburger: React.FC = () => {
         <div
           className='flex hover:text-[#2B99FF]'
           onClick={() => {
-            handleRedirect('/register/customer')
+            handleRedirect('/')
           }}
         >
           <div className='relative  h-[1.8rem] w-[1.8rem] px-6'>

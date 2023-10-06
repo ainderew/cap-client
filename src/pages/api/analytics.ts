@@ -1,7 +1,7 @@
 export interface ClicksForm {
-  label: string[]
-  click: number[]
-  agesData: {
+  labels: string[]
+  clicks: number[]
+  ageCounts: {
     teen: number
     youngAdult: number
     adult: number
@@ -30,16 +30,6 @@ export const getYearlyData = async (businessId: string, year: number): Promise<a
 
 export const getMonthlyData = async (businessId: string, year: number, month: number): Promise<any> => {
   const response = await fetch(`${url}/api/monthlyclicks/${businessId}/${year}/${month}`)
-  if (!response.ok) {
-    throw new Error('Request failed')
-  }
-  const data = await response.json()
-
-  return data
-}
-
-export const createAnalytics = async (businessId: string): Promise<any> => {
-  const response = await fetch(`${url}/api/monthlyclicks/${businessId}`)
   if (!response.ok) {
     throw new Error('Request failed')
   }

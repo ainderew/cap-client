@@ -3,7 +3,6 @@ import Clock from '@/components/clock'
 import DataCard from '@/components/dataCard'
 import DoughnutGraph from '@/components/doughnutChart'
 import LineGraph from '@/components/linegraph'
-import Image from 'next/image'
 import { useStores } from '@/core/stores/UseStores'
 import {
   getYearlyData,
@@ -13,6 +12,7 @@ import {
 } from '@/pages/api/analytics'
 
 import React, { useEffect, useState } from 'react'
+import Loading from '@/components/loading'
 
 const options: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -38,9 +38,9 @@ const Dashboard: React.FC = () => {
   const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
   const [isSelected, setIsSelected] = useState<boolean>(false)
   const [monthData, setMonthData] = useState<ClicksForm>({
-    label: [],
-    click: [],
-    agesData: {
+    labels: [],
+    clicks: [],
+    ageCounts: {
       teen: 0,
       youngAdult: 0,
       adult: 0,
@@ -72,7 +72,8 @@ const Dashboard: React.FC = () => {
           setYearlyLabel(yearlyData.labels)
           setMonthData(monthlyData)
           setCurrentYearly(CurrentYearlyData)
-
+          console.log(businessId)
+          console.log(monthData.labels)
           setIsRetrieved(true)
           setIsSelected(true)
         }
@@ -141,12 +142,7 @@ const Dashboard: React.FC = () => {
 
               ) : (
                 <div className='h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
-                 <div className="flex h-full w-full flex-col items-center justify-center gap-4">
-                  <div className="relative h-[20%] w-[20%]">
-                    <Image className="float" src={'/logo.svg'} fill alt="loading" />
-                  </div>
-                  <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
-                </div>
+            <Loading/>
                 </div>
               )}
 </div>
@@ -198,29 +194,19 @@ const Dashboard: React.FC = () => {
           <div className=' grid grid-cols-5 gap-4'>
 
         {isSelected ? (<div className='min-h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
-            <LineGraph months={monthData.label} clickCounts={monthData.click} />
+            <LineGraph months={monthData.labels} clickCounts={monthData.clicks} />
         </div>) : (<div className='h-[25rem] shadow-md col-span-5 md:col-span-3 md:h-[32rem] order-first'>
-                 <div className="flex h-full w-full flex-col items-center justify-center gap-4">
-                  <div className="relative h-[20%] w-[20%]">
-                    <Image className="float" src={'/logo.svg'} fill alt="loading" />
-                  </div>
-                  <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
-                </div>
+            <Loading/>
                 </div>
         )}
           <div className=' min-h-full col-span-5 md:col-span-2 '>
           {isRetrieved ? (<div className='grid text-center h-[25rem]'>
               <DoughnutGraph
                 months={['12-18', '19-26', '26-60', '60 above']}
-                clickCounts={[monthData.agesData?.teen, monthData.agesData?.youngAdult, monthData.agesData?.adult, monthData.agesData?.senior]}
+                clickCounts={[monthData.ageCounts?.teen, monthData.ageCounts?.youngAdult, monthData.ageCounts?.adult, monthData.ageCounts?.senior]}
               />
             </div>) : (<div className=' col-span-3 h-[25rem]'>
-                 <div className="">
-                  <div className="relative min-h-[20%] w-[20%]">
-                    <Image className="float" src={'/logo.svg'} fill alt="loading" />
-                  </div>
-                  <span className="text-xl text-[#D0D0D0]">Getting things ready</span>
-                </div>
+                <Loading/>
                 </div>
           )}
 

@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
-
 import type { ThemeConfig } from 'antd'
 import { ConfigProvider } from 'antd'
 import { useRouter } from 'next/router'
@@ -9,19 +8,16 @@ import DefaultLayout from './layouts/default'
 import { useStores } from '@/core/stores/UseStores'
 
 const config: ThemeConfig = {
-  // algorithm: theme.darkAlgorithm
-  // Add theme here on free time - %%obsidian remind
+  // Add your theme configuration here
 }
-// this should be changed cause this might be wrong hahahahahaha
-const ALLOWED_URL = ['/', '/login', '/register/customer', '/business/dashboard', '/register/business']
+
+const ALLOWED_URL = ['/', '/login', '/register/customer', '/register/business', '/business/data-management']
 const CUSTOMER_ALLOWED_URL = ['/', '/home']
 const BUSINESS_ALLOWED_URL = ['/', '/business/dashboard', '/business/data-management']
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
-
   const { authStore } = useStores()
-
   const userType = authStore.userProfile?.profile.type
 
   useEffect(() => {
@@ -33,22 +29,30 @@ const App: any = ({ Component, pageProps }: AppProps) => {
         router.replace('/home').catch(err => {
           throw err
         })
+      } else {
+        // Redirect to the login page if not allowed
+        router.replace('/login').catch(err => {
+          throw err
+        })
       }
     } else if (userType === true) {
       const allow = BUSINESS_ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) {
+      if (allow === undefined) {
+        // Redirect to the business dashboard if not allowed
         router.replace('/business/dashboard').catch(err => {
           throw err
         })
       }
     } else {
       const allow = ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) return
+      if (allow !== undefined) return // User is allowed to access the page
+      // Redirect to the login page if not allowed
       router.replace('/login').catch(err => {
         throw err
       })
     }
-  }, [])
+  }, [userType, router.asPath])
+
   return (
     <ConfigProvider theme={config}>
       <DefaultLayout>

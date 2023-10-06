@@ -47,7 +47,7 @@ const DefaultChatNavbar: React.FC = () => {
           <button
             className='hover:text-blac[#2B99FF] rounded-[2rem]  px-[.5em] py-2 font-bold text-[#000] sm:px-10'
             onClick={() => {
-              handleRedirect('/dashboard')
+              handleRedirect('/login')
             }}
           >
             SIGN IN
