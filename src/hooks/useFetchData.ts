@@ -8,7 +8,7 @@ interface fetchStateTypes {
 
 type Filter = Record<string, unknown>
 
-export default function usePostData (endpoint: string, variables?: Filter): fetchStateTypes {
+export default function useFetchData (endpoint: string, variables?: Filter): fetchStateTypes {
   const [fetchStates, setFetchedStates] = useState<fetchStateTypes>({
     loading: false,
     data: null
