@@ -1,28 +1,25 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
-import type { ThemeConfig } from 'antd'
-import { ConfigProvider } from 'antd'
 import { useRouter } from 'next/router'
 import DefaultLayout from './layouts/default'
-import { useStores } from '@/core/stores/UseStores'
+import useStores from '@/core/stores/UseStores'
+import { config } from '../../config'
+import useLazyFetchData from '@/hooks/useLazyFetchData'
+import { message as antdMessage } from 'antd'
 
-const config: ThemeConfig = {
-  // Add your theme configuration here
-}
-
-const ALLOWED_URL = ['/', '/login', '/register/customer', '/register/business', '/business/data-management']
-const CUSTOMER_ALLOWED_URL = ['/', '/home']
-const BUSINESS_ALLOWED_URL = ['/business/dashboard', '/business/data-management']
+const ALLOWED_URL = ['/', '/login', '/register/customer', '/register/business']
+const CUSTOMER_ALLOWED_URL = ['/', '/home', 'register/customer']
+const BUSINESS_ALLOWED_URL = ['/', '/business/dashboard', '/business/data-management']
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
   const { authStore } = useStores()
-  const userType = authStore.userProfile?.profile.type
+  const userType = authStore.userProfile?.type
+  const [queryProfile] = useLazyFetchData(`${config.BACKEND_ENDPOINT}/getProfile`)
 
-  useEffect(() => {
+  function handleProtectedRoutes (): void {
     const currentUrl = router.asPath
-
     if (userType === false) {
       /*  const allow = CUSTOMER_ALLOWED_URL.find(link => link === currentUrl) */
       const allow = CUSTOMER_ALLOWED_URL.includes(currentUrl)
@@ -47,14 +44,27 @@ const App: any = ({ Component, pageProps }: AppProps) => {
         throw err
       })
     }
-  }, [userType, router.asPath])
+  }
+
+  async function getProfile (): Promise<void> {
+    const res = await queryProfile()
+    const { profile, message } = res
+    if (profile !== null && profile !== undefined) {
+      authStore.setProfile(profile)
+    } else {
+      void antdMessage.error(message)
+      handleProtectedRoutes()
+    }
+  }
+
+  useEffect(() => {
+    void getProfile()
+  }, [])
 
   return (
-    <ConfigProvider theme={config}>
       <DefaultLayout>
         <Component {...pageProps} />
       </DefaultLayout>
-    </ConfigProvider>
   )
 }
 

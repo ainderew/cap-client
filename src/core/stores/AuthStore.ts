@@ -1,26 +1,33 @@
 
 import { action, observable, makeObservable } from 'mobx'
-
-interface userProfile {
-  profile: {
-    _id: string
-    email: string
-    type: boolean
-  }
-  authToken: string
-}
+import { type loginResponse, type userProfile } from '@/utils/types/auth.js'
+import { keys } from '@/utils/enums'
 
 export default class AuthStore {
   userProfile: userProfile | null = null
+  authToken: string | null = null
 
   constructor () {
     makeObservable(this, {
       userProfile: observable,
-      loginUser: action
+      authToken: observable,
+      loginUser: action,
+      logoutUser: action,
+      setProfile: action
     })
   }
 
-  loginUser = (profile: any): void => {
+  loginUser = (profile: loginResponse): void => {
+    this.userProfile = profile.profile
+
+    sessionStorage.setItem(keys.AUTH_TOKEN_KEY, profile.authToken)
+  }
+
+  logoutUser = (): void => {
+    sessionStorage.removeItem(keys.AUTH_TOKEN_KEY)
+  }
+
+  setProfile = (profile: userProfile): void => {
     this.userProfile = profile
   }
 }

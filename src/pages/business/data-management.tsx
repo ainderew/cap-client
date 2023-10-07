@@ -1,5 +1,6 @@
 import FileGroup from '@/components/filegroup'
-import UploadSection from '@/components/uploadsection'
+import NavBar from '@/components/navbar'
+import UploadSection from '@/components/uploadSection/uploadsection'
 import { FileProvider } from '@/core/upload/context'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -11,8 +12,9 @@ const DataManagement: React.FC = () => {
   console.log(currentPath)
   return (
     <FileProvider>
-      <div className=' flex flex-col items-center'>
-        <div className='md:w-8/12 w-[90%] '>
+      <div className='w-full h-screen flex flex-col items-center'>
+        <NavBar />
+        <div className='w-8/12'>
           <UploadSection />
           <FileGroup />
         </div>

@@ -1,14 +1,18 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { config } from '../../../config'
+import usePostData from '@/hooks/usePostData'
+import { type Filter } from '@/utils/types/base'
+import { Spin } from 'antd'
 
-interface Business {
-  email: string
-  password: string
-  type: string
-  name: string
-  size: number
-  industry: string
-}
+// interface Business {
+//   email: string
+//   password: string
+//   type: string
+//   name: string
+//   size: number
+//   industry: string
+// }
 
 const BusinessRegisterUI: React.FC = () => {
   const router = useRouter()
@@ -18,6 +22,7 @@ const BusinessRegisterUI: React.FC = () => {
   const [name, setName] = useState<string>('')
   const [size, setSize] = useState<number>(0)
   const [industry, setIndustry] = useState<string>('')
+  const { data, loading, handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/register/business`)
 
   const handleRedirect = (route: string): void => {
     router.push(route).catch(err => {
@@ -25,7 +30,7 @@ const BusinessRegisterUI: React.FC = () => {
     })
   }
   const submitForm = (): void => {
-    const bodyObj: Business = {
+    const bodyObj: Filter = {
       email,
       password,
       type: 'business',
@@ -34,25 +39,13 @@ const BusinessRegisterUI: React.FC = () => {
       industry
     }
 
-    fetch('http://localhost:5000/api/register/business', {
-      mode: 'cors',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bodyObj)
-    })
-      .then(async res => {
-        const test = res.json()
-        return await test
-      })
-      .then(data => {
-        router.push('/business/dashboard').catch(err => {
-          throw err
-        })
-      })
-      .catch(err => {
-        throw err
-      })
+    void handlePostRequest(bodyObj)
   }
+
+  useEffect(() => {
+    if (data === null) return
+    if (data !== null) void router.push('/business/dashboard')
+  }, [data])
   return (
     <div>
       <div className='flex min-h-full font-poppins'>
@@ -145,7 +138,7 @@ const BusinessRegisterUI: React.FC = () => {
                   onClick={submitForm}
                   className='w-[20rem] text-white rounded-[.3rem] bg-[#2B99FF] px-[1.5rem] py-[.3rem] text-[.8rem] font-[600]'
                 >
-                  Proceed
+                  {loading ? <Spin /> : 'Proceed'}
                 </button>
               </div>
               </section>

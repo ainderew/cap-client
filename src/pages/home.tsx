@@ -6,7 +6,7 @@ import SideBar from '@/components/sidebar'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import LoadingPage from '@/components/loadingPage'
-import { useStores } from '@/core/stores/UseStores'
+import useStores from '@/core/stores/UseStores'
 import { regexLocation } from '@/utils/regex'
 import Modal from '@/components/modal'
 import { useGetLocation } from '@/hooks/useGetLocation'
@@ -46,11 +46,10 @@ const GeneralChatUI: React.FC = () => {
       ...response,
       { content: regexLocation(question, location), role: 'user' }
     ]
-    console.log(history)
 
     const sendObj = {
       userInput: history,
-      userId: authStore.userProfile?.profile._id
+      userId: authStore.userProfile?._id
     }
     setUserInput('')
 
@@ -64,7 +63,6 @@ const GeneralChatUI: React.FC = () => {
     })
       .then(async (res) => await res.json())
       .then((data) => {
-        console.log(data)
         setAiRes(data)
       })
       .catch((err) => {

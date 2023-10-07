@@ -1,6 +1,7 @@
-import { useStores } from '@/core/stores/UseStores'
+import useStores from '@/core/stores/UseStores'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import { config } from '../../config'
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('')
@@ -13,7 +14,7 @@ const Login: React.FC = () => {
       password
     }
 
-    fetch('http://localhost:5000/login', {
+    fetch(`${config.BACKEND_ENDPOINT}/login`, {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -29,12 +30,11 @@ const Login: React.FC = () => {
           return
         }
         authStore.loginUser(data)
-        console.log(authStore.userProfile?.profile)
-        if (authStore.userProfile?.profile.type === true) {
+        if (authStore.userProfile?.type === true) {
           router.push('/business/dashboard').catch((err) => {
             throw err
           })
-        } else if (authStore.userProfile?.profile.type === false) {
+        } else if (authStore.userProfile?.type === false) {
           router.push('/home').catch((err) => {
             throw err
           })
