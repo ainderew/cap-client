@@ -2,7 +2,7 @@ import React from 'react'
 
 import BusinessNavBar from './businessNavbar'
 
-import { useStores } from '@/core/stores/UseStores'
+import useStores from '@/core/stores/UseStores'
 import { useRouter } from 'next/router'
 import DefaultChatNavbar from './defaultChatNavbar'
 import CustomerNavbar from './customerNavbar'
@@ -12,13 +12,13 @@ const NavBar: React.FC = () => {
 
   const currentPath = router.asPath
   const { authStore } = useStores()
-  const userType = authStore.userProfile?.profile.type
+  const userType = authStore.userProfile?.type
   console.log(userType)
   let body = <DefaultChatNavbar />
   if (userType !== null && userType !== undefined) {
-    if (userType === false) {
+    if (!userType) {
       body = <CustomerNavbar />
-    } else if (userType === true) {
+    } else if (userType) {
       body = <BusinessNavBar />
       console.log('test', currentPath)
     }
