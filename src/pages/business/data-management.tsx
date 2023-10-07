@@ -7,7 +7,7 @@ import React from 'react'
 const DataManagement: React.FC = () => {
   return (
     <FileProvider>
-      <div className=' flex flex-col items-center'>
+      <div className='w-full h-screen flex flex-col items-center'>
         <NavBar />
         <div className='w-8/12'>
           <UploadSection />

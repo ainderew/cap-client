@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import dotenv from 'dotenv'
+dotenv.config()
 
 interface configTypes {
   UPLOADTHING_SECRET: string
@@ -7,7 +9,7 @@ interface configTypes {
 }
 
 export const config: configTypes = {
-  UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET ?? '',
-  UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID ?? '',
-  BACKEND_ENDPOINT: process.env.BACKEND_ENDPOINT ?? 'http://localhost:8987'
+  UPLOADTHING_SECRET: process.env.NEXT_PUBLIC_UPLOADTHING_SECRET ?? '',
+  UPLOADTHING_APP_ID: process.env.NEXT_PUBLIC_UPLOADTHING_APP_ID ?? '',
+  BACKEND_ENDPOINT: process.env.NEXT_PUBLIC_BACKEND_ENDPOINT ?? 'http://localhost:8989'
 }

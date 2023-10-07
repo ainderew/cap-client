@@ -1,25 +1,26 @@
-import { useEffect, useState } from 'react'
-import { useStores } from '@/core/stores/UseStores'
+import { useState } from 'react'
+import checkToken from '@/utils/checkToken'
 
 interface fetchStateTypes {
   loading: boolean
   data: unknown
 }
 
+interface usePostDataReturnType {
+  loading: boolean
+  data: unknown
+  handlePostRequest: (variables: Filter) => Promise<void>
+}
+
 type Filter = Record<string, unknown>
 
-export default function usePostData (endpoint: string, variables: Filter): fetchStateTypes {
+export default function usePostData (endpoint: string): usePostDataReturnType {
   const [fetchStates, setFetchedStates] = useState<fetchStateTypes>({
     loading: false,
     data: null
   })
 
-  const { authStore: { userProfile } } = useStores()
-  const accountId = userProfile?.profile._id
-
-  const filter: Filter = variables ?? {}
-
-  useEffect(() => {
+  async function handlePostRequest (variables: Filter): Promise<void> {
     setFetchedStates(prev => {
       return {
         ...prev,
@@ -27,29 +28,22 @@ export default function usePostData (endpoint: string, variables: Filter): fetch
       }
     })
 
-    if (accountId !== null) {
-      filter.accountId = accountId
-    }
-  }, [])
+    const filter: Filter = variables ?? {}
 
-  fetch(endpoint, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(filter)
-  })
-    .then(async res => await res.json())
-    .then(data => {
-      setFetchedStates({
-        loading: false,
-        data
-      })
+    const res: any = await fetch(endpoint, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${checkToken() ?? ''}`
+      },
+      body: JSON.stringify(filter)
     })
-    .catch(err => {
-      throw err
+    setFetchedStates({
+      loading: false,
+      data: res.json()
     })
+  }
 
-  return fetchStates
+  return { ...fetchStates, handlePostRequest }
 }

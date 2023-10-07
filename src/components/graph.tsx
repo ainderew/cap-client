@@ -21,7 +21,6 @@ const Graph: React.FC = () => {
     const currentDate = new Date()
     const currentMonth = currentDate.getMonth() + 1 // Note: January is 0, so we add 1 to get the correct month.
 
-    console.log(`Current month: ${currentMonth}`)
     setChartData({
       labels: [
         'January',
