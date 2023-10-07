@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useStores } from '@/core/stores/UseStores'
+import useStores from '@/core/stores/UseStores'
 import { useRouter } from 'next/router'
 /* import { useStores } from '@/core/stores/UseStores' */
 
@@ -23,7 +23,7 @@ const Hamburger: React.FC = () => {
         <div className='flex h-[3.8rem] w-[3.8rem] justify-center  rounded-full border-2 border-solid border-[#2B99FF] bg-[#76a6d3] text-[2rem] text-[#fff]  '>
           a
         </div>
-        <p className='p-2'>{authStore.userProfile?.profile.email}</p>
+        <p className='p-2'>{authStore.userProfile?.email}</p>
       </div>
       <div className='grid w-full cursor-pointer  items-start justify-start gap-8  py-6 text-start'>
         <div className='grid  gap-8 md:hidden'>

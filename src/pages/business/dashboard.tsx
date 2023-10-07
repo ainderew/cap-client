@@ -3,7 +3,7 @@ import Clock from '@/components/clock'
 import DataCard from '@/components/dataCard'
 import DoughnutGraph from '@/components/doughnutChart'
 import LineGraph from '@/components/linegraph'
-import { useStores } from '@/core/stores/UseStores'
+import useStores from '@/core/stores/UseStores'
 import {
   getYearlyData,
   getMonthlyData,
@@ -52,7 +52,7 @@ const Dashboard: React.FC = () => {
 
   const formattedDate = currentDate.toLocaleDateString(undefined, options)
   const { authStore } = useStores()
-  const businessId = authStore.userProfile?.profile._id
+  const businessId = authStore.userProfile?._id
 
   const [selectedMonthnum, setSelectedMonthnum] = useState(currentDate.getMonth())
 
