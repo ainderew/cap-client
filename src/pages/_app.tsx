@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
-
 import { useRouter } from 'next/router'
 import DefaultLayout from './layouts/default'
 import useStores from '@/core/stores/UseStores'
@@ -15,7 +14,6 @@ const BUSINESS_ALLOWED_URL = ['/', '/business/dashboard', '/business/data-manage
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
-
   const { authStore } = useStores()
   const userType = authStore.userProfile?.type
   const [queryProfile] = useLazyFetchData(`${config.BACKEND_ENDPOINT}/getProfile`)
@@ -23,22 +21,25 @@ const App: any = ({ Component, pageProps }: AppProps) => {
   function handleProtectedRoutes (): void {
     const currentUrl = router.asPath
     if (userType === false) {
-      const allow = CUSTOMER_ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) {
+      /*  const allow = CUSTOMER_ALLOWED_URL.find(link => link === currentUrl) */
+      const allow = CUSTOMER_ALLOWED_URL.includes(currentUrl)
+      if (!allow) {
         router.replace('/home').catch(err => {
           throw err
         })
       }
     } else if (userType === true) {
-      const allow = BUSINESS_ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) {
+      const allow = BUSINESS_ALLOWED_URL.includes(currentUrl) /* (link => link === currentUrl) */
+      console.log('mark', allow)
+      if (!allow) {
         router.replace('/business/dashboard').catch(err => {
           throw err
         })
       }
     } else {
       const allow = ALLOWED_URL.find(link => link === currentUrl)
-      if (allow !== undefined) return // add check if user is logged in then disable redirect
+      if (allow !== undefined) return
+
       router.replace('/login').catch(err => {
         throw err
       })

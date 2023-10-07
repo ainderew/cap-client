@@ -14,7 +14,7 @@ import { Spin } from 'antd'
 //   industry: string
 // }
 
-const BusinessSignup: React.FC = () => {
+const BusinessRegisterUI: React.FC = () => {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -24,6 +24,11 @@ const BusinessSignup: React.FC = () => {
   const [industry, setIndustry] = useState<string>('')
   const { data, loading, handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/register/business`)
 
+  const handleRedirect = (route: string): void => {
+    router.push(route).catch(err => {
+      throw err
+    })
+  }
   const submitForm = (): void => {
     const bodyObj: Filter = {
       email,
@@ -43,19 +48,19 @@ const BusinessSignup: React.FC = () => {
   }, [data])
   return (
     <div>
-      <div className='flex h-[100vh] font-poppins'>
-        <div className='grid w-full grid-cols-[50%_50%] overflow-x-hidden'>
-          <div className='m-[5rem] flex items-center justify-center'>
+      <div className='flex min-h-full font-poppins'>
+        <div className='grid w-full overflow-x-hidden'>
+          <div className=' flex items-center justify-center ]'>
             <div>
               <div className='mb-[1.5rem]'>
                 <div className='text-[3.5rem] font-[700] tracking-[.5rem]'>WELCOME</div>
-                <div className='text-[2.25rem] font-[600] tracking-[.45rem]'>Sign up with us</div>
-                <div className='font-[600] tracking-[.1rem]'>
-                  Manage customer support with the help of AI
-                </div>
+                <div className='text-[1] font-[600]'>Enter your account details</div>
+            {/*     <div className='text-[2.25rem] font-[600] tracking-[.45rem]'>Sign up with us</div> */}
+
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Email</div>
+              <section className='font-[400] flex flex-col gap-2'>
+              <div >
+                <p>Email</p>
                 <input
                   value={email}
                   onChange={e => {
@@ -65,8 +70,8 @@ const BusinessSignup: React.FC = () => {
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
                 ></input>
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Password</div>
+              <div >
+              <p>Password</p>
                 <input
                   value={password}
                   onChange={e => {
@@ -76,8 +81,8 @@ const BusinessSignup: React.FC = () => {
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
                 ></input>
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Verify Password</div>
+              <div >
+                <p>Verify Password</p>
                 <input
                   value={vpassword}
                   onChange={e => {
@@ -87,8 +92,8 @@ const BusinessSignup: React.FC = () => {
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
                 ></input>
               </div>
-              <div className='my-[.5rem] font-[400]'>
-                <div className='py-[.5rem]'>Business Name</div>
+              <div >
+                <p>Business Name</p>
                 <input
                   value={name}
                   onChange={e => {
@@ -98,9 +103,9 @@ const BusinessSignup: React.FC = () => {
                   className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
                 ></input>
               </div>
-              <div className='grid grid-cols-[42%_42%]'>
-                <div className='my-[.5rem] font-[400]'>
-                  <div className='py-[.5rem]'>Business Size</div>
+              <div className='grid grid-cols-[42%_42%] gap-[2rem]'>
+                <div >
+                  <p>Business Size</p>
                   <input
                     value={size >= 0 ? size : 0}
                     onChange={e => {
@@ -111,8 +116,8 @@ const BusinessSignup: React.FC = () => {
                     className='w-[9rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
                   ></input>
                 </div>
-                <div className='my-[.5rem] font-[400]'>
-                  <div className='py-[.5rem]'>Industry</div>
+                <div>
+                  <p>Industry</p>
                   <input
                     value={industry}
                     onChange={e => {
@@ -123,15 +128,20 @@ const BusinessSignup: React.FC = () => {
                   ></input>
                 </div>
               </div>
-
-              <div className='mt-[3rem] font-[600]'>
+                    <div className='text-[.7rem] text-[#878787]'>
+                      <p>Register as <a className='font-semibold text-[#2B99FF] hover:text-black cursor-pointer' onClick={() => {
+                        handleRedirect('/register/customer')
+                      }}>Customer</a> instead</p>
+                    </div>
+              <div className='mt-[1rem] font-[600]'>
                 <button
                   onClick={submitForm}
-                  className='w-[10rem] rounded-[.3rem] bg-[#D9D9D9] px-[1.5rem] py-[.3rem] text-[.8rem] font-[600]'
+                  className='w-[20rem] text-white rounded-[.3rem] bg-[#2B99FF] px-[1.5rem] py-[.3rem] text-[.8rem] font-[600]'
                 >
                   {loading ? <Spin /> : 'Proceed'}
                 </button>
               </div>
+              </section>
             </div>
           </div>
           <div className=''>
@@ -144,4 +154,4 @@ const BusinessSignup: React.FC = () => {
   )
 }
 
-export default BusinessSignup
+export default BusinessRegisterUI
