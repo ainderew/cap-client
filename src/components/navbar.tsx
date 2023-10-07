@@ -16,9 +16,9 @@ const NavBar: React.FC = () => {
   console.log(userType)
   let body = <DefaultChatNavbar />
   if (userType !== null && userType !== undefined) {
-    if (!userType) {
+    if (userType === false) {
       body = <CustomerNavbar />
-    } else if (userType) {
+    } else if (userType === true) {
       body = <BusinessNavBar />
       console.log('test', currentPath)
     }

@@ -18,8 +18,9 @@ const Graph: React.FC = () => {
   const [chartOptions, setChartOptions] = useState({})
 
   useEffect(() => {
-    const currentDate = new Date()
-    const currentMonth = currentDate.getMonth() + 1 // Note: January is 0, so we add 1 to get the correct month.
+    // was not being used commented out so it won't trigger error in code checks
+    // const currentDate = new Date()
+    // const currentMonth = currentDate.getMonth() + 1 // Note: January is 0, so we add 1 to get the correct month.
 
     setChartData({
       labels: [
