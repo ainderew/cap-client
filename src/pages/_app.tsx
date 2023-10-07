@@ -30,7 +30,7 @@ const App: any = ({ Component, pageProps }: AppProps) => {
       }
     } else if (userType === true) {
       const allow = BUSINESS_ALLOWED_URL.includes(currentUrl) /* (link => link === currentUrl) */
-      console.log('mark', allow)
+
       if (!allow) {
         router.replace('/business/dashboard').catch(err => {
           throw err

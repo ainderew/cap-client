@@ -4,16 +4,10 @@ import DataCard from '@/components/dataCard'
 import DoughnutGraph from '@/components/doughnutChart'
 import LineGraph from '@/components/linegraph'
 import useStores from '@/core/stores/UseStores'
-import {
-  getYearlyData,
-  getMonthlyData,
-  getYearData,
-  type ClicksForm,
-  type YearForm
-} from '@/pages/api/analytics'
-
 import React, { useEffect, useState } from 'react'
 import Loading from '@/components/loading'
+import useFetchData from '@/hooks/useFetchData'
+import { config } from '../../../config'
 
 const options: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -33,12 +27,12 @@ const colorPalette = [
 ]
 const Dashboard: React.FC = () => {
   const currentDate = new Date()
-  const [yearlyData, setYearlyData] = useState<YearForm>({ labels: [], clicks: [] })
+  const [yearlyData, setYearlyData] = useState<any>({ labels: [], clicks: [] })
 
-  const [currentYearly, setCurrentYearly] = useState<number>(0)
+  const [currentYearly, setCurrentYearly] = useState<any>(0)
   const [isRetrieved, setIsRetrieved] = useState<boolean>(false)
-  const [isSelected, setIsSelected] = useState<boolean>(false)
-  const [monthData, setMonthData] = useState<ClicksForm>({
+  const [isSelected, setIsSelected] = useState<boolean>(true)
+  const [monthData, setMonthData] = useState<any>({
     labels: [],
     clicks: [],
     ageCounts: {
@@ -47,40 +41,26 @@ const Dashboard: React.FC = () => {
       adult: 0,
       senior: 0
     }
-
   })
-
+  const [selectedMonthnum, setSelectedMonthnum] = useState(currentDate.getMonth())
   const formattedDate = currentDate.toLocaleDateString(undefined, options)
   const { authStore } = useStores()
   const businessId = authStore.userProfile?._id
 
-  const [selectedMonthnum, setSelectedMonthnum] = useState(currentDate.getMonth())
+  const { data: year } = useFetchData(`${config.BACKEND_ENDPOINT}/api/yearlyclicks/${businessId ?? ''}/${currentDate.getFullYear()}`)
+  const { data: month } = useFetchData(`${config.BACKEND_ENDPOINT}/api/monthlyclicks/${businessId ?? ''}/${currentDate.getFullYear()}/${selectedMonthnum + 1}`)
+  const { data: totalYear } = useFetchData(`${config.BACKEND_ENDPOINT}/api/clicks/${businessId ?? ''}/${currentDate.getFullYear()}`)
 
   useEffect(() => {
-    const fetchClicks = async (): Promise<any> => {
-      try {
-        console.log(businessId)
-        if (businessId !== null && businessId !== undefined) {
-          const yearlyData = await getYearlyData(businessId, currentDate.getFullYear())
-          const monthlyData = await getMonthlyData(
-            businessId,
-            currentDate.getFullYear(),
-            selectedMonthnum + 1
-          )
-          const CurrentYearlyData = await getYearData(businessId, currentDate.getFullYear())
-          setYearlyData(yearlyData)
-          setMonthData(monthlyData)
-          setCurrentYearly(CurrentYearlyData)
-          setIsRetrieved(true)
-          setIsSelected(true)
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    }
+    if (year === null || month === null || totalYear === null) return
 
-    void fetchClicks()
-  }, [selectedMonthnum])
+    setYearlyData(year)
+    setMonthData(month)
+    console.log(totalYear)
+    setCurrentYearly(totalYear)
+    setIsRetrieved(true)
+    setIsSelected(true)
+  }, [year, selectedMonthnum, totalYear, month])
 
   const [selectedMonthstr, setSelectedMonthstr] = useState(yearlyData.labels[currentDate.getMonth() + 1])
   const handleMonthChange = (event: { target: { value: string } }): void => {
@@ -178,7 +158,7 @@ const Dashboard: React.FC = () => {
           <div>
           <p>Select Month: {selectedMonthstr}</p>
       <select value={selectedMonthnum} onChange={handleMonthChange}>
-      {yearlyData.labels.map((label, index) => (
+      {yearlyData.labels.map((label: any, index: any) => (
           <option key={index} value={index}>
             {label}
           </option>
