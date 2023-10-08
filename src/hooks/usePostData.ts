@@ -1,26 +1,26 @@
 import { useState } from 'react'
-import checkToken from '@/utils/checkToken'
+import checkToken from '@/utils/functions/checkToken'
 
-interface fetchStateTypes {
+interface FetchStateTypes {
   loading: boolean
   data: unknown
 }
 
-interface usePostDataReturnType {
+interface UsePostDataReturnType {
   loading: boolean
   data: unknown
-  handlePostRequest: (variables: Filter) => Promise<void>
+  handlePostRequest: (variables: Filter) => Promise<any>
 }
 
 type Filter = Record<string, unknown>
 
-export default function usePostData (endpoint: string): usePostDataReturnType {
-  const [fetchStates, setFetchedStates] = useState<fetchStateTypes>({
+export default function usePostData (endpoint: string): UsePostDataReturnType {
+  const [fetchStates, setFetchedStates] = useState<FetchStateTypes>({
     loading: false,
     data: null
   })
 
-  async function handlePostRequest (variables: Filter): Promise<void> {
+  async function handlePostRequest (variables: Filter): Promise<any> {
     setFetchedStates(prev => {
       return {
         ...prev,
@@ -39,10 +39,14 @@ export default function usePostData (endpoint: string): usePostDataReturnType {
       },
       body: JSON.stringify(filter)
     })
+
+    const response = res.json()
     setFetchedStates({
       loading: false,
-      data: res.json()
+      data: response
     })
+
+    return response
   }
 
   return { ...fetchStates, handlePostRequest }

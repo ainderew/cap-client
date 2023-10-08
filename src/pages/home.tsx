@@ -7,7 +7,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import LoadingPage from '@/components/loadingPage'
 import useStores from '@/core/stores/UseStores'
-import { regexLocation } from '@/utils/regex'
+import { regexLocation } from '@/utils/functions/regex'
 import Modal from '@/components/modal'
 import { useGetLocation } from '@/hooks/useGetLocation'
 import { Input } from 'antd'
@@ -75,7 +75,7 @@ const GeneralChatUI: React.FC = () => {
   ) : (
     <div className="flex">
       <SideBar />
-      <div className="flex h-screen w-full flex-col">
+      <div className="flex h-full w-full flex-col">
         {response.length === 0 ? (
           <div className="">
             <div className="flex h-[calc(35vh-4rem)] items-end justify-center border-b-2 py-14">

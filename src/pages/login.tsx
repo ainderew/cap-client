@@ -2,47 +2,48 @@ import useStores from '@/core/stores/UseStores'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { config } from '../../config'
+import usePostData from '@/hooks/usePostData'
+import { type userProfile } from '@/utils/types/auth'
+import { message } from 'antd'
+import { AccountType } from '@/utils/enums'
+
+interface LoginReply {
+  message?: string
+  authToken: string
+  profile: userProfile
+
+}
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const { authStore } = useStores()
   const router = useRouter()
-  function submitForm (): void {
+  const { handlePostRequest, loading } = usePostData(`${config.BACKEND_ENDPOINT}/login`)
+
+  async function submitForm (): Promise<void> {
     const bodyObj = {
       email,
       password
     }
 
-    fetch(`${config.BACKEND_ENDPOINT}/login`, {
-      mode: 'cors',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bodyObj)
-    })
-      .then(async res => {
-        const test = res.json()
-        return await test
-      })
-      .then((data) => {
-        if (data.error !== null && data.error !== undefined) {
-          alert(data.error)
-          return
-        }
-        authStore.loginUser(data)
-        if (authStore.userProfile?.type === true) {
-          router.push('/business/dashboard').catch((err) => {
-            throw err
-          })
-        } else if (authStore.userProfile?.type === false) {
-          router.push('/home').catch((err) => {
-            throw err
-          })
-        }
-      })
-      .catch(err => {
-        throw err
-      })
+    try {
+      const response: LoginReply = await handlePostRequest(bodyObj)
+
+      if (response?.message === 'Invalid Credentials') {
+        void message.error(response.message)
+        return
+      }
+
+      authStore.loginUser(response)
+      if (response.profile.type === AccountType.business) {
+        void router.replace('/business/dashboard')
+      } else {
+        void router.replace('/home')
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
   return (
     <div className='flex  items-center justify-center font-poppins'>
