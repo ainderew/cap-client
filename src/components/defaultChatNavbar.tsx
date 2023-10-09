@@ -33,7 +33,6 @@ const DefaultChatNavbar: React.FC = () => {
 
   ]
   return (
-    <div>
       <div className='color-white flex h-28 w-full items-center justify-between px-6 sm:px-10 lg:px-28'>
         <div className='logo-container flex h-full items-center gap-2 cursor-pointer' onClick={() => {
           handleRedirect('/')
@@ -65,7 +64,6 @@ const DefaultChatNavbar: React.FC = () => {
             </div>
         </div>
       </div>
-    </div>
   )
 }
 
