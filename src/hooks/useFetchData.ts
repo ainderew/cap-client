@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import checkToken from '@/utils/checkToken'
+import checkToken from '@/utils/functions/checkToken'
 
 interface fetchStateTypes {
   loading: boolean

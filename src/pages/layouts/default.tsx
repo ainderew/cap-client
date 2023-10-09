@@ -1,17 +1,17 @@
-import React, { type ReactElement } from 'react'
-import NavBar from '@/components/navbar'
+import NavBar from "@/components/navbar/navbar";
+import React, { type ReactElement } from "react";
 
 interface props {
-  children?: ReactElement | null
+  children?: ReactElement | null;
 }
 
-function DefaultLayout ({ children }: props): React.ReactElement {
+function DefaultLayout({ children }: props): React.ReactElement {
   return (
-    <div className='h-screen w-full'>
+    <div className='h-full w-full'>
       <NavBar />
-      {children}
+      <div className='h-[calc(100vh-5rem)] w-full mt-20 relative'>{children}</div>
     </div>
-  )
+  );
 }
 
-export default DefaultLayout
+export default DefaultLayout;

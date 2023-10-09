@@ -1,4 +1,4 @@
-import React, { type ReactNode, createContext, useContext, useState, useEffect } from 'react'
+import React, { type ReactNode, createContext, useContext, useState } from 'react'
 
 interface File {
   _id: string

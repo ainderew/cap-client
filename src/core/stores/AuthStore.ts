@@ -24,6 +24,7 @@ export default class AuthStore {
   }
 
   logoutUser = (): void => {
+    this.userProfile = null
     sessionStorage.removeItem(keys.AUTH_TOKEN_KEY)
   }
 

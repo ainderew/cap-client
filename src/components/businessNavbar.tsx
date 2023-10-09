@@ -10,7 +10,6 @@ const BusinessNavBar: React.FC = () => {
   const router = useRouter()
   const [clickProfile, setClickProfile] = useState<boolean>(false)
   const [clickNotification, setClickNotification] = useState<boolean>(false)
-  // const [newNotification, setNewNotification] = useState<boolean>(false)
   const handleRedirect = (route: string): void => {
     router.push(route).catch(err => {
       throw err
