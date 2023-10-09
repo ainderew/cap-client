@@ -26,7 +26,7 @@ function FeatureTags(): React.ReactElement {
   }
 
   return (
-    <div className='flex gap-4 flex-wrap text-black'>
+    <div className='flex gap-4 flex-wrap text-black text-sm xl:text-base md:items-start md:justify-start items-center justify-center'>
       {TAGS.map((tag) => {
         return renderTag(tag.label, tag.icon);
       })}

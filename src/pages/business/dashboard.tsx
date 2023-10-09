@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import Loading from "@/components/loading";
 import DefaultLayout from "../layouts/default";
 import BusinessNavBar from "@/components/businessNavbar";
+import NavBar from "@/components/navbar";
 
 const options: Intl.DateTimeFormatOptions = {
   year: "numeric",
