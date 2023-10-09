@@ -1,3 +1,4 @@
+
 import { action, observable, makeObservable } from 'mobx'
 import { type loginResponse, type userProfile } from '@/utils/types/auth.js'
 import { keys } from '@/utils/enums'
@@ -23,6 +24,7 @@ export default class AuthStore {
   }
 
   logoutUser = (): void => {
+    this.userProfile = null
     sessionStorage.removeItem(keys.AUTH_TOKEN_KEY)
   }
 
@@ -30,3 +32,4 @@ export default class AuthStore {
     this.userProfile = profile
   }
 }
+

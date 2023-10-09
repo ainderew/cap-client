@@ -1,4 +1,4 @@
-import React, { type ReactNode, createContext, useContext, useState, useEffect } from 'react'
+import React, { type ReactNode, createContext, useContext, useState } from 'react'
 
 interface File {
   _id: string
@@ -31,6 +31,7 @@ export const FileProvider: React.FC<ProviderProps> = ({ children }) => {
     <FileContext.Provider value={{ files, isLoading, setFiles, setIsLoading }}>
       {children}
     </FileContext.Provider>
+
   )
 }
 

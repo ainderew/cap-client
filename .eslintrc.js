@@ -13,6 +13,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
-    'multiline-ternary': ['error', 'never']
+    'multiline-ternary': ['error', 'never'],
+    '@typescript-eslint/no-misused-promises': ['error', 'never']
   }
 }

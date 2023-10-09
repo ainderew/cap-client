@@ -1,21 +1,22 @@
-import FileGroup from '@/components/filegroup'
-import NavBar from '@/components/navbar'
-import UploadSection from '@/components/uploadSection/uploadsection'
-import { FileProvider } from '@/core/upload/context'
-import React from 'react'
+import FileGroup from "@/components/filegroup";
+import UploadSection from "@/components/uploadSection/uploadsection";
+import { FileProvider } from "@/core/upload/context";
+import React from "react";
+import DefaultLayout from "../layouts/default";
 
 const DataManagement: React.FC = () => {
   return (
-    <FileProvider>
-      <div className='w-full h-screen flex flex-col items-center'>
-        <NavBar />
-        <div className='w-8/12'>
-          <UploadSection />
-          <FileGroup />
+    <DefaultLayout>
+      <FileProvider>
+        <div className='flex h-full w-full flex-col items-center'>
+          <div className='w-8/12'>
+            <UploadSection />
+            <FileGroup />
+          </div>
         </div>
-      </div>
-    </FileProvider>
-  )
-}
+      </FileProvider>
+    </DefaultLayout>
+  );
+};
 
-export default DataManagement
+export default DataManagement;

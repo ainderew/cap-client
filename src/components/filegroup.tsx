@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import FileInfo from './fileinfo'
-import { formatDate } from '@/utils/dateformat'
+import { formatDate } from '@/utils/functions/dateformat'
 import useStores from '@/core/stores/UseStores'
 import { config } from '../../config'
 import useFetchData from '@/hooks/useFetchData'

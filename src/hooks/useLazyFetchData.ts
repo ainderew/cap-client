@@ -1,4 +1,4 @@
-import checkToken from '@/utils/checkToken'
+import checkToken from '@/utils/functions/checkToken'
 import { message } from 'antd'
 import { useEffect, useState } from 'react'
 
