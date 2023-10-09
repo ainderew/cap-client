@@ -1,8 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 import Tooltip from './tooltip'
-import { useFileContext } from '@/core/upload/context'
 import { config } from '../../config'
+import usePostData from '@/hooks/usePostData'
+import useStores from '@/core/stores/UseStores'
 
 interface FileInfoProps {
   id: string
@@ -21,24 +22,13 @@ const FileInfo: React.FC<FileInfoProps> = ({
   status,
   lastused
 }) => {
-  const { setIsLoading } = useFileContext()
-
-  const handleTrigger = (): void => {
-    fetch(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`, {
-      mode: 'cors',
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ businessId: businessid })
-    })
-      .then(async res => await (res.json())
-      )
-      .then(data => {
-        setIsLoading(true)
-      })
-      .catch(err => {
-        throw err
-      })
-    setIsLoading(false)
+  const { uiStore: { setIsActivatingFile } } = useStores()
+  const data = { businessId: businessid }
+  const handleTrigger = async (): Promise<void> => {
+    setIsActivatingFile(true)
+    const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`)
+    await handlePostRequest(data)
+    setIsActivatingFile(false)
   }
 
   return (
@@ -78,7 +68,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
                     width={24}
                     height={24}
                     alt=''
-                    onClick={handleTrigger}
+                    onClick={() => handleTrigger}
                   />
                 </Tooltip>
               </section>

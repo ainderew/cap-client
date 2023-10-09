@@ -44,7 +44,7 @@ const BusinessRegisterUI: React.FC = () => {
 
   useEffect(() => {
     if (data === null) return
-    if (data !== null) void router.push('/business/dashboard')
+    if (data !== null) void router.push('/login')
   }, [data])
   return (
     <div>
