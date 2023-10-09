@@ -105,14 +105,12 @@ const Dashboard: React.FC = () => {
 
   return (
     <DefaultLayout>
-      {/* <BusinessNavBar /> */}
-      <div className='  font-poppins'>
-        <div className='px-4 lg:px-[5rem]  2xl:px-[15rem]  '>
+        <div className='px-4 lg:px-[5rem] 2xl:px-[15rem]'>
           <div className=' mt-10 grid  grid-cols-8 justify-center gap-2'>
             <section className='col-span-8'>
-              <div className='grid  grid-cols-1  gap-2 pt-2 lg:grid-cols-4'>
+              <div className='grid grid-cols-1 gap-2 pt-2 lg:grid-cols-4'>
                 <div
-                  className='col-span-4 flex h-[10rem] flex-col  justify-center rounded-md   bg-[#3ba0ff]  text-white   md:col-span-1 md:h-[30rem] md:rounded-[2rem]'
+                  className='col-span-4 flex h-[10rem] flex-col justify-center rounded-md bg-[#3ba0ff] text-white md:col-span-1 md:h-[30rem] md:rounded-[2rem]'
                   style={{
                     backgroundImage: 'url("../images/calendarBg.svg")',
                     backgroundRepeat: "no-repeat",
@@ -120,7 +118,7 @@ const Dashboard: React.FC = () => {
                   }}
                 >
                   <div className=''>
-                    <div className='px-2 text-[2rem] font-bold md:text-[5rem] md:leading-[7rem] md:tracking-[-.5rem]'>
+                    <div className='px-2 text-[2rem] font-bold md:text-[5rem] md:leading-[7rem] md:tracking-[-.5rem] xl:text-6xl xl:tracking-normal'>
                       Business Data
                     </div>
                     <span className='px-2'>{formattedDate}</span>
@@ -234,7 +232,6 @@ const Dashboard: React.FC = () => {
             </section>
           </div>
         </div>
-      </div>
     </DefaultLayout>
   );
 };

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { debounce } from "lodash";
 
-function useNavBar(){
+
+function useNavBar(): boolean{
   const currScroll = useRef(0);
   const [hideNav, setHideNav] = useState(false);
 

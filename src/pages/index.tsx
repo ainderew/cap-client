@@ -1,30 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import DefaultLayout from "./layouts/default";
+import NavBar from "@/components/navbar";
+import Banner from "@/components/landingPage/banner";
 const Home: React.FC = () => {
   return (
     <DefaultLayout>
       <div className='flex w-full flex-col items-center'>
-        <div className='flex  w-9/12 flex-col gap-10'>
-          <header className='flex w-full flex-col items-center justify-center py-[8rem]'>
-            <section className='bg-gradient-to-r from-black to-[#23EBEB] bg-clip-text font-bold text-transparent'>
-              BRAMK
-            </section>
-            <section className='flex  justify-center text-center text-[2.125rem] font-extrabold sm:text-[3.125rem] lg:text-[4.125rem]'>
-              <div className='w-[90%] lg:w-9/12'>
-                Elevate your business with
-                <span className='text-blue-500'> AI-powered </span> support.
-              </div>
-            </section>
-            <section className=' group m-10 flex gap-5 text-sm'>
-              <button className='flex rounded-md border border-blue-500 px-6  py-1 text-blue-500 hover:bg-blue-500 hover:text-white'>
-                Start Chatting{" "}
-                <div className='translate-x-0 transition-all group-hover:translate-x-1'>
-                  &#x279D;
-                </div>
-              </button>
-            </section>
-          </header>
+        <Banner />
+        <div className='flex w-9/12 flex-col gap-10 py-16'>
           <article className='flex flex-col items-center gap-4 rounded-md bg-blue-400 p-8 py-10 text-center'>
             <div className='text-3xl font-bold text-white md:text-4xl'>
               Know more about <span className='text-blue-950'> BRAMK</span>
