@@ -4,7 +4,7 @@ import FeatureTags from "./tags";
 function LeftHighlight(): React.ReactElement {
   return (
     <>
-      <span className='text-white'>FOR BUSINESS</span>
+      <span className='self-end font-semibold md:self-start text-white'>FOR BUSINESS</span>
 
       <p className='text-right md:text-left text-4xl md:text-3xl xl:text-4xl font-medium'>
         Leverage AI to help you<br className="md:block hidden" /> run your business.

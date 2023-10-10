@@ -21,8 +21,8 @@ function Banner(): React.ReactElement {
   return (
     <div className='section-1 flex w-full flex-col items-center justify-center'>
       <section className='flex h-screen px-4 lg:px-0 lg:h-[50vh] w-full flex-col items-center justify-center gap-8'>
-        <span className='font-semibold text-white'>BRAMK</span>
-        <h2 className='text- md:text-center text-5xl font-semibold text-white sm:text-[3.125rem] lg:text-[4.125rem] xl:text-6xl'>
+        <span className='self-start md:self-center font-semibold text-white'>BRAMK</span>
+        <h2 className='text-left md:text-center text-5xl font-semibold text-white sm:text-[3.125rem] lg:text-[4.125rem] xl:text-6xl'>
           Elevate your business with <br />
           <span className='text-blue-500'>AI-powered </span> support.
         </h2>
