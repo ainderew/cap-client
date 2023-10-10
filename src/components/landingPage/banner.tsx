@@ -50,7 +50,7 @@ function Banner(): React.ReactElement {
       </section>
 
       <div className='relative flex lg:h-[300vh] xl:h-[250vh] w-full flex-col items-center '>
-        <div className='animation_fix hidden md:block sticky h-[140vh] xl:h-[120vh] w-full overflow-hidden top-0'>
+        <div className='animation_fix md:block sticky h-[100vh] md:h-[140vh] xl:h-[120vh] w-full overflow-hidden top-0'>
           <motion.div
             style={{ scale: productScale, x: productXAnimtation, opacity }}
             className='sticky top-7 flex w-full items-center justify-center'
