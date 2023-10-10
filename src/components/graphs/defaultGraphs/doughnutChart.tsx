@@ -12,22 +12,14 @@ const colorPalette = [
   '#ffee65',
   '#beb9db',
   '#fdcce5',
-  '#8bd3c7'
+  '#8bd3c7',
 ]
 
-/* interface ageCount {
-  teen: number
-  youngAdult: number
-  adult: number
-  midAdult: number
-  senior: number
-
-} */
-
-const DoughnutGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({
-  months,
-  clickCounts
-}) => {
+const DoughnutGraph: React.FC<{
+  position: string
+  months: string[]
+  clickCounts: number[]
+}> = ({ months, clickCounts, position }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
 
@@ -37,33 +29,29 @@ const DoughnutGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({
       datasets: [
         {
           data: clickCounts,
-          backgroundColor: colorPalette // Use the specified color palette
-        }
-      ]
+          backgroundColor: colorPalette, // Use the specified color palette
+        },
+      ],
     })
 
     setChartOptions({
       plugins: {
-      /*   legend: {
+        legend: {
           display: true,
-          position: 'bottom'
-        }, */
+          position: position,
+        },
         title: {
           display: true,
-          text: 'Monthly Age Demographic'
-        }
+          text: 'Monthly Age Demographic',
+        },
       },
       tension: 0.2,
       maintainAspectRatio: false,
-      responsive: true
+      responsive: true,
     })
   }, [months, clickCounts])
 
-  return (
-    <div className='h-full w-full shadow-lg'>
-      <Doughnut options={chartOptions} data={chartDataset} />
-    </div>
-  )
+  return <Doughnut options={chartOptions} data={chartDataset} />
 }
 
 export default DoughnutGraph
