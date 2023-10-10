@@ -5,10 +5,13 @@ function BusinessOptions(): React.ReactElement {
   const router = useRouter();
   const { pathname } = router;
   const currPath = pathname.split("/")[2];
+
   const options = [
     { key: "dashboard", label: "Dashboard" },
     { key: "data-management", label: "Data Management" },
+    { key: "brett-management", label: "Brett Management" },
   ];
+
   return (
     <>
       {options.map((option) => (

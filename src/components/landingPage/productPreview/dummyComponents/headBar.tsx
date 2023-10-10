@@ -8,7 +8,7 @@ import {
 import Image from "next/image";
 import React from "react";
 
-function HeadBar(): React.ReactElement {
+function PreviewHeadBar(): React.ReactElement {
   return (
     <>
       <div className='flex items-center gap-2 px-4'>
@@ -62,4 +62,4 @@ function HeadBar(): React.ReactElement {
   );
 }
 
-export default HeadBar;
+export default PreviewHeadBar;

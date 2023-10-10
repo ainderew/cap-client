@@ -8,7 +8,7 @@ import { Empty, Spin } from 'antd'
 import { observer } from 'mobx-react'
 
 const FileGroup: React.FC = () => {
-  const { authStore, uiStore: { isUploadingFile } } = useStores()
+  const { authStore, uiStore: { isUploadingFile, isActivatingFile } } = useStores()
   const [files, setFiles] = useState<any>([])
   const businessId = authStore.userProfile?._id
 
@@ -23,10 +23,10 @@ const FileGroup: React.FC = () => {
   }, [data])
 
   useEffect(() => {
-    if (isUploadingFile) return
+    if (isUploadingFile || isActivatingFile) return
 
     refetch()
-  }, [isUploadingFile])
+  }, [isUploadingFile, isActivatingFile])
 
   if (loading) {
     return <div className="w-full h-full flex items-center justify-center">
