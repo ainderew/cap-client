@@ -10,11 +10,11 @@ function Banner(): React.ReactElement {
 
   const productXAnimtation = useTransform(
     scrollY,
-    [0, 500, 800, 1400],
+    [0, 500, 1000, 1400],
     [-900, 0, 0, 2000]
   );
-  const opacity = useTransform(scrollY, [800, 1400], [1, 0]);
-  const productScale = useTransform(scrollY, [-200, 200], [0, 1]);
+  const opacity = useTransform(scrollY, [800, 1000, 1400], [1, 1, 0]);
+  const productScale = useTransform(scrollY, [-200, 200, 1000, 1400], [0, 1, 1, 0]);
 
   const y2 = useTransform(scrollY, [1400, 2400], [50, -400]);
   const y3 = useTransform(scrollY, [1400, 2200], [300, 100]);
