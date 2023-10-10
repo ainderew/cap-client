@@ -10,19 +10,19 @@ function Banner(): React.ReactElement {
 
   const productXAnimtation = useTransform(
     scrollY,
-    [0, 500, 800, 1400],
+    [0, 500, 1000, 1400],
     [-900, 0, 0, 2000]
   );
-  const opacity = useTransform(scrollY, [800, 1400], [1, 0]);
-  const productScale = useTransform(scrollY, [-200, 200], [0, 1]);
+  const opacity = useTransform(scrollY, [800, 1000, 1400], [1, 1, 0]);
+  const productScale = useTransform(scrollY, [-200, 200, 1000, 1400], [0, 1, 1, 0]);
 
   const y2 = useTransform(scrollY, [1400, 2400], [50, -400]);
   const y3 = useTransform(scrollY, [1400, 2200], [300, 100]);
   return (
     <div className='section-1 flex w-full flex-col items-center justify-center'>
       <section className='flex h-screen px-4 lg:px-0 lg:h-[50vh] w-full flex-col items-center justify-center gap-8'>
-        <span className='font-semibold text-white'>BRAMK</span>
-        <h2 className='text- md:text-center text-5xl font-semibold text-white sm:text-[3.125rem] lg:text-[4.125rem] xl:text-6xl'>
+        <span className='self-start md:self-center font-semibold text-white'>BRAMK</span>
+        <h2 className='text-left md:text-center text-5xl font-semibold text-white sm:text-[3.125rem] lg:text-[4.125rem] xl:text-6xl'>
           Elevate your business with <br />
           <span className='text-blue-500'>AI-powered </span> support.
         </h2>
@@ -50,7 +50,7 @@ function Banner(): React.ReactElement {
       </section>
 
       <div className='relative flex lg:h-[300vh] xl:h-[250vh] w-full flex-col items-center '>
-        <div className='animation_fix hidden md:block sticky h-[140vh] xl:h-[120vh] w-full overflow-hidden top-0'>
+        <div className='animation_fix md:block sticky h-[100vh] md:h-[140vh] xl:h-[120vh] w-full overflow-hidden top-0'>
           <motion.div
             style={{ scale: productScale, x: productXAnimtation, opacity }}
             className='sticky top-7 flex w-full items-center justify-center'

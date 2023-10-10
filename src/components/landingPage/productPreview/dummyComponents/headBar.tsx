@@ -16,7 +16,7 @@ function PreviewHeadBar(): React.ReactElement {
         <div className='green h-3 w-3 rounded-[50%] bg-orange-400'></div>
         <div className='green h-3 w-3 rounded-[50%] bg-green-400'></div>
       </div>
-      <div className='flex gap-4 bg-[#3c3c3c] px-4 py-1'>
+      <div className='flex w-full gap-4 bg-[#3c3c3c] px-4 py-1'>
         <div className='flex items-center gap-4'>
           <ArrowLeftOutlined style={{ color: "white" }} />
           <ArrowRightOutlined style={{ color: "white" }} />
@@ -30,7 +30,7 @@ function PreviewHeadBar(): React.ReactElement {
         </div>
 
         <div className='flex gap-2'>
-          <div className='flex h-full w-28 items-center gap-2 rounded-sm bg-white bg-opacity-20 px-2'>
+          <div className='hidden md:flex h-full w-28 items-center gap-2 rounded-sm bg-white bg-opacity-20 px-2'>
             <div className='relative flex h-3 w-3'>
               <Image src={"/logo.svg"} alt='logo' fill />
             </div>
@@ -39,14 +39,14 @@ function PreviewHeadBar(): React.ReactElement {
             </span>
           </div>
 
-          <div className='flex h-full w-28 items-center gap-2 rounded-sm bg-white bg-opacity-5 px-2'>
+          <div className='hidden md:flex h-full w-28 items-center gap-2 rounded-sm bg-white bg-opacity-5 px-2'>
             <LinkedinFilled style={{ color: "#0173B0" }} />
             <span className='text-[.55rem] font-thin text-white'>
               Feed | Linkedin
             </span>
           </div>
 
-          <div className='flex h-full w-28 items-center gap-2 rounded-sm bg-white bg-opacity-5 px-2'>
+          <div className='hidden md:flex h-full w-28 items-center gap-2 rounded-sm bg-white bg-opacity-5 px-2'>
             <GoogleOutlined />
             <span className='text-[.55rem] font-thin text-white'>
               Inbox (20) - invoi

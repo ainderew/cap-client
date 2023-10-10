@@ -18,7 +18,7 @@ function PreviewAppBody() {
   const thirdChat = useTransform(scrollY, [700, 800], [0, 1]);
 
   return (
-    <div className='m-auto flex h-full w-[90%] flex-col gap-8 p-12  xl:w-[70%]'>
+    <div className='m-auto flex h-full w-full md:w-[90%] flex-col gap-8 py-8 px-2 md:p-12 xl:w-[70%]'>
       <motion.div
         style={{ opacity: firstChat, scale: firstChat }}
         className='self-end'
