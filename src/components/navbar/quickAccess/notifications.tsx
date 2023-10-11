@@ -5,11 +5,13 @@ import { NotificationOutlined } from "@ant-design/icons";
 import NotificationBar from "../../notification";
 
 function NotificationSection(): React.ReactElement {
+  
   return (
     <Popover content={<NotificationBar />} trigger={"click"}>
-      <Badge count={1}>
+      <Badge dot={show}>
         <IconContainer>
           <NotificationOutlined />
+          <div className="rounded-full"></div>
         </IconContainer>
       </Badge>
     </Popover>
