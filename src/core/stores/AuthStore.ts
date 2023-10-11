@@ -32,4 +32,3 @@ export default class AuthStore {
     this.userProfile = profile
   }
 }
-

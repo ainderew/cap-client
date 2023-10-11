@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 const Clock: React.FC = () => {
   const [time, setTime] = useState<string>('')
+  const currentDate = new Date()
 
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }
+  const formattedDate = currentDate.toLocaleDateString(undefined, options)
   useEffect(() => {
     const updateClock = (): any => {
       const now = new Date()
@@ -23,8 +30,14 @@ const Clock: React.FC = () => {
   }, [])
 
   return (
-    <div >
-      <p>{time}</p>
+    <div>
+      <div>
+        <div className='px-2 text-[2rem] font-bold md:text-[5rem] md:leading-[7rem] md:tracking-[-.5rem] xl:text-6xl xl:tracking-normal'>
+          Business Data
+        </div>
+        <span className='px-2'>{formattedDate}</span>
+        <div className='px-2 md:text-[3.5rem]'>{time}</div>
+      </div>
     </div>
   )
 }

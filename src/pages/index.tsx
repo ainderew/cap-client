@@ -1,14 +1,29 @@
-import React from "react";
-import Image from "next/image";
-import DefaultLayout from "./layouts/default";
-import NavBar from "@/components/navbar";
-import Banner from "@/components/landingPage/banner";
+import React from 'react'
+import Image from 'next/image'
+import DefaultLayout from './layouts/default'
+import NavBar from '@/components/navbar'
+import Banner from '@/components/landingPage/banner'
 const Home: React.FC = () => {
+  const business = [
+    'Personalized Data',
+    'Personalized Service',
+    'Business Analytics',
+    ' Proactive Notifications',
+  ]
+  const customer = [
+    'Personalized Data',
+    'Personalized Service',
+    'Business Analytics',
+    ' Proactive Notifications',
+  ]
   return (
     <DefaultLayout>
       <div className='flex w-full flex-col items-center'>
+        <div className="bg-black w-full h-10 flex items-center justify-center">
+          <span className="text-white text-sm">We're currently building out more features and BRAMK in Pre-alpha</span>
+        </div>
         <Banner />
-        <div className='flex w-9/12 flex-col gap-10 py-16'>
+        <div className='flex w-full flex-col gap-10 py-16 lg:w-9/12'>
           <article className='flex flex-col items-center gap-4 rounded-md bg-blue-400 p-8 py-10 text-center'>
             <div className='text-3xl font-bold text-white md:text-4xl'>
               Know more about <span className='text-blue-950'> BRAMK</span>
@@ -21,41 +36,55 @@ const Home: React.FC = () => {
               convenience and efficiency.
             </div>
           </article>
-          <article className='grid gap-2'>
+          <article className='w-80% grid gap-2 px-10'>
             <section className='grid gap-2 md:grid-cols-2  md:items-center'>
-              <div className='relative h-[20rem] w-full md:flex xl:h-[30rem]'>
-                <Image src={"/landingPic1.svg"} fill alt='landingPic1' />
+              <div className='relative h-[30rem] w-full md:flex md:h-[20rem] xl:h-[30rem]'>
+                <Image src={'/landingPic1.svg'} fill alt='landingPic1' />
               </div>
 
               <div>
-                <div className='text-xl font-bold'>
+                <div className='text-2xl font-bold'>
                   <span className='text-blue-500'>CUSTOMER </span> CHAT
                 </div>
-                <p>
-                  Experience seamless customer chat with MBARK! Connect, inquire
-                  and get quick, personalized assistance from your favorite
-                  brands. Say goodbye to long waits and hello to hassle-free
-                  customer service.
-                </p>
+                <div className='font-500 text-[.8rem] leading-6 tracking-wide md:text-[1rem]'>
+                  <p>
+                    Seamless customer chat with MBARK: Connect, inquire, and get
+                    quick, personalized assistance. Goodbye long waits, hello
+                    hassle-free service!
+                  </p>
+                  <ul className='pl-10' style={{ listStyleType: 'disc' }}>
+                    {business.map((item, index) => (
+                      <li className='md:py-2' key={index}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </section>
-            <section className='gap- grid md:grid-cols-2 md:items-center'>
-              <div className='order-last '>
-                <div className=' w-9/12 text-xl font-bold'>
+            <section className='grid gap-2 md:grid-cols-2 md:items-center'>
+              <div className='order-last'>
+                <div className=' w-9/12 text-2xl font-bold'>
                   <span className='text-blue-500'>BUSINESS </span> SALES AND
                   SIDE
                 </div>
-                <p>
-                  MBARK: Transform Customer Support Instantly! Boost customer
-                  service efficiency with MBARK. Our chat platform automates
-                  responses to common queries, allowing your support team to
-                  tackle complex issues while delivering instant and
-                  personalized customer support. Elevate your brand&apos;s
-                  customer service game with MBARK!
-                </p>
+                <div className='font-500 text-[.8rem] leading-6 tracking-wide md:text-[1rem]'>
+                  <p>
+                    Revolutionize customer support with MBARK: Boost efficiency,
+                    automate common queries, and deliver instant personalized
+                    service to elevate your brand's customer experience!
+                  </p>
+                  <ul className='pl-10' style={{ listStyleType: 'disc' }}>
+                    {business.map((item, index) => (
+                      <li className='md:py-2' key={index}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <div className='relative order-first h-[20rem] w-full md:order-last md:flex xl:h-[30rem]'>
-                <Image src={"/landingPic1.svg"} fill alt='landingPic1' />
+              <div className='relative order-first h-[30rem] w-full md:order-last md:flex md:h-[20rem] xl:h-[30rem]'>
+                <Image src={'/landingPic2.svg'} fill alt='landingPic2' />
               </div>
             </section>
           </article>
@@ -63,7 +92,7 @@ const Home: React.FC = () => {
         <footer className='mt-10 h-[20rem] w-full bg-[#23EBEB]'></footer>
       </div>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
