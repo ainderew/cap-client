@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import React, { useCallback } from 'react'
+import useStores from '@/core/stores/UseStores'
+import { observer } from 'mobx-react'
+import { SimpleBusiness } from '@/utils/types/base'
 
 interface props {
   response: string
@@ -7,12 +10,15 @@ interface props {
 }
 
 const companies = [
-  { name: 'Tres layer cake shop', url: 'https://example.com/abc-corporation' },
-  { name: 'XYZ Inc.', url: 'https://example.com/xyz-inc' }
+  { name: "Leona's", location: "Mabolo, SM Cebu City", url: 'https://leonas.com/', image: "/leonas.jpeg" },
+  { name: 'Golden Pastry',location: "Lahug, 123 Bulding", url: 'https://goldenpastry.com/',  image: "/gold.png"  }
   // Add more company objects as needed
 ]
 const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
-  const handleClick = useCallback(() => {
+const {uiStore:{setModalData}} = useStores()
+
+  const handleClick = useCallback((company:SimpleBusiness) => {
+    setModalData(company)
     modalOpener(true)
   }, [])
 
@@ -35,8 +41,8 @@ const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
           processedText.push(
             <span
               key={currentIndex}
-              className="business-link"
-              onClick={handleClick}
+              className="business-link cursor-pointer"
+              onClick={() => handleClick(company)}
             >
               {match[0]}
             </span>
@@ -61,4 +67,4 @@ const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
   return <div className="">{newResponse}</div>
 }
 
-export default SpecificBusinessLink
+export default observer(SpecificBusinessLink)

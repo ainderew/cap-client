@@ -7,6 +7,9 @@ const Home: React.FC = () => {
   return (
     <DefaultLayout>
       <div className='flex w-full flex-col items-center'>
+        <div className="bg-black w-full h-10 flex items-center justify-center">
+          <span className="text-white text-sm">We're currently building out more features and BRAMK in Pre-alpha</span>
+        </div>
         <Banner />
         <div className='flex w-9/12 flex-col gap-10 py-16'>
           <article className='flex flex-col items-center gap-4 rounded-md bg-blue-400 p-8 py-10 text-center'>
