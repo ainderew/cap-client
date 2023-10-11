@@ -9,10 +9,19 @@ import {
   Tooltip,
   Legend,
   ArcElement,
-  LineElement
+  LineElement,
 } from 'chart.js'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement, LineElement)
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  LineElement,
+)
 
 const BarGraph: React.FC<{
   months: string[]
@@ -20,7 +29,6 @@ const BarGraph: React.FC<{
   axis: string
   colors: string[]
   showTicks: boolean
-
 }> = ({ months, clickCounts, axis, colors, showTicks }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
@@ -31,10 +39,9 @@ const BarGraph: React.FC<{
       datasets: [
         {
           data: clickCounts,
-          backgroundColor: colors
-
-        }
-      ]
+          backgroundColor: colors,
+        },
+      ],
     })
 
     setChartOptions({
@@ -42,46 +49,44 @@ const BarGraph: React.FC<{
         x: {
           ticks: {
             display: showTicks,
-            color: 'black'
+            color: 'black',
           },
           grid: {
             dispaly: false,
-            color: 'rgba(43, 153, 255, .5)'
-          }
+            color: 'rgba(43, 153, 255, .5)',
+          },
         },
         y: {
           beginAtZero: true,
           ticks: {
             display: showTicks,
-            color: 'black'
+            color: 'black',
           },
           grid: {
             dispaly: false,
-            color: 'rgba(0, 0, 0, .2)'
-          }
-        }
+            color: 'rgba(0, 0, 0, .2)',
+          },
+        },
       },
-      layout: {
-
-      },
+      layout: {},
       plugins: {
         legend: {
-          display: false
+          display: false,
         },
         title: {
           display: showTicks,
           text: 'This Year Interactions',
           font: {
-            size: 16
-          }
+            size: 16,
+          },
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
           borderColor: 'black',
-          borderWidth: 1
+          borderWidth: 1,
         },
         animation: {
-          duration: 1500
+          duration: 1500,
         },
         annotation: {
           annotations: [
@@ -95,21 +100,20 @@ const BarGraph: React.FC<{
               label: {
                 content: 'Max Value',
                 enabled: true,
-                position: 'right'
-              }
-            }
-          ]
-        }
+                position: 'right',
+              },
+            },
+          ],
+        },
       },
       indexAxis: axis,
       maintainAspectRatio: false,
-      responsive: true
-
+      responsive: true,
     })
   }, [months, clickCounts])
 
   return (
-    <div className={'h-full shadow-lg pr-2'}>
+    <div className={'h-full pr-2 shadow-lg'}>
       <Bar options={chartOptions} data={chartDataset} />
     </div>
   )

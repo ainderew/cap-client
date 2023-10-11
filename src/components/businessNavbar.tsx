@@ -11,7 +11,7 @@ const BusinessNavBar: React.FC = () => {
   const [clickProfile, setClickProfile] = useState<boolean>(false)
   const [clickNotification, setClickNotification] = useState<boolean>(false)
   const handleRedirect = (route: string): void => {
-    router.push(route).catch(err => {
+    router.push(route).catch((err) => {
       throw err
     })
   }
@@ -36,7 +36,11 @@ const BusinessNavBar: React.FC = () => {
 
         <div className='hidden flex-1 gap-10 px-10 text-[.9rem] font-semibold md:flex'>
           <button
-            className={currentRoute === '/business/dashboard' ? 'underline underline-offset-4 ' : ''}
+            className={
+              currentRoute === '/business/dashboard'
+                ? 'underline underline-offset-4 '
+                : ''
+            }
             onClick={() => {
               handleRedirect('/business/dashboard')
             }}
@@ -45,7 +49,11 @@ const BusinessNavBar: React.FC = () => {
           </button>
 
           <button
-            className={currentRoute === '/business/data-management' ? 'underline underline-offset-4 ' : ''}
+            className={
+              currentRoute === '/business/data-management'
+                ? 'underline underline-offset-4 '
+                : ''
+            }
             onClick={() => {
               handleRedirect('/business/data-management')
             }}
@@ -63,7 +71,11 @@ const BusinessNavBar: React.FC = () => {
           <button onClick={notificationOnClick}>
             <div className='relative h-full w-7'>
               <Image
-                src={clickNotification ? '/notificationActive.svg' : '/notification.svg'}
+                src={
+                  clickNotification
+                    ? '/notificationActive.svg'
+                    : '/notification.svg'
+                }
                 fill
                 alt='notification'
               />
@@ -93,7 +105,7 @@ const BusinessNavBar: React.FC = () => {
         </div>
       ) : null}
       {clickNotification ? (
-        <div className='absolute right-2 top-[6rem] z-10  w-[80vw]  rounded-lg bg-white   text-[1rem] shadow-md drop-shadow-lg sm:w-[500px] md:right-12'>
+        <div className='absolute  top-[6rem] z-10  w-[80vw]  rounded-lg bg-white   text-[1rem] shadow-md drop-shadow-lg sm:w-[500px] md:right-12'>
           <NotificationBar />
         </div>
       ) : null}
