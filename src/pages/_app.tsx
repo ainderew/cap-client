@@ -9,8 +9,8 @@ import useLazyFetchData from '@/hooks/useLazyFetchData'
 import { message as antdMessage } from 'antd'
 import { AccountType } from '@/utils/enums'
 
-const ALLOWED_URL = ['/', '/login', '/register/customer', '/register/business']
-const CUSTOMER_ALLOWED_URL = ['/', '/home', 'register/customer']
+const ALLOWED_URL = ["/", "/login", "/register/customer", "/register/business", "/home"];
+const CUSTOMER_ALLOWED_URL = ["/", "/home", "register/customer"];
 const BUSINESS_ALLOWED_URL = [
   '/',
   '/business/dashboard',

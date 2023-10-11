@@ -11,7 +11,7 @@ import { regexLocation } from '@/utils/functions/regex'
 import Modal from '@/components/modal'
 import { useGetLocation } from '@/hooks/useGetLocation'
 import { Input } from 'antd'
-const ENDPOINT = 'http://localhost:8987/getReply'
+const ENDPOINT = 'http://localhost:5050/getReply'
 
 const GeneralChatUI: React.FC = () => {
   const { authStore } = useStores()
@@ -88,7 +88,7 @@ const GeneralChatUI: React.FC = () => {
               </div>
             </div>
             <div className="flex h-[calc(100vh-35vh)] w-full flex-col items-center justify-start gap-10 border-t-[0.5px] bg-[#FCFCFC] py-10">
-              {/* <input
+              <input
                 onKeyDown={submitUserInput}
                 onChange={(e) => {
                   setUserInput(e.target.value)
@@ -97,14 +97,14 @@ const GeneralChatUI: React.FC = () => {
                 type="text"
                 placeholder="How may I help you?"
                 className="h-10 w-1/2 rounded-3xl border-[1px] p-4 outline-none"
-              /> */}
-              <Search className='w-1/2'
+              />
+              {/* <Search className='w-1/2'
                placeholder="How may I help?"
                onChange={(e) => {
                  setUserInput(e.target.value)
                }}
                onSearch={(e) => { submitUserInput(e) }}
-               enterButton type='primary' allowClear size='large' />
+               enterButton type='primary' allowClear size='large' /> */}
               <div className="flex w-[45%] flex-col items-center gap-5 ">
                 <span className="text-gray-400">COMMON QUESTIONS</span>
                 <CommonQuestions
