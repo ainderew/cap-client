@@ -9,13 +9,13 @@ function BusinessOptions(): React.ReactElement {
   const options = [
     { key: "dashboard", label: "Dashboard" },
     { key: "data-management", label: "Data Management" },
-    { key: "brett-management", label: "Brett Management" },
   ];
 
   return (
     <>
       {options.map((option) => (
         <button
+        key={option.key}
           onClick={() => void router.replace(`/business/${option.key}`)}
           className={`${
             currPath === option.key ? "text-primary" : null

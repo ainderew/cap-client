@@ -15,6 +15,7 @@ function DefaultOptions(): React.ReactElement {
     <>
       {options.map((option) => (
         <button
+        key={option.key}
           onClick={() => void router.replace(`/${option.key}`)}
           className={`${
             currPath === option.key ? "text-primary" : null
