@@ -1,24 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NotificationCard from './notificationCard'
+import useFetchData from '@/hooks/useFetchData'
+import { config } from '../../config'
+import useStores from '@/core/stores/UseStores'
 
 const NotificationBar: React.FC = () => {
-  const datas = [
-    {
-      title: 'DATA UPDATE',
-      date: '9/2/2023',
-      message: 'Your data is not up to date it needs to be updated'
-    },
-    {
-      title: 'DATA UPDATE',
-      date: '8/2/2023',
-      message: 'Your data is not up to date it needs to be updated'
-    },
-    {
-      title: 'DATA UPDATE',
-      date: '7/2/2023',
-      message: 'Your data is not up to date it needs to be updated'
-    }
-  ]
+  const { authStore } = useStores()
+  const businessId = authStore.userProfile?._id
+
+  const { data, loading, refetch } = useFetchData(
+    `${config.BACKEND_ENDPOINT}/api/file/getallfiles/${businessId ?? ''}`
+  )
+  
+  useEffect(()=>{
+
+  },[])
 
   return (
     <div className=' max-h-[40rem]  border-[#77777722] bg-[#efefef] '>
