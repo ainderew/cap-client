@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform} from "framer-motion";
 import ProductPreview from "./productPreview";
 import LeftHighlight from "./highlight/left";
 
@@ -17,7 +17,6 @@ function Banner(): React.ReactElement {
   const productScale = useTransform(scrollY, [-200, 200, 1000, 1400], [0, 1, 1, 0]);
 
   const y2 = useTransform(scrollY, [1400, 2400], [50, -400]);
-  const y3 = useTransform(scrollY, [1400, 2200], [300, 100]);
   return (
     <div className='section-1 flex w-full flex-col items-center justify-center'>
       <section className='flex h-screen px-4 lg:px-0 lg:h-[50vh] w-full flex-col items-center justify-center gap-8'>

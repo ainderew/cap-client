@@ -20,7 +20,7 @@ const Home: React.FC = () => {
     <DefaultLayout>
       <div className='flex w-full flex-col items-center'>
         <div className="bg-black w-full h-10 flex items-center justify-center">
-          <span className="text-white text-sm">We're currently building out more features and BRAMK in Pre-alpha</span>
+          <span className="text-white text-xs md:text-sm">We're currently building out more features. BRAMK is in Pre-alpha</span>
         </div>
         <Banner />
         <div className='flex w-full flex-col gap-10 py-16 lg:w-9/12'>
