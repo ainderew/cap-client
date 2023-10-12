@@ -67,8 +67,8 @@ function Banner(): React.ReactElement {
             <LeftHighlight />
           </motion.div>
 
-          <div className='right-highlight flex h-1/2 w-full items-center px-12 justify-start'>
-            <motion.div style={{ y: y2 }} className='right-element h-80 w-80' />
+          <div className='bg-highlightRight bg-cover md:bg-contain bg-no-repeat flex h-full md:h-1/2 w-full items-center px-12 justify-start'>
+            <motion.div style={{ y: y2 }} className='bg-highlightLeft bg-no-repeat bg-cover h-80 w-80' />
           </div>
         </div>
       </div>

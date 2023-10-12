@@ -142,7 +142,7 @@
 }
 
 .right-highlight{
-  background-image: url('../../public/highlight-dashboard.png');
+  background-image: url('/public/highlight-dashboard.png');
   background-size: cover;
   background-repeat: no-repeat;
 }

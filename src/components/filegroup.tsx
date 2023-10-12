@@ -20,6 +20,7 @@ const FileGroup: React.FC = () => {
   );
 
   useEffect(() => {
+    if(!businessId) return 
     refetch();
   }, [authStore.userProfile?._id]);
 
