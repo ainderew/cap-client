@@ -24,9 +24,10 @@ const FileInfo: React.FC<FileInfoProps> = ({
 }) => {
   const { uiStore: { setIsActivatingFile } } = useStores()
   const data = { businessId: businessid }
+  const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`)
+  
   const handleTrigger = async (): Promise<void> => {
     setIsActivatingFile(true)
-    const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`)
     await handlePostRequest(data)
     setIsActivatingFile(false)
   }

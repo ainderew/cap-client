@@ -35,9 +35,9 @@ const NotificationBar: React.FC = () => {
           <div className='grid grid-cols-1 gap-2'>
             {notifications.map((data:any, index:any) => (
               <NotificationCard
-                title={"Monthly Reminder: Data Update"} 
+                title={data.title} 
                 date={data.dateNotified} 
-                message={data.notification} 
+                message={data.message} 
                 key={index}
                 
               />
