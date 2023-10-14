@@ -1,43 +1,55 @@
-import React, { useEffect, useState } from 'react'
-import FileInfo from './fileinfo'
-import { formatDate } from '@/utils/functions/dateformat'
-import useStores from '@/core/stores/UseStores'
-import { config } from '../../config'
-import useFetchData from '@/hooks/useFetchData'
-import { Empty, Spin } from 'antd'
-import { observer } from 'mobx-react'
+import React, { useEffect, useState } from "react";
+import FileInfo from "./fileinfo";
+import { formatDate } from "@/utils/functions/dateformat";
+import useStores from "@/core/stores/UseStores";
+import { config } from "../../config";
+import useFetchData from "@/hooks/useFetchData";
+import { Empty, Spin } from "antd";
+import { observer } from "mobx-react";
 
 const FileGroup: React.FC = () => {
-  const { authStore, uiStore: { isUploadingFile, isActivatingFile } } = useStores()
-  const [files, setFiles] = useState<any>([])
-  const businessId = authStore.userProfile?._id
+  const {
+    authStore,
+    uiStore: { isUploadingFile, isActivatingFile },
+  } = useStores();
+  const [files, setFiles] = useState<any>([]);
+  const businessId = authStore.userProfile?._id;
 
   const { data, loading, refetch } = useFetchData(
-    `${config.BACKEND_ENDPOINT}/api/file/getallfiles/${businessId ?? ''}`
-  )
+    `${config.BACKEND_ENDPOINT}/api/file/getallfiles/${businessId ?? ""}`
+  );
 
   useEffect(() => {
-    if (data === null) return
-
-    setFiles(data)
-  }, [data])
+    if(!businessId) return 
+    refetch();
+  }, [authStore.userProfile?._id]);
 
   useEffect(() => {
-    if (isUploadingFile || isActivatingFile) return
+    if (data === null) return;
 
-    refetch()
-  }, [isUploadingFile, isActivatingFile])
+    setFiles(data);
+  }, [data]);
+
+  useEffect(() => {
+    if (isUploadingFile || isActivatingFile) return;
+
+    refetch();
+  }, [isUploadingFile, isActivatingFile]);
 
   if (loading) {
-    return <div className="w-full h-full flex items-center justify-center">
-     <Spin />
-  </div>
+    return (
+      <div className='flex h-full w-full items-center justify-center'>
+        <Spin />
+      </div>
+    );
   }
 
   if (data === null) {
-    return <div className="">
-      <Empty/>
-    </div>
+    return (
+      <div className=''>
+        <Empty />
+      </div>
+    );
   }
 
   return (
@@ -59,11 +71,11 @@ const FileGroup: React.FC = () => {
               .slice()
               .sort((a: any, b: any) => {
                 if (a.status === b.status) {
-                  const dateA = new Date(a.datelastused)
-                  const dateB = new Date(b.datelastused)
-                  return dateB.getTime() - dateA.getTime()
+                  const dateA = new Date(a.datelastused);
+                  const dateB = new Date(b.datelastused);
+                  return dateB.getTime() - dateA.getTime();
                 }
-                return a.status !== null ? -1 : 1
+                return a.status !== null ? -1 : 1;
               })
               .map((val: any, key: any) => (
                 <div key={key}>
@@ -84,7 +96,7 @@ const FileGroup: React.FC = () => {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default observer(FileGroup)
+export default observer(FileGroup);
