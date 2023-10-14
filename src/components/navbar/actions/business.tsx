@@ -5,7 +5,7 @@ import MenuOptions from "./common/menuOptions";
 import UserAvatar from "./common/avatar";
 import IconContainer from "@/components/iconContainer";
 import { LockOutlined, LogoutOutlined, MailOutlined } from "@ant-design/icons";
-import NotificationSection from "../quickAccess/notificaitons";
+import NotificationSection from "../quickAccess/notifications";
 
 function BusinessNavActions() {
   const router = useRouter();
