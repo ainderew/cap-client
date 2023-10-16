@@ -75,7 +75,7 @@ const FileGroup: React.FC = () => {
                   const dateB = new Date(b.datelastused);
                   return dateB.getTime() - dateA.getTime();
                 }
-                return a.status !== null ? -1 : 1;
+                return a.status ? -1 : 1;
               })
               .map((val: any, key: any) => (
                 <div key={key}>

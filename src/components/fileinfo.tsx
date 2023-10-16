@@ -4,6 +4,7 @@ import Tooltip from './tooltip'
 import { config } from '../../config'
 import usePostData from '@/hooks/usePostData'
 import useStores from '@/core/stores/UseStores'
+import { CloudDownloadOutlined } from '@ant-design/icons'
 
 interface FileInfoProps {
   id: string
@@ -24,10 +25,13 @@ const FileInfo: React.FC<FileInfoProps> = ({
 }) => {
   const { uiStore: { setIsActivatingFile } } = useStores()
   const data = { businessId: businessid }
+  const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`)
+
   const handleTrigger = async (): Promise<void> => {
     setIsActivatingFile(true)
-    const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`)
+    console.log("starting")
     await handlePostRequest(data)
+    console.log("finished")
     setIsActivatingFile(false)
   }
 
@@ -35,9 +39,8 @@ const FileInfo: React.FC<FileInfoProps> = ({
     <div className='relative my-4 rounded-xl outline outline-1 outline-neutral-300'>
       <div className='px-10 pt-8'>
         <div
-          className={`absolute -top-2 left-5 rounded-md px-5 text-white ${
-            status ? 'bg-green-500' : 'bg-neutral-500'
-          }`}
+          className={`absolute -top-2 left-5 rounded-md px-5 text-white ${status ? 'bg-green-500' : 'bg-neutral-500'
+            }`}
         >
           {status ? 'ACTIVE' : 'DISABLED'}
         </div>
@@ -52,7 +55,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
                   target='_blank'
                   rel='noreferrer'
                 >
-                  <Image src='/downloadicon.svg' width={24} height={24} alt='' />
+                  <CloudDownloadOutlined style={{color:'#3b82f6', fontSize: '24px'}}/>
                 </a>
               </Tooltip>
             </section>
@@ -68,7 +71,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
                     width={24}
                     height={24}
                     alt=''
-                    onClick={() => handleTrigger}
+                    onClick={handleTrigger}
                   />
                 </Tooltip>
               </section>

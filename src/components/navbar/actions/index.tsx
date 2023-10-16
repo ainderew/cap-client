@@ -3,7 +3,7 @@ import DefaultNavActions from "./default";
 import useStores from "@/core/stores/UseStores";
 import BusinessNavActions from "./business";
 import CustomerNavActions from "./customer";
-import NotificationSection from "../quickAccess/notificaitons";
+import NotificationSection from "../quickAccess/notifications";
 
 const actions = {
   business: <BusinessNavActions />,

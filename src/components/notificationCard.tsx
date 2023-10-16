@@ -1,31 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
+import { formatRelativeDate } from '@/utils/functions/dateformat'
 interface Data {
   title: string
-  date: string // Assuming 'date' is in the format '10/2/2023'
+  date: string
   message: string
 }
 
-const calculateDateDisplay = (date: string): string => {
-  const currentDate = new Date()
-  const [month, day, year] = date.split('/').map(Number)
-  const notificationDate = new Date(year, month - 1, day)
-  const timeDifference = currentDate.getTime() - notificationDate.getTime()
-  const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24))
-
-  if (daysDifference < 7) {
-    return `${daysDifference} day${daysDifference !== 1 ? 's' : ''} ago`
-  } else if (daysDifference < 30) {
-    const weeksDifference = Math.floor(daysDifference / 7)
-    return `${weeksDifference} week${weeksDifference !== 1 ? 's' : ''} ago`
-  } else {
-    const formattedDate = notificationDate.toLocaleDateString()
-    return `on ${formattedDate}`
-  }
-}
 
 const NotificationCard: React.FC<Data> = (props) => {
-  const formattedDate = calculateDateDisplay(props.date)
+  const formattedDate = formatRelativeDate(props.date)
 
   return (
     <div className='grid min-h-[7rem] grid-cols-4  rounded-md bg-white py-2 pl-2  drop-shadow-md'>
