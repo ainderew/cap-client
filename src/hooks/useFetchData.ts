@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import checkToken from '@/utils/functions/checkToken'
+import { message } from 'antd'
 
 interface fetchStateTypes {
   loading: boolean
@@ -48,8 +49,8 @@ export default function useFetchData (endpoint: string): useFetchDataReturnType 
           data
         })
       })
-      .catch(err => {
-        throw err
+      .catch((error) => {
+        void message.error(error.message)
       })
   }
 

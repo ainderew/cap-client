@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import checkToken from '@/utils/functions/checkToken'
+import { message } from 'antd'
 
 interface FetchStateTypes {
   loading: boolean
@@ -28,25 +29,30 @@ export default function usePostData (endpoint: string): UsePostDataReturnType {
       }
     })
 
-    const filter: Filter = variables ?? {}
+    try {
+      const filter: Filter = variables ?? {}
 
-    const res: any = await fetch(endpoint, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${checkToken() ?? ''}`
-      },
-      body: JSON.stringify(filter)
-    })
+      const res: any = await fetch(endpoint, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${checkToken() ?? ''}`
+        },
+        body: JSON.stringify(filter)
+      })
 
-    const response = res.json()
-    setFetchedStates({
-      loading: false,
-      data: response
-    })
+      const response = res.json()
+      setFetchedStates({
+        loading: false,
+        data: response
+      })
 
-    return response
+      return response
+    } catch (error: any) {
+      void message.error(error.message)
+    }
+    
   }
 
   return { ...fetchStates, handlePostRequest }
