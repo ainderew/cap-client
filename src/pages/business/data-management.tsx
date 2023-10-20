@@ -3,8 +3,13 @@ import UploadSection from "@/components/uploadSection/uploadsection";
 import { FileProvider } from "@/core/upload/context";
 import React from "react";
 import DefaultLayout from "../layouts/default";
+import useStores from "@/core/stores/UseStores";
+import { userProfile } from "@/utils/types/auth";
 
 const DataManagement: React.FC = () => {
+  const {authStore:{userProfile}} = useStores()
+
+  if(!userProfile?._id) return <>loading</>
   return (
     <DefaultLayout>
       <FileProvider>

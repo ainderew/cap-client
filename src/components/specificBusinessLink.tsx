@@ -6,6 +6,8 @@ import { SimpleBusiness } from '@/utils/types/base'
 import SpecificChat from './modals/modalDictionary/specificChat/specificChatModal'
 import usePostData from '@/hooks/usePostData'
 import { config } from '../../config'
+import useChatWithAi from '@/hooks/useChatWithAi'
+import { ResponseRoles } from '@/utils/enums'
 
 interface props {
   response: string
@@ -22,6 +24,8 @@ const {uiStore:{setModalData}, authStore:{userProfile}} = useStores()
 
 
  const {handlePostRequest} = usePostData(`${config.BACKEND_ENDPOINT}/api/clicked/65323e3deaf60326b99b61c8/${userProfile?._id ?? 0}`)
+ const {doSpecific} = useChatWithAi()
+ 
 
   const handleClick = useCallback((company:SimpleBusiness) => {
     setModalData({
@@ -34,7 +38,7 @@ const {uiStore:{setModalData}, authStore:{userProfile}} = useStores()
         showSubmitButton: false
       }
     })
-
+    doSpecific({ content: 'only respond with info about leonas and dont reply about others', role: ResponseRoles.user })
     
     modalOpener(true)
     handlePostRequest();

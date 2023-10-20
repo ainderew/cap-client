@@ -9,7 +9,6 @@ type UseCustomQuery = [() => void, UseCustomQueryResult]
 
 function useTest (): UseCustomQuery {
   function test (): void {
-    alert('kdjlf')
   }
   const x = true
   const y = false

@@ -7,33 +7,52 @@ import DefaultLayout from '../layouts/default'
 import YearlyGraph from '@/components/graphs/useGraphs/yearlyGraph'
 import CurrentData from '@/components/graphs/useGraphs/cuereentData'
 import MonthlyGraph from '@/components/graphs/useGraphs/monthlyGraph'
+import useLazyFetchData from '@/hooks/useLazyFetchData'
 
 const Dashboard: React.FC = () => {
   const currentDate = new Date()
   const [yearlyData, setYearlyData] = useState<any>({ labels: [], clicks: [] })
   const [currentYearly, setCurrentYearly] = useState<any>(0)
 
+
   const { authStore } = useStores()
   const businessId = authStore.userProfile?._id
 
-  const { data: year, loading: isRetrieved } = useFetchData(
+  const [getYearlyClicks, data] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/yearlyclicks/${
-      businessId ?? ''
+      businessId ? businessId :  ''
     }/${currentDate.getFullYear()}`,
   )
 
-  const { data: totalYear } = useFetchData(
+  const [getTotalCicks ] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/clicks/${
-      businessId ?? ''
+      businessId ? businessId :  ''
     }/${currentDate.getFullYear()}`,
   )
+  // getYearlyClicks()
 
-  useEffect(() => {
-    if (year === null || totalYear === null) return
+  useEffect(() =>{
+    if(!businessId) return
+    const run = async () =>{
+      const yearlyClicks = await getYearlyClicks()
+      const currentYear = await getTotalCicks()
 
-    setYearlyData(year)
-    setCurrentYearly(totalYear)
-  }, [year, totalYear])
+
+      setYearlyData(yearlyClicks);
+      setCurrentYearly(currentYear);
+    }
+
+    run()
+    
+  },[businessId])
+
+
+  // useEffect(() => {
+  //   if (year === null || totalYear === null) return
+
+  //   setYearlyData(year)
+  //   setCurrentYearly(totalYear)
+  // }, [year, totalYear])
 
   return (
     <DefaultLayout>
@@ -52,7 +71,7 @@ const Dashboard: React.FC = () => {
             </div>
             <div className='col-span-3'>
               <YearlyGraph
-                isRetrieved={isRetrieved}
+                isRetrieved={data.loading}
                 yearlyData={{ ...yearlyData }}
               />
             </div>
@@ -66,7 +85,7 @@ const Dashboard: React.FC = () => {
                 yearlyData.clicks[currentDate.getMonth()] / 12,
                 yearlyData.clicks[currentDate.getMonth()] / 365,
               ]}
-              isRetrieved={isRetrieved}
+              isRetrieved={data.loading}
             />
           </section>
           <section className='col-span-8 mb-10 mt-10 '>

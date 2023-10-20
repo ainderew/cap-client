@@ -7,6 +7,7 @@ import LineGraph from '../defaultGraphs/linegraph'
 import DoughnutGraph from '@/components/graphs/defaultGraphs/doughnutChart'
 import DatePicker, { DatePickerProps } from 'antd/es/date-picker'
 import { loadDefaultErrorComponents } from 'next/dist/server/load-components'
+import useLazyFetchData from '@/hooks/useLazyFetchData'
 
 interface Details {
   businessId: any
@@ -24,22 +25,36 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
     },
   })
 
-  const { data: month, loading: load } = useFetchData(
+  // const { data: month, loading: load } = useFetchData(
+  //   `${config.BACKEND_ENDPOINT}/api/monthlyclicks/${
+  //     props.businessId ?? ''
+  //   }/${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`,
+  // )
+
+  const [getMonthlyData, data] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/monthlyclicks/${
       props.businessId ?? ''
     }/${currentDate.getFullYear()}/${currentDate.getMonth() + 1}`,
   )
 
   useEffect(() => {
-    if (month === null) return
+    if (!props.businessId) return
+    const run = async() =>{
+      const res = await getMonthlyData()
 
-    setMonthData(month)
-  }, [month])
+      setMonthData(res)
+    }
+
+    run();
+
+  }, [props.businessId])
+
+
   return (
     <>
       <p className='text-[3rem]'>Monthly Report</p>
       <div className='grid  grid-cols-1 items-center gap-4 lg:grid-cols-5'>
-        {!load ? (
+        {!data.loading ? (
           <div className='order-first col-span-3 min-h-[25rem] shadow-md md:h-[32rem]'>
             <LineGraph
               months={monthData.labels}
@@ -51,7 +66,7 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
             <Loading />
           </div>
         )}
-        {!load ? (
+        {!data.loading ? (
           <div>
             <div className='col-span-2 hidden h-[30rem] w-[25rem]   text-center lg:block'>
               <DoughnutGraph

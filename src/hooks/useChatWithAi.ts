@@ -9,7 +9,8 @@ export interface useChatWithAiReturnType{
   conversation: ChatMessage[],
   input: string
   loading:boolean
-  sendChat: (e:any) => void,
+  doSpecific: (propmpt: ChatMessage) => void
+  sendChat: (e:any, bypass?: boolean) => void,
   handleInputChange: (e:any)=>void,
 }
 
@@ -30,8 +31,8 @@ function useChatWithAi(): useChatWithAiReturnType{
     setInput(e.target.value)
   }
 
-  async function sendChat(e:any){
-    if ((e.key !== 'Enter' || loading)) {
+  async function sendChat(e:any, bypass?: boolean){
+    if (((e.key !== 'Enter' || loading)) && !bypass) {
       console.log("RETURNING")
       return
     }
@@ -50,12 +51,24 @@ function useChatWithAi(): useChatWithAiReturnType{
     await handlePostRequest(sendObj)
   }
 
+  async function doSpecific(prompt:any){
+
+    const sendObj = {
+      userInput: [prompt],
+      userId: authStore.userProfile?._id
+    }
+    setInput('')
+
+    await handlePostRequest(sendObj)
+  }
+
   return{
     conversation,
     sendChat,
     handleInputChange,
     input,
-    loading
+    loading,
+    doSpecific
   }
 
 }

@@ -28,44 +28,58 @@ const BUSINESS_ALLOWED_URL = [
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
-  const { authStore,uiStore:{showModal} } = useStores();
+  const {
+    authStore,
+    uiStore: { showModal },
+  } = useStores();
 
   const userType = authStore.userProfile?.type;
   const [queryProfile] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/getProfile`
   );
 
+ 
+
   async function getProfile(): Promise<boolean> {
+    let storedProfile: userProfile;
+
+    const data: string | null = sessionStorage.getItem("profile"); 
+  
+    if (data !== null) {
+      storedProfile = JSON.parse(data);
+      console.log(storedProfile)
+      authStore.setProfile(storedProfile);
+      return true;
+    }
+
     const res = await queryProfile();
-    console.log(res)
-    if(res === undefined) {
+    console.log(res);
+    if (res === undefined) {
       void message.error("Something went wrong");
       return false;
-    };
+    }
 
     const { profile } = res;
     if (profile !== null && profile !== undefined) {
       authStore.setProfile(profile);
-      return true
+      return true;
     }
 
     return false;
   }
 
   async function handleProtectedRoutes(): Promise<void> {
-    const profile: null | boolean = await getProfile()
-    
-    if(profile) return;
-    
+    const profile: null | boolean = await getProfile();
+
+    if (profile) return;
+
     const currentUrl = router.asPath;
     if (userType === AccountType.customer) {
-
       const allow = CUSTOMER_ALLOWED_URL.includes(currentUrl);
       if (!allow) {
         router.replace("/home").catch((err) => {
           throw err;
         });
-        
       }
     } else if (userType === AccountType.business) {
       const allow =
@@ -86,8 +100,6 @@ const App: any = ({ Component, pageProps }: AppProps) => {
       });
     }
   }
-
- 
 
   useEffect(() => {
     handleProtectedRoutes();
