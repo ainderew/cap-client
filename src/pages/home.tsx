@@ -11,7 +11,7 @@ import { regexLocation } from '@/utils/functions/regex'
 import Modal from '@/components/modals/modalContainer'
 import { useGetLocation } from '@/hooks/useGetLocation'
 import { Input } from 'antd'
-const ENDPOINT = 'http://localhost:5050/getReply'
+import { config } from '../../config'
 
 const GeneralChatUI: React.FC = () => {
   const { authStore } = useStores()
@@ -23,7 +23,6 @@ const GeneralChatUI: React.FC = () => {
 
   const { location, loading } = useGetLocation()
 
-  const { Search } = Input
 
   useEffect(() => {
     if (aiRes === '') return
@@ -53,7 +52,7 @@ const GeneralChatUI: React.FC = () => {
     }
     setUserInput('')
 
-    fetch(ENDPOINT, {
+    fetch(`${config.BACKEND_ENDPOINT}/getReply`, {
       method: 'POST',
       mode: 'cors',
       headers: {
