@@ -23,7 +23,7 @@ const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
 const {uiStore:{setModalData}, authStore:{userProfile}} = useStores()
 
 
- const {handlePostRequest} = usePostData(`${config.BACKEND_ENDPOINT}/api/clicked/65323e3deaf60326b99b61c8/${userProfile?._id ?? 0}`)
+ const {handlePostRequest} = usePostData(`${config.BACKEND_ENDPOINT}/api/clicked/653260b8bdbc2114a3abcac7/${userProfile?._id ?? 0}`)
  const {doSpecific} = useChatWithAi()
  
 
