@@ -16,7 +16,7 @@ interface props {
 
 const companies = [
   { name: "Leona's", location: "Mabolo, SM Cebu City", url: 'https://leonas.com/', image: "/leonas.jpeg" },
-  { name: 'Golden Pastry',location: "Lahug, 123 Bulding", url: 'https://goldenpastry.com/',  image: "/gold.png"  }
+  // { name: 'Golden Pastry',location: "Lahug, 123 Bulding", url: 'https://goldenpastry.com/',  image: "/gold.png"  }
   // Add more company objects as needed
 ]
 const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
