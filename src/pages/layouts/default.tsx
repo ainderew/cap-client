@@ -9,7 +9,7 @@ function DefaultLayout({ children }: props): React.ReactElement {
   return (
     <div className='h-full w-full'>
       <NavBar />
-      <div className='min-h-[calc(100vh-5rem)] w-full mt-20 relative'>{children}</div>
+      <div className='min-h-[calc(100vh-5rem)] w-full mt-0 lg:mt-20 relative'>{children}</div>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import LoadingPage from '@/components/loadingPage'
 import useStores from '@/core/stores/UseStores'
 import { regexLocation } from '@/utils/functions/regex'
-import Modal from '@/components/modal'
+import Modal from '@/components/modals/modalContainer'
 import { useGetLocation } from '@/hooks/useGetLocation'
 import { Input } from 'antd'
 const ENDPOINT = 'http://localhost:5050/getReply'
@@ -137,7 +137,6 @@ const GeneralChatUI: React.FC = () => {
           />
         )}
       </div>
-      <Modal modalOpener={setShow} show={show} />
     </div>
   )
 }

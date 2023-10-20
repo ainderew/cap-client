@@ -17,7 +17,7 @@ export default class AuthStore {
     })
   }
 
-  loginUser = (profile: loginResponse): void => {
+  loginUser = (profile:any): void => {
     this.userProfile = profile.profile
 
     sessionStorage.setItem(keys.AUTH_TOKEN_KEY, profile.authToken)

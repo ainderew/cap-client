@@ -3,6 +3,9 @@ import React, { useCallback } from 'react'
 import useStores from '@/core/stores/UseStores'
 import { observer } from 'mobx-react'
 import { SimpleBusiness } from '@/utils/types/base'
+import SpecificChat from './modals/modalDictionary/specificChat/specificChatModal'
+import usePostData from '@/hooks/usePostData'
+import { config } from '../../config'
 
 interface props {
   response: string
@@ -15,12 +18,28 @@ const companies = [
   // Add more company objects as needed
 ]
 const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
-const {uiStore:{setModalData}} = useStores()
+const {uiStore:{setModalData}, authStore:{userProfile}} = useStores()
+
+
+ const {handlePostRequest} = usePostData(`${config.BACKEND_ENDPOINT}/api/clicked/65323e3deaf60326b99b61c8/${userProfile?._id ?? 0}`)
 
   const handleClick = useCallback((company:SimpleBusiness) => {
-    setModalData(company)
+    setModalData({
+      componentName: "SpecificChat",
+      width: "90vw",
+      height: "90vh",
+      options:{
+        showTitle: false,
+        showCancelButton: false,
+        showSubmitButton: false
+      }
+    })
+
+    
     modalOpener(true)
+    handlePostRequest();
   }, [])
+  
 
   const generateClickableText = (text: string): React.ReactNode => {
     const processedText: React.ReactNode[] = []

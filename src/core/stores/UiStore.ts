@@ -1,19 +1,27 @@
-import { SimpleBusiness } from '@/utils/types/base'
+import { ChatMessage, ModalData } from '@/utils/types/base'
 import { action, observable, makeObservable } from 'mobx'
 
 export default class UiStore {
-  isUploadingFile: boolean = false
-  isActivatingFile: boolean = false
-  modalData: SimpleBusiness|null = null
+  isUploadingFile: boolean = false;
+  isActivatingFile: boolean = false;
+  modalData: ModalData|null = null;
+  showModal: boolean = false;
+  conversation: ChatMessage[] = [];
 
   constructor () {
     makeObservable(this, {
-      modalData: observable,
       isUploadingFile: observable,
       isActivatingFile: observable,
+      modalData: observable,
+      showModal: observable,
+      conversation: observable,
+
+
       setIsUploadingFile: action,
       setIsActivatingFile:action,
-      setModalData: action
+      setModalData: action,
+      setConversation:action,
+      clearConversation: action,
     })
   }
 
@@ -25,7 +33,24 @@ export default class UiStore {
     this.isActivatingFile = newValue
   }
 
-  setModalData = (newValue: any): void => {
+  setModalData = (newValue: ModalData): void => {
     this.modalData = newValue
+    this.showModal = true;
+
+
+    console.log("setModatData activated")
+    console.log(this.showModal)
+  }
+
+  setShowModal = (showModal:boolean):void =>{
+    this.showModal = showModal;
+  }
+
+  setConversation = (response:any):void =>{
+    this.conversation = [...this.conversation, response];
+  }
+
+  clearConversation = ():void =>{
+    this.conversation = [];
   }
 }

@@ -5,3 +5,9 @@ export enum AccountType {
   business = 'business',
   customer = 'customer'
 }
+
+
+export enum ResponseRoles {
+  ai = 'ai',
+  user = 'user'
+}

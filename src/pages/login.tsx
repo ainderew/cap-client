@@ -1,5 +1,5 @@
 import useStores from "@/core/stores/UseStores";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { config } from "../../config";
 import usePostData from "@/hooks/usePostData";
@@ -19,7 +19,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const { authStore } = useStores();
   const router = useRouter();
-  const { handlePostRequest, loading } = usePostData(
+  const { data,handlePostRequest, loading } = usePostData(
     `${config.BACKEND_ENDPOINT}/login`
   );
 
@@ -30,23 +30,27 @@ const Login: React.FC = () => {
     };
 
     try {
-      const response: LoginReply = await handlePostRequest(bodyObj);
-
-      if (response?.message === "Invalid Credentials") {
-        void message.error(response.message);
-        return;
-      }
-
-      authStore.loginUser(response);
-      if (response.profile.type === AccountType.business) {
-        void router.replace("/business/dashboard");
-      } else {
-        void router.replace("/home");
-      }
+      await handlePostRequest(bodyObj);
     } catch (err) {
       console.log(err);
     }
   }
+
+  useEffect(()=>{
+    if(!data) return;
+
+    if (data?.message === "Invalid Credentials") {
+      void message.error(data.message);
+      return;
+    }
+
+    authStore.loginUser(data);
+    if (data.profile.type === AccountType.business) {
+      void router.replace("/business/dashboard");
+    } else {
+      void router.replace("/home");
+    }
+  },[data])
   return (
     <DefaultLayout>
       <div className='flex  items-center justify-center font-poppins'>

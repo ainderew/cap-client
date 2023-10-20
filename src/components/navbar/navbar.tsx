@@ -24,7 +24,7 @@ function NavBar(): React.ReactElement {
     <div
       className={`${
         hideNav ? "slide-out-top opacity-0" : "opacity-100"
-      } fixed top-0 z-10 flex h-20 w-full items-center gap-9 bg-[rgba(255,255,255,0.5)] px-28 shadow-sm transition-all duration-300`}
+      } fixed top-0 z-10 hidden lg:flex h-20 w-full items-center gap-9 bg-[rgba(255,255,255,0.5)] px-28 shadow-sm transition-all duration-300`}
     >
       <Logo />
       <NavOptions />

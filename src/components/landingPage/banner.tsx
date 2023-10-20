@@ -1,8 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { motion, useScroll, useTransform} from "framer-motion";
+import { motion, useScroll, useTransform, useAnimation } from "framer-motion";
 import ProductPreview from "./productPreview";
 import LeftHighlight from "./highlight/left";
+import Image from "next/image";
 
 function Banner(): React.ReactElement {
   const router = useRouter();
@@ -10,18 +11,25 @@ function Banner(): React.ReactElement {
 
   const productXAnimtation = useTransform(
     scrollY,
-    [0, 500, 1000, 1400],
+    [300, 800, 1500, 1800],
     [-900, 0, 0, 2000]
   );
-  const opacity = useTransform(scrollY, [800, 1000, 1400], [1, 1, 0]);
-  const productScale = useTransform(scrollY, [-200, 200, 1000, 1400], [0, 1, 1, 0]);
+
+  const opacity = useTransform(scrollY, [1200, 1400, 1700], [1, 1, 0]);
+  const productScale = useTransform(
+    scrollY,
+    [300, 800, 1500, 1800],
+    [0, 1, 1, 0]
+  );
 
   const y2 = useTransform(scrollY, [1400, 2400], [50, -400]);
   return (
     <div className='section-1 flex w-full flex-col items-center justify-center'>
-      <section className='flex h-screen px-4 lg:px-0 lg:h-[50vh] w-full flex-col items-center justify-center gap-8'>
-        <span className='self-start md:self-center font-semibold text-white'>BRAMK</span>
-        <h2 className='text-left md:text-center text-5xl font-semibold text-white sm:text-[3.125rem] lg:text-[4.125rem] xl:text-6xl'>
+      <section className='flex h-screen w-full flex-col items-center justify-center gap-8 px-4 lg:px-0 py-8'>
+        <span className='self-start font-semibold text-white md:self-center'>
+          BRAMK
+        </span>
+        <h2 className='text-left text-5xl font-semibold text-white sm:text-[3.125rem] md:text-center lg:text-[4.125rem] xl:text-6xl'>
           Elevate your business with <br />
           <span className='text-blue-500'>AI-powered </span> support.
         </h2>
@@ -29,12 +37,11 @@ function Banner(): React.ReactElement {
         <span className='text-justify md:text-center'>
           The first software designed to accommodate your entire business
           process under one solution,
-          <br className="md:block hidden" /> making it easy to use and easy to run. It allows you to
-          incorporate all your employees
-          <br className="md:block hidden" /> and contractors, track expenses, and provide real-time project
-          profitability
+          <br className='hidden md:block' /> making it easy to use and easy to
+          run. It allows you to incorporate all your employees
+          <br className='hidden md:block' /> and contractors, track expenses,
+          and provide real-time project profitability
         </span>
-
         <div className='group flex gap-5 text-sm'>
           <button
             onClick={() => router.push("/home")}
@@ -46,19 +53,30 @@ function Banner(): React.ReactElement {
             </div>
           </button>
         </div>
+
+        <div className='hovering-mascot h-[30vh] w-full lg:h-96 lg:w-96 relative'>
+          <Image src={"mascot.svg"} fill alt='bramk' />
+        </div>
       </section>
 
-      <div className='relative flex lg:h-[300vh] xl:h-[250vh] w-full flex-col items-center '>
-        <div className='animation_fix md:block sticky h-[100vh] md:h-[140vh] xl:h-[120vh] w-full overflow-hidden top-0'>
+      <div className='relative flex w-full flex-col items-center lg:h-[300vh] xl:h-[250vh]'>
+        <div className='animation_fix sticky top-0 h-[250vh] w-full overflow-hidden md:block md:h-[140vh] xl:h-[200vh]'>
           <motion.div
-            style={{ scale: productScale, x: productXAnimtation, opacity }}
+            key={"setuplayout_motion"}
+            style={{ scale: productScale, opacity, x:productXAnimtation }}
+            transition={{
+              // x: { type: "spring", stiffness: 100 },
+              stiffness: 0,
+              duration: 0.8,
+              delay: 0,
+            }}
             className='sticky top-7 flex w-full items-center justify-center'
           >
             <ProductPreview />
           </motion.div>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-[50%_1fr] xl:grid-cols-[40%_1fr] items-center justify-center text-gray-900 md:h-[150vh] w-[90%] md:w-[90%] xl:h-screen xl:w-9/12'>
+        <div className='grid w-[90%] grid-cols-1 items-center justify-center text-gray-900 md:h-[150vh] md:w-[90%] md:grid-cols-[50%_1fr] xl:h-screen xl:w-9/12 xl:grid-cols-[40%_1fr]'>
           <motion.div
             style={{ y: y2 }}
             className='flex h-1/2 w-full flex-col justify-end gap-8 text-center md:text-left'
@@ -66,8 +84,12 @@ function Banner(): React.ReactElement {
             <LeftHighlight />
           </motion.div>
 
-          <div className='bg-highlightRight bg-cover md:bg-contain bg-no-repeat flex h-full md:h-1/2 w-full items-center px-12 justify-start'>
-            <motion.div style={{ y: y2 }} className='bg-highlightLeft bg-no-repeat bg-cover h-80 w-80' />
+          <div className='flex h-full w-full items-center justify-start bg-highlightRight bg-cover bg-no-repeat px-12 md:h-1/2 md:bg-contain'>
+            <motion.div
+              key={"setuplayout_motion2"}
+              style={{ y: y2 }}
+              className='h-80 w-80 bg-highlightLeft bg-cover bg-no-repeat'
+            />
           </div>
         </div>
       </div>
