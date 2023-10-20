@@ -80,7 +80,7 @@ const GeneralChatUI: React.FC = () => {
           <div className="">
             <div className="flex h-[calc(35vh-4rem)] items-end justify-center border-b-2 py-14">
               <div className="flex items-center gap-4">
-                <Image src={'/logo.svg'} width={40} height={40} alt="Logo" />
+                <Image src={'/mascot.svg'} width={40} height={40} alt="Logo" />
                 <h2 className="text-3xl font-thin">
                   <span className="font-bold">ChatXpert </span>
                   AI Support Center
