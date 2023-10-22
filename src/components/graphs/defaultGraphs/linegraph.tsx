@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend } from 'chart.js'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js'
 
 ChartJS.register(
   CategoryScale,
@@ -10,10 +20,13 @@ ChartJS.register(
   Title,
   Tooltip,
   Filler,
-  Legend
+  Legend,
 )
 
-const LineGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({ months, clickCounts }) => {
+const LineGraph: React.FC<{ months: string[]; clickCounts: number[] }> = ({
+  months,
+  clickCounts,
+}) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
 
@@ -26,51 +39,49 @@ const LineGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({ mont
           label: 'Click Count', // You can customize the label here
           data: clickCounts,
           borderColor: 'rgba(43, 153, 255, 1)',
-          backgroundColor: 'rgba(53, 162, 235, 0.5)'
-        }
-      ]
+          backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        },
+      ],
     })
 
     setChartOptions({
       scales: {
         x: {
           ticks: {
-            display: true
+            display: true,
           },
           grid: {
-            display: false
-          }
+            display: false,
+          },
         },
         y: {
-
           ticks: {
-            display: true
+            display: true,
           },
           grid: {
             color: 'rgba(43, 153, 255, 1)',
-            display: true
-          }
-        }
+            display: true,
+          },
+        },
       },
       plugins: {
         legend: {
           display: false,
-          position: 'top' as const
+          position: 'top' as const,
         },
         title: {
           display: true,
-          text: 'MONTHLY DATA'
-        }
+          text: 'MONTHLY DATA',
+        },
       },
       tension: 0.2,
       maintainAspectRatio: false,
-      responsive: true
+      responsive: true,
     })
   }, [months, clickCounts])
 
   return (
-
-    <div className='h-full w-auto'>
+    <div className='h-full w-auto '>
       <Line options={chartOptions} data={chartDataset} />
     </div>
   )

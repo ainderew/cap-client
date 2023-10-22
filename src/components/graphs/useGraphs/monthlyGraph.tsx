@@ -39,36 +39,32 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
 
   useEffect(() => {
     if (!props.businessId) return
-    const run = async() =>{
+    const run = async () => {
       const res = await getMonthlyData()
 
       setMonthData(res)
     }
 
-    run();
-
+    run()
   }, [props.businessId])
-
 
   return (
     <>
       <p className='text-[3rem]'>Monthly Report</p>
-      <div className='grid  grid-cols-1 items-center gap-4 lg:grid-cols-5'>
-        {!data.loading ? (
-          <div className='order-first col-span-3 min-h-[25rem] shadow-md md:h-[32rem]'>
+      <div className='grid  grid-cols-1 items-center gap-4 lg:grid-cols-6'>
+        <div className='order-first col-span-4 min-h-[15rem] shadow-md md:h-[22rem]'>
+          {!data.loading ? (
             <LineGraph
               months={monthData.labels}
               clickCounts={monthData.clicks}
             />
-          </div>
-        ) : (
-          <div className='order-first  col-span-3 h-[25rem] shadow-md md:h-[32rem]'>
+          ) : (
             <Loading />
-          </div>
-        )}
+          )}
+        </div>
         {!data.loading ? (
           <div>
-            <div className='col-span-2 hidden h-[30rem] w-[25rem]   text-center lg:block'>
+            <div className='col-span-2 hidden h-[22rem] w-[25rem]   text-center lg:block'>
               <DoughnutGraph
                 months={['12-18', '19-26', '26-60', '60 above']}
                 clickCounts={[
@@ -94,7 +90,7 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
             </div>
           </div>
         ) : (
-          <div className=' col-span-3 h-[25rem]'>
+          <div className=' col-span-4 h-[25rem]'>
             <Loading />
           </div>
         )}

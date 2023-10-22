@@ -1,56 +1,56 @@
-import useStores from "@/core/stores/UseStores";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { config } from "../../config";
-import usePostData from "@/hooks/usePostData";
-import { type userProfile } from "@/utils/types/auth";
-import { message } from "antd";
-import { AccountType } from "@/utils/enums";
-import DefaultLayout from "./layouts/default";
+import useStores from '@/core/stores/UseStores'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { config } from '../../config'
+import usePostData from '@/hooks/usePostData'
+import { type userProfile } from '@/utils/types/auth'
+import { message } from 'antd'
+import { AccountType } from '@/utils/enums'
+import DefaultLayout from './layouts/default'
 
 interface LoginReply {
-  message?: string;
-  authToken: string;
-  profile: userProfile;
+  message?: string
+  authToken: string
+  profile: userProfile
 }
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const { authStore } = useStores();
-  const router = useRouter();
-  const { data,handlePostRequest, loading } = usePostData(
-    `${config.BACKEND_ENDPOINT}/login`
-  );
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const { authStore } = useStores()
+  const router = useRouter()
+  const { data, handlePostRequest, loading } = usePostData(
+    `${config.BACKEND_ENDPOINT}/login`,
+  )
 
   async function submitForm(): Promise<void> {
     const bodyObj = {
       email,
       password,
-    };
+    }
 
     try {
-      await handlePostRequest(bodyObj);
+      await handlePostRequest(bodyObj)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
 
-  useEffect(()=>{
-    if(!data) return;
+  useEffect(() => {
+    if (!data) return
 
-    if (data?.message === "Invalid Credentials") {
-      void message.error(data.message);
-      return;
+    if (data?.message === 'Invalid Credentials') {
+      void message.error(data.message)
+      return
     }
 
-    authStore.loginUser(data);
+    authStore.loginUser(data)
     if (data.profile.type === AccountType.business) {
-      void router.replace("/business/dashboard");
+      void router.replace('/business/dashboard')
     } else {
-      void router.replace("/home");
+      void router.replace('/home')
     }
-  },[data])
+  }, [data])
   return (
     <DefaultLayout>
       <div className='flex  items-center justify-center font-poppins'>
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
               type='text'
               className='w-[25rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
               onChange={(e) => {
-                setEmail(e.target.value);
+                setEmail(e.target.value)
               }}
             ></input>
           </div>
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
               type='password'
               className='w-[25rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
               onChange={(e) => {
-                setPassword(e.target.value);
+                setPassword(e.target.value)
               }}
             ></input>
           </div>
@@ -97,7 +97,7 @@ const Login: React.FC = () => {
         </div>
       </div>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
