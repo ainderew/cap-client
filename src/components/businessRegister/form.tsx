@@ -39,26 +39,30 @@ const BusinessRegisterForm: React.FC = () => {
     })
   }
 
-
-  useEffect(() => {
-    if (data === null) return
-
-    //make this as separate tsx
-
+  const submitForm = (): void => {
     if (!ValidateUserForm(business, vpassword)) return
 
     if (!industrylist.includes(business.industry)) {
       void message.error('Please select a valid Industry')
       return
     }
-
-    const submitForm = (): void => {
-            const bodyObj: Filter = {
-                ...business
-            }
-            void handlePostRequest(bodyObj)
+    const bodyObj: Filter = {
+      ...business,
+      /*   email: business.email,
+      password: business.password,
+      type: business.type,
+      name: business.name,
+      size: business.size,
+      industry: business.industry, */
     }
-    
+    void handlePostRequest(bodyObj)
+  }
+
+  useEffect(() => {
+    if (data === null) return
+
+    //make this as separate tsx
+
     if (data !== null) void router.push('/login')
   }, [data])
 
