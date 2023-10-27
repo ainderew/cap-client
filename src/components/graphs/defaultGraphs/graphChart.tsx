@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Line } from 'react-chartjs-2'
+import { Bar, Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +10,9 @@ import {
   Tooltip,
   Filler,
   Legend,
+  BarElement,
+  ArcElement,
+  BarController,
 } from 'chart.js'
 
 ChartJS.register(
@@ -21,27 +24,19 @@ ChartJS.register(
   Tooltip,
   Filler,
   Legend,
+  BarElement,
+  ArcElement,
+  BarController,
 )
-const colorPalette = [
-  {
-    hexColor: '#0bb4ff',
-    rgbaColor: 'rgba(53, 162, 235, 0.5)',
-    label: 'previous',
-    type: 'line',
-  },
-  {
-    hexColor: '#e60049',
-    rgbaColor: 'rgba(239, 119, 131, 0.64)',
-    label: 'current',
-    type: 'line',
-  },
-]
 
-const LineGraph: React.FC<{
+const GraphChart: React.FC<{
   tags: string[]
+  axis: string
   clickCounts: any[]
   config: any[]
-}> = ({ tags, clickCounts }) => {
+  barwidth: number
+  show: boolean
+}> = ({ tags, clickCounts, config, axis, barwidth, show }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
 
@@ -49,13 +44,14 @@ const LineGraph: React.FC<{
     setChartDataset({
       labels: tags,
       datasets: clickCounts?.map((clickCount, index) => ({
-        label: colorPalette[index].label,
+        label: config[index].label,
         data: clickCount,
         fill: true,
-        type: colorPalette[index].type,
-        borderColor: colorPalette[index].hexColor,
-        backgroundColor: colorPalette[index].rgbaColor, // Assuming colors is an array of colors
-        barPercentage: 1, // Set the barPercentage to 1 or adjust as needed
+        type: config[index].type, // Specify the type from config
+        borderColor: config[index].hexColor,
+        backgroundColor: config[index].rgbaColor,
+        barPercentage: 1,
+        barThickness: barwidth,
       })),
     })
 
@@ -63,10 +59,10 @@ const LineGraph: React.FC<{
       scales: {
         x: {
           ticks: {
-            display: true,
+            display: show,
           },
           grid: {
-            display: false,
+            display: show,
           },
         },
         y: {
@@ -92,14 +88,16 @@ const LineGraph: React.FC<{
       tension: 0.2,
       maintainAspectRatio: false,
       responsive: true,
+      indexAxis: axis,
     })
   }, [tags, clickCounts])
 
   return (
     <div className='h-full w-auto '>
-      <Line options={chartOptions} data={chartDataset} />
+      {/* Use a Bar and Line component to render mixed chart */}
+      <Bar options={chartOptions} data={chartDataset} />
     </div>
   )
 }
 
-export default LineGraph
+export default GraphChart

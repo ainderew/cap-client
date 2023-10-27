@@ -67,8 +67,8 @@ const CustomerRegisterUI: React.FC = () => {
     }
     console.log(bodyObj)
 
-    if (age < 12) {
-      void message.error('Underage')
+    if (age < 12 || age > 100) {
+      void message.error('Invalid Age')
       return
     }
 

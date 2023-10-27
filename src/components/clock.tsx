@@ -31,12 +31,12 @@ const Clock: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <div className='px-2 text-[2rem] font-bold md:text-[5rem] md:leading-[7rem] md:tracking-[-.5rem] xl:text-6xl xl:tracking-normal'>
+      <div className='text-black'>
+        <div className='px-2 text-[2rem] font-bold  lg:text-[5rem] lg:leading-[7rem] lg:tracking-[-.5rem] xl:text-6xl xl:tracking-normal'>
           Business Data
         </div>
         <span className='px-2'>{formattedDate}</span>
-        <div className='px-2 md:text-[3.5rem]'>{time}</div>
+        <div className='px-2 lg:text-[3.5rem]'>{time}</div>
       </div>
     </div>
   )

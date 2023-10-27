@@ -10,7 +10,9 @@ import {
   Legend,
   ArcElement,
   LineElement,
+  BarController,
 } from 'chart.js'
+import { ScrollNumberProps } from 'antd/es/badge'
 
 ChartJS.register(
   CategoryScale,
@@ -21,27 +23,29 @@ ChartJS.register(
   Legend,
   ArcElement,
   LineElement,
+  BarController,
 )
-
+const colorPalette = ['#0bb4ff', '#e60049']
 const BarGraph: React.FC<{
   months: string[]
-  clickCounts: number[]
+  clickCounts: any[]
   axis: string
-  colors: string[]
+  barwidth: number
   showTicks: boolean
-}> = ({ months, clickCounts, axis, colors, showTicks }) => {
+}> = ({ months, clickCounts, axis, showTicks, barwidth }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
-
+  console.log(clickCounts)
   useEffect(() => {
     setChartDataset({
       labels: months,
-      datasets: [
-        {
-          data: clickCounts,
-          backgroundColor: colors,
-        },
-      ],
+      datasets: clickCounts?.map((clickCount, index) => ({
+        data: clickCount,
+        backgroundColor: colorPalette[index], // Assuming colors is an array of colors
+        barPercentage: 1,
+        type: 'bar',
+        barThickness: barwidth, // Set the barPercentage to 1 or adjust as needed
+      })),
     })
 
     setChartOptions({
@@ -94,7 +98,6 @@ const BarGraph: React.FC<{
               type: 'line',
               mode: 'horizontal',
               scaleID: 'y',
-              value: clickCounts.reduce((a, b) => Math.max(a, b), 0),
               borderColor: 'rgba(75, 192, 192, 0.8)',
               borderWidth: 2,
               label: {
