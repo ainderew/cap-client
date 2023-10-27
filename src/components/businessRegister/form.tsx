@@ -39,7 +39,7 @@ const BusinessRegisterForm:React.FC = () => {
 
     const submitForm = (): void => {
             const bodyObj: Filter = {
-                business
+                ...business
             }
             void handlePostRequest(bodyObj)
     }

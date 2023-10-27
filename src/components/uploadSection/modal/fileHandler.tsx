@@ -1,7 +1,7 @@
 import { uploadFiles } from '@/utils/uploadthing'
 import { Button } from 'antd'
 import React from 'react'
-import useHandleUpload from './hooks/useHandleUpload'
+import useHandleUpload from '../hooks/useHandleUpload'
 import useStores from '@/core/stores/UseStores'
 import { UploadFileResponse } from 'uploadthing/client'
 import InputTextToTextFile from '@/utils/functions/inputToFile'
