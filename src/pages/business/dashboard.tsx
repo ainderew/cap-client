@@ -14,38 +14,34 @@ const Dashboard: React.FC = () => {
   const [yearlyData, setYearlyData] = useState<any>({ labels: [], clicks: [] })
   const [currentYearly, setCurrentYearly] = useState<any>(0)
 
-
   const { authStore } = useStores()
   const businessId = authStore.userProfile?._id
 
   const [getYearlyClicks, data] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/yearlyclicks/${
-      businessId ? businessId :  ''
+      businessId ? businessId : ''
     }/${currentDate.getFullYear()}`,
   )
 
-  const [getTotalCicks ] = useLazyFetchData(
+  const [getTotalCicks] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/clicks/${
-      businessId ? businessId :  ''
+      businessId ? businessId : ''
     }/${currentDate.getFullYear()}`,
   )
   // getYearlyClicks()
 
-  useEffect(() =>{
-    if(!businessId) return
-    const run = async () =>{
+  useEffect(() => {
+    if (!businessId) return
+    const run = async () => {
       const yearlyClicks = await getYearlyClicks()
       const currentYear = await getTotalCicks()
 
-
-      setYearlyData(yearlyClicks);
-      setCurrentYearly(currentYear);
+      setYearlyData(yearlyClicks)
+      setCurrentYearly(currentYear)
     }
 
     run()
-    
-  },[businessId])
-
+  }, [businessId])
 
   // useEffect(() => {
   //   if (year === null || totalYear === null) return
@@ -56,7 +52,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <div className='px-4 lg:px-[5rem] 2xl:px-[15rem]'>
+      <div className='px-4 lg:px-[5rem] 2xl:px-[10rem]'>
         <div className=' mt-10 grid  grid-cols-8 justify-center gap-2'>
           <section className='col-span-8 grid grid-cols-1 gap-2 pt-2 lg:grid-cols-4'>
             <div
@@ -89,6 +85,7 @@ const Dashboard: React.FC = () => {
             />
           </section>
           <section className='col-span-8 mb-10 mt-10 '>
+            <span className='text-[1.4rem] font-semibold'>Monthly Report </span>
             <MonthlyGraph businessId={businessId} />
           </section>
         </div>

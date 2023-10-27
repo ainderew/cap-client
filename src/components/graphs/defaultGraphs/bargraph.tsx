@@ -10,6 +10,7 @@ import {
   Legend,
   ArcElement,
   LineElement,
+  BarController,
 } from 'chart.js'
 
 ChartJS.register(
@@ -21,6 +22,7 @@ ChartJS.register(
   Legend,
   ArcElement,
   LineElement,
+  BarController,
 )
 
 const BarGraph: React.FC<{
@@ -40,6 +42,7 @@ const BarGraph: React.FC<{
         {
           data: clickCounts,
           backgroundColor: colors,
+          barThickness: 30,
         },
       ],
     })

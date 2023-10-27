@@ -6,17 +6,7 @@ interface Details {
   yearlyData: any
   isRetrieved: boolean
 }
-const colorPalette = [
-  '#fd7f6f',
-  '#7eb0d5',
-  '#b2e061',
-  '#bd7ebe',
-  '#ffb55a',
-  '#ffee65',
-  '#beb9db',
-  '#fdcce5',
-  '#8bd3c7',
-]
+
 const YearlyGraph: React.FC<Details> = ({ ...props }) => {
   return (
     <>
@@ -28,7 +18,7 @@ const YearlyGraph: React.FC<Details> = ({ ...props }) => {
               months={props.yearlyData.labels}
               clickCounts={props.yearlyData.clicks}
               axis={'x'}
-              colors={colorPalette}
+              colors={['#2B99FF']}
               showTicks={true}
             />
           </div>
@@ -37,7 +27,7 @@ const YearlyGraph: React.FC<Details> = ({ ...props }) => {
               months={props.yearlyData.labels}
               clickCounts={props.yearlyData.clicks}
               axis={'y'}
-              colors={colorPalette}
+              colors={['#2B99FF']}
               showTicks={true}
             />
           </div>

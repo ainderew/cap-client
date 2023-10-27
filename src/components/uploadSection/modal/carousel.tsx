@@ -10,7 +10,9 @@ export interface ContentProps{
 
 const ModalCarousel:React.FC = () => {
     const [title, setTitle] = useState<string>('')
-    const [, set] = useState<string>('')
+    const [collectedData, setCollectedData] = useState<string>(
+        
+    )
     const [content, setContent] = useState<ContentProps>(
         {
             description: '',
