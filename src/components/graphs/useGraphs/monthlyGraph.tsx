@@ -50,9 +50,8 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
 
   return (
     <>
-      <p className='text-[3rem]'>Monthly Report</p>
       <div className='grid  grid-cols-1 items-center gap-4 lg:grid-cols-6'>
-        <div className='order-first col-span-4 min-h-[15rem] shadow-md md:h-[22rem]'>
+        <div className='order-first col-span-4 min-h-[15rem] rounded-md shadow-md md:h-[22rem]'>
           {!data.loading ? (
             <LineGraph
               months={monthData.labels}

@@ -85,6 +85,7 @@ const Dashboard: React.FC = () => {
             />
           </section>
           <section className='col-span-8 mb-10 mt-10 '>
+            <span className='text-[1.4rem] font-semibold'>Monthly Report </span>
             <MonthlyGraph businessId={businessId} />
           </section>
         </div>

@@ -13,21 +13,25 @@ const CurrentData: React.FC<Details> = ({ ...props }) => {
           title={'Engagements This Year'}
           data={props.clicks[0]}
           isRetrieved={props.isRetrieved}
+          icon={'year'}
         />
         <DataCard
           title={'Engagements This Month'}
           data={props.clicks[1]}
           isRetrieved={props.isRetrieved}
+          icon={'month'}
         />
         <DataCard
           title={'Average Monthly Engagements'}
           data={props.clicks[2]}
           isRetrieved={props.isRetrieved}
+          icon={'aveMonth'}
         />
         <DataCard
           title={'Average Daily Engagements'}
           data={props.clicks[3]}
           isRetrieved={props.isRetrieved}
+          icon={'daily'}
         />
       </div>
     </>

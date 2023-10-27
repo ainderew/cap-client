@@ -5,7 +5,7 @@ import Image from 'next/image'
 interface Details {
   title: string
   data: number
-
+  icon: string
   isRetrieved: boolean // Correct the prop name to isRetrieved
 }
 
@@ -19,10 +19,12 @@ const DataCard: React.FC<Details> = ({ ...prop }) => {
           <div className='flex items-end justify-between pr-2 lg:pr-10'>
             <div className='flex items-center gap-4'>
               <div className='relative h-10  w-10 '>
-                <Image src={'/year.svg'} fill alt='chatxpert' />
+                <Image src={`/${prop.icon}.svg`} fill alt='chatxpert' />
               </div>
               <p className='text-[3rem] font-semibold'>
-                {data > 1000
+                {Number.isNaN(data)
+                  ? 0
+                  : data > 1000
                   ? data >= 1000000
                     ? (data / 1000000).toFixed(1) + 'M'
                     : (data / 1000).toFixed(1) + 'k'

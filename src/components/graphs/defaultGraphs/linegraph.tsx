@@ -39,7 +39,7 @@ const LineGraph: React.FC<{ months: string[]; clickCounts: number[] }> = ({
           label: 'Click Count', // You can customize the label here
           data: clickCounts,
           borderColor: 'rgba(43, 153, 255, 1)',
-          backgroundColor: 'rgba(53, 162, 235, 0.5)',
+          backgroundColor: 'rgba(14, 255, 212, .5)',
         },
       ],
     })
@@ -60,7 +60,7 @@ const LineGraph: React.FC<{ months: string[]; clickCounts: number[] }> = ({
           },
           grid: {
             color: 'rgba(43, 153, 255, 1)',
-            display: true,
+            display: false,
           },
         },
       },
@@ -81,7 +81,7 @@ const LineGraph: React.FC<{ months: string[]; clickCounts: number[] }> = ({
   }, [months, clickCounts])
 
   return (
-    <div className='h-full w-auto '>
+    <div className='h-full w-auto  '>
       <Line options={chartOptions} data={chartDataset} />
     </div>
   )
