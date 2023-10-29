@@ -53,7 +53,7 @@ const TrendGraph: React.FC = () => {
         {!data.loading ? (
           <GraphChart
             tags={Array.from({ length: 12 }, (_, index) => index + 1)}
-            axis={''}
+            axis={'x'}
             clickCounts={industryData?.map((item: any) => item.monthly)}
             config={ConfigIndustry(
               industryData?.map((item: any) => item.industry),
@@ -71,7 +71,7 @@ const TrendGraph: React.FC = () => {
       <div className='col-span-2 h-[12rem] border-2 bg-white shadow-md md:h-[20rem] '>
         {!data.loading ? (
           <GraphChart
-            tags={Array.from({ length: 5 }, (_, index) => index + 1)}
+            tags={Array.from({ length: 4 }, (_, index) => index + 1)}
             axis={'x'}
             clickCounts={[industryData?.map((item: any) => item.counts)]}
             config={ConfigIndustry(

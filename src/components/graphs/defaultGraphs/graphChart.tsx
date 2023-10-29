@@ -44,12 +44,12 @@ const GraphChart: React.FC<{
     setChartDataset({
       labels: tags,
       datasets: clickCounts?.map((clickCount, index) => ({
-        label: config[index].label,
+        label: config && config[index] ? config[index].label : '', // Check if config and config[index] are defined
         data: clickCount,
         fill: true,
-        type: config[index].type, // Specify the type from config
-        borderColor: config[index].hexColor,
-        backgroundColor: config[index].rgbaColor,
+        type: config && config[index] ? config[index].type : '',
+        borderColor: config && config[index] ? config[index].hexColor : '',
+        backgroundColor: config && config[index] ? config[index].rgbaColor : '',
         barPercentage: 1,
         barThickness: barwidth,
       })),

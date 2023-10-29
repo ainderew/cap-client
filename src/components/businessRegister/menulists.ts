@@ -26,7 +26,7 @@ export function ConfigIndustry(labels: any[], color: any[], type: string) {
     key: index,
     hexColor: color[index],
     rgbaColor: [
-      'rgba(0, 180, 255, 1)',
+      'rgba(0, 180, 255, 0.2)',
       'rgba(249, 217, 183, 0.2)',
       'rgba(240, 167, 160, 0.2)',
       'rgba(231, 119, 167, 0.2)',
