@@ -123,7 +123,7 @@ const BusinessRegisterForm: React.FC = () => {
                   <BusinessIndustrySearch list={industrylist} defaultMessage='Select one . . .' business={business} setBusiness={setBusiness} />
                 </div>
               </div> */}
-      <div>
+      <div className='w-[20rem]'>
         <p>Business Size</p>
         <BusinessDropdown
           list={sizelist}
@@ -132,7 +132,7 @@ const BusinessRegisterForm: React.FC = () => {
           setBusiness={setBusiness}
         />
       </div>
-      <div>
+      <div className='w-[20rem]'>
         <p>Industry</p>
         <BusinessIndustrySearch
           list={industrylist}

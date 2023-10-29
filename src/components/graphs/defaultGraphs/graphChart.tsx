@@ -30,16 +30,16 @@ ChartJS.register(
 )
 
 const GraphChart: React.FC<{
-  tags: string[]
+  tags: any[]
   axis: string
   clickCounts: any[]
   config: any[]
   barwidth: number
   show: boolean
-}> = ({ tags, clickCounts, config, axis, barwidth, show }) => {
+  title: string
+}> = ({ tags, clickCounts, config, axis, barwidth, show, title }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
-
   useEffect(() => {
     setChartDataset({
       labels: tags,
@@ -82,7 +82,7 @@ const GraphChart: React.FC<{
         },
         title: {
           display: true,
-          text: 'MONTHLY DATA',
+          text: title,
         },
       },
       tension: 0.2,

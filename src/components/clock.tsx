@@ -31,7 +31,7 @@ const Clock: React.FC = () => {
 
   return (
     <div>
-      <div className='text-black'>
+      <div>
         <div className='px-2 text-[2rem] font-bold  lg:text-[5rem] lg:leading-[7rem] lg:tracking-[-.5rem] xl:text-6xl xl:tracking-normal'>
           Business Data
         </div>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import BarGraph from '../defaultGraphs/bargraph'
 import Loading from '@/components/loading'
 import GraphChart from '../defaultGraphs/graphChart'
+import CurrentData from './cuereentData'
 
 interface Details {
   yearlyData: any
   isRetrieved: boolean
+  monthNames: string[]
 }
 
 const config = [
@@ -23,24 +24,10 @@ const config = [
   },
 ]
 
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-]
-
 const YearlyGraph: React.FC<Details> = ({ ...props }) => {
   const movingAverage: number[] = []
   const windowSize = 3 // 3-month moving average
+  const currentDate = new Date()
 
   for (let i = 0; i < props.yearlyData?.length; i++) {
     if (i < windowSize - 1) {
@@ -69,29 +56,29 @@ const YearlyGraph: React.FC<Details> = ({ ...props }) => {
               barwidth={50}
             /> */}
             <GraphChart
-              tags={monthNames}
+              tags={props.monthNames.slice(0, currentDate.getMonth() + 2)}
               clickCounts={[movingAverage, props.yearlyData]}
               config={config}
               axis={'x'}
               barwidth={50}
               show={true}
+              title={'Year Data'}
             />
           </div>
           <div className='col-span-3 block h-[30rem] rounded-lg border-2 border-solid border-[#5d5d5d29] md:hidden '>
             <GraphChart
-              tags={monthNames}
+              tags={props.monthNames}
               clickCounts={[movingAverage, props.yearlyData]}
               config={config}
               axis={'y'}
               barwidth={20}
               show={true}
+              title={'Year Data'}
             />
           </div>
         </div>
       ) : (
-        <div className='order-first col-span-5 h-[25rem] shadow-md md:col-span-3 md:h-[25rem]'>
-          <Loading />
-        </div>
+        <div className='order-first col-span-5 h-[25rem] shadow-md md:col-span-3 md:h-[25rem]'></div>
       )}
     </>
   )

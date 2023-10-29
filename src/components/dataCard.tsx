@@ -2,6 +2,7 @@ import React from 'react'
 /* import BarGraph from './bargraph' */
 import { Skeleton } from 'antd'
 import Image from 'next/image'
+import { formatNumber } from '@/utils/functions/numberFormat'
 interface Details {
   title: string
   data: number
@@ -22,13 +23,7 @@ const DataCard: React.FC<Details> = ({ ...prop }) => {
                 <Image src={`/${prop.img}.svg`} fill alt='chatxpert' />
               </div>
               <p className='text-[2.5rem] font-semibold sm:text-[2.5rem] xl:tracking-[.4rem]'>
-                {Number.isNaN(data)
-                  ? 0
-                  : data > 1000
-                  ? data >= 1000000
-                    ? (data / 1000000).toFixed(1) + 'M'
-                    : (data / 1000).toFixed(1) + 'k'
-                  : data}
+                {formatNumber(data)}
               </p>
             </div>
           </div>

@@ -22,7 +22,7 @@ const CurrentData: React.FC<Details> = ({ ...props }) => {
           img={'month'}
         />
         <DataCard
-          title={'Average Monthly Engagements'}
+          title={'Seasonal Monthly Engagements'}
           data={props.clicks[2]}
           isRetrieved={props.isRetrieved}
           img={'aveMonth'}
