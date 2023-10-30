@@ -49,7 +49,7 @@ const ModalCarousel:React.FC<CarouselProps> = ({content, data, setContent, setDi
     const list = [
         {
             tag: 'description', 
-            label: 'Description"', 
+            label: 'Description:', 
             details: `Give us a brief overview of your business and what it can offer to customers`,
             content: content.description 
         },{
@@ -74,7 +74,9 @@ const ModalCarousel:React.FC<CarouselProps> = ({content, data, setContent, setDi
             <Carousel ref={ref} className='max-w-[80vh]' afterChange={(e:number)=>setCurrent(e)}>
                 <div className='p-4'>
                     <div>
-                        <p>Create New Dataset</p>
+                        <p className='text-xl font-semibold'>Create New Dataset</p>
+                        <p className='text-lg'> In the following sections, we'll provide you with comprehensive guideline about 
+                        the data the should be provided. Make sure the data is accurate for a better and more reliable insights into your business.</p>
                     </div>
                     <p className='my-2 text-md font-semibold'>Title</p>
                     <div className='text-neutral-500 italic'>{`The name of the dataset`}</div>
