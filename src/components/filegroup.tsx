@@ -32,8 +32,8 @@ const FileGroup: React.FC = () => {
 
   useEffect(() => {
     if (isUploadingFile || isActivatingFile) return;
-
     refetch();
+    console.log(files)
   }, [isUploadingFile, isActivatingFile]);
 
   if (loading) {

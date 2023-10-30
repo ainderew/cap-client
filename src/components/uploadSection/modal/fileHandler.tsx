@@ -9,35 +9,38 @@ import InputTextToTextFile from '@/utils/functions/inputToFile'
 interface ComponentProp{
     title: string
     inputText: string
+    isDisabled: boolean
 }
 
-const FileUploadButton:React.FC<ComponentProp> = ({title, inputText}) => {
+const FileUploadButton:React.FC<ComponentProp> = ({title, inputText, isDisabled}) => {
     const { sendFileData } = useHandleUpload()
     const { uiStore: { setIsUploadingFile } } = useStores()
     
     const fileUploadStart = async () => {
         setIsUploadingFile(true)
+        const newFile = InputTextToTextFile(title, inputText)
+        
+        console.log(newFile)
+        
         try {
-            const newFile = InputTextToTextFile(title, inputText)
-
             const res = await uploadFiles({
                     files: newFile,
                     endpoint: "text",
             });
-            
-            if (res != null) {
+            console.log(res) 
+            if(res!==null){
                 const data: UploadFileResponse = res[0]
                 void sendFileData(data)
-            }
-
+            }   
+            setIsUploadingFile(false)
         } catch (error) {
             console.log(error)
+            setIsUploadingFile(false)
         }
-        setIsUploadingFile(false)
     };
 
     return (
-        <Button onClick={fileUploadStart}>
+        <Button onClick={fileUploadStart} disabled={isDisabled}>
             Confirm
         </Button>
     )

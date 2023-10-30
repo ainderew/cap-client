@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import NotificationCard from "./notificationCard";
-import useFetchData from "@/hooks/useFetchData";
 import { config } from "../../config";
 import useStores from "@/core/stores/UseStores";
 import { Spin } from "antd";
@@ -27,9 +26,14 @@ const NotificationBar: React.FC = () => {
 
     async () => {
       const resNotifs = await getNotifications();
+      console.log(resNotifs)
       setNotifications(resNotifs.data)
     };
   }, [businessId]);
+
+  useEffect(() => {
+    console.log(data.loading)
+  }, []);
 
   return (
     <div className=' w-[25rem] border-[#77777722]  '>

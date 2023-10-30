@@ -12,7 +12,7 @@ const ButtonOpen:React.FC = () => {
 
     return (
         <div>
-            <Button type='primary' onClick={showModal}> CREATE NEW DATASET</Button>
+            <Button type='primary' size='middle' ghost className='bg-white' onClick={showModal}> Create new dataset</Button>
             <FileModal open={open} setOpen={setOpen}/>
         </div>
     )

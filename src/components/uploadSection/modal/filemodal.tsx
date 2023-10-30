@@ -1,36 +1,57 @@
-import { Carousel, Modal } from 'antd'
+import { Button, Modal } from 'antd'
 import React, { useState } from 'react'
+import FileUploadButton from './fileHandler'
+import ModalCarousel from './carousel'
 
 interface FileModalProps{
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const FileModal:React.FC<FileModalProps> = ({open, setOpen}) => {
-    
-    const [confirmLoading, setConfirmLoading] = useState(false);
+export interface DataProps{
+  title: string
+  inputText: string
+}
+export interface ContentProps{
+  description: string
+  prodserv: string
+  policies: string
+  other: string
+}
 
+const FileModal:React.FC<FileModalProps> = ({open, setOpen}) => {
+    const [data, setData] = useState<DataProps>({
+      title: '',
+      inputText: ''
+    })
+
+    const [content, setContent] = useState<ContentProps>(
+      {
+          description: '',
+          prodserv: '',
+          policies: '',
+          other: '',
+      }
+  )
     
-    
-      const handleOk = () => {
-        setConfirmLoading(true);
-        setTimeout(() => {
-          setOpen(false);
-          setConfirmLoading(false);
-        }, 2000);
-      };
+    const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
     
       const handleCancel = () => {
         setOpen(false);
       };
 
+
     return (
         <Modal
         open={open}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}>
-          
+        onCancel={handleCancel}
+        footer={[
+          <Button key='cancel' danger onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <FileUploadButton key='upload' title={data.title} inputText={data.inputText} isDisabled={disableSubmit}/>
+        ]}>
+          <ModalCarousel setDisableSubmit={setDisableSubmit} content={content} data={data} setContent={setContent} setData={setData}/>
         </Modal>
     )
 }

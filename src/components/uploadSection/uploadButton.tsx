@@ -34,9 +34,11 @@ export default function UploadButtonWrapper (): React.ReactElement {
         const data: UploadFileResponse = res[0]
         void sendFileData(data)
       }
+      setIsUploadingFile(false) 
     }}
     onUploadError={(error: Error) => {
       handleError(error.message)
+      setIsUploadingFile(false) 
     }}
   />
 }
