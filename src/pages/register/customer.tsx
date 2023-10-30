@@ -1,7 +1,8 @@
-import { DatePicker, type DatePickerProps } from 'antd'
+import { DatePicker, message, type DatePickerProps } from 'antd'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { config } from '../../../config'
+import ValidateUserForm from '@/components/registerValidation'
 
 interface Customer {
   email: string
@@ -22,7 +23,7 @@ const CustomerRegisterUI: React.FC = () => {
   const [vpassword, setVPassword] = useState<string>('')
   const [age, setAge] = useState<number>(0)
   const handleRedirect = (route: string): void => {
-    router.push(route).catch(err => {
+    router.push(route).catch((err) => {
       throw err
     })
   }
@@ -62,28 +63,35 @@ const CustomerRegisterUI: React.FC = () => {
       type: 'customer',
       username,
       birthdate,
-      age
-
+      age,
     }
+    console.log(bodyObj)
+
+    if (age < 12) {
+      void message.error('Underage')
+      return
+    }
+
+    if (!ValidateUserForm(bodyObj, vpassword)) return
 
     fetch(`${config.BACKEND_ENDPOINT}/api/register/customer`, {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bodyObj)
+      body: JSON.stringify(bodyObj),
     })
-      .then(async res => {
+      .then(async (res) => {
         const test = res.json()
         console.log(test)
         return await test
       })
-      .then(data => {
+      .then((data) => {
         console.log(data)
-        router.push('/home').catch(err => {
+        router.push('/home').catch((err) => {
           throw err
         })
       })
-      .catch(err => {
+      .catch((err) => {
         throw err
       })
   }
@@ -95,75 +103,91 @@ const CustomerRegisterUI: React.FC = () => {
           <div className=' flex items-center justify-center'>
             <div>
               <div className='mb-[1.5rem]'>
-                <div className='text-[3.5rem] font-[700] tracking-[.5rem]'>WELCOME</div>
-              <div className='text-[1] font-[600]'>Enter your account details</div>
-              {/*   <div className='font-[600] tracking-[.1rem]'>
+                <div className='text-[3.5rem] font-[700] tracking-[.5rem]'>
+                  WELCOME
+                </div>
+                <div className='font-[600] text-[1]'>
+                  Enter your account details
+                </div>
+                {/*   <div className='font-[600] tracking-[.1rem]'>
                   Manage customer support with the help of AI
                 </div> */}
               </div>
-              <section className='font-[400] text-[.9rem] flex flex-col gap-2'>
-              <div >
-                <div >Email</div>
-                <input
-                  type='text'
-                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-                  value={email}
-                  onChange={e => {
-                    setEmail(e.target.value)
-                  }}
-                ></input>
-              </div>
-              <div className='  '>
-                <div >Username</div>
-                <input
-                  type='text'
-                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-                  value={username}
-                  onChange={e => {
-                    setUsername(e.target.value)
-                  }}
-                ></input>
-              </div>
-              <div className='  '>
-                <div >Password</div>
-                <input
-                  type='password'
-                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-                  value={password}
-                  onChange={e => {
-                    setPassword(e.target.value)
-                  }}
-                ></input>
-              </div>
-              <div className='  '>
-                <div >Verify Password</div>
-                <input
-                  type='password'
-                  className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-                  value={vpassword}
-                  onChange={e => {
-                    setVPassword(e.target.value)
-                  }}
-                ></input>
-              </div>
-              <div className='  '>
-                <div >Date of Birth</div>
-                <DatePicker onChange={onChange} className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'/>
-              </div>
+              <section className='flex flex-col gap-2 text-[.9rem] font-[400]'>
+                <div>
+                  <div>Email</div>
+                  <input
+                    type='text'
+                    className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                    }}
+                  ></input>
+                </div>
+                <div className='  '>
+                  <div>Username</div>
+                  <input
+                    type='text'
+                    className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(e.target.value)
+                    }}
+                  ></input>
+                </div>
+                <div className='  '>
+                  <div>Password</div>
+                  <input
+                    type='password'
+                    className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value)
+                    }}
+                  ></input>
+                </div>
+                <div className='  '>
+                  <div>Verify Password</div>
+                  <input
+                    type='password'
+                    className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                    value={vpassword}
+                    onChange={(e) => {
+                      setVPassword(e.target.value)
+                    }}
+                  ></input>
+                </div>
+                <div className='  '>
+                  <div>Date of Birth</div>
+                  <DatePicker
+                    onChange={onChange}
+                    className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+                  />
+                </div>
 
-              <div className='text-[.9rem] text-[#878787]'>
-                      <p>Register as <a className='font-semibold text-[#2B99FF] hover:text-black cursor-pointer' onClick={() => {
+                <div className='text-[.9rem] text-[#878787]'>
+                  <p>
+                    Register as{' '}
+                    <a
+                      className='cursor-pointer font-semibold text-[#2B99FF] hover:text-black'
+                      onClick={() => {
                         handleRedirect('/register/business')
-                      }}>Business</a> instead</p>
-                    </div>
-              <div className='mt-[1rem] font-[600]'>
-                <button
-                  onClick={submitForm}
-                  className='w-[20rem] rounded-[.3rem] bg-[#2B99FF] text-white px-[1.5rem] py-[.3rem] text-[.8rem] font-[600]'
-                >
-                  Proceed
-                </button>
-              </div>
+                      }}
+                    >
+                      Business
+                    </a>{' '}
+                    instead
+                  </p>
+                </div>
+                <div className='mt-[1rem] font-[600]'>
+                  <button
+                    onClick={submitForm}
+                    className='w-[20rem] rounded-[.3rem] bg-[#2B99FF] px-[1.5rem] py-[.3rem] text-[.8rem] font-[600] text-white'
+                  >
+                    Proceed
+                  </button>
+                </div>
               </section>
             </div>
           </div>

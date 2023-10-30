@@ -1,42 +1,42 @@
 import React, { useEffect, useState } from "react";
 import NotificationCard from "./notificationCard";
-import useFetchData from "@/hooks/useFetchData";
 import { config } from "../../config";
 import useStores from "@/core/stores/UseStores";
 import { Spin } from "antd";
-import useLazyFetchData from "@/hooks/useLazyFetchData";
+import useFetchData from "@/hooks/useFetchData";
 
 const NotificationBar: React.FC = () => {
   const { authStore } = useStores();
   const [notifications, setNotifications] = useState<any>([]);
   const businessId = authStore.userProfile?._id;
-  const [getNotifications, data] = useLazyFetchData(
+  const {data, loading} = useFetchData(
     `${config.BACKEND_ENDPOINT}/api/notification/getnotifications/${
       businessId ? businessId : ""
     }`
   );
 
-  // useEffect(() => {
-  //   if (data === null) return;
-  //   console.log(data);
-  //   setNotifications(data);
-  // }, [data]);
-
   useEffect(() => {
-    if (!businessId) return;
+    if (data === null) return;
+    console.log(data);
+    setNotifications(data);
+  }, [data]);
 
-    async () => {
-      const resNotifs = await getNotifications();
-      setNotifications(resNotifs.data)
-    };
-  }, [businessId]);
+  // useEffect(() => {
+  //   if (!businessId) return;
+  //   console.log('Getting notifications')
+  //   async () => {
+  //     const resNotifs = await getNotifications();
+  //     console.log('notifications:',resNotifs)
+  //     setNotifications(resNotifs.data)
+  //   };
+  // }, [businessId]);
 
   return (
     <div className=' w-[25rem] border-[#77777722]  '>
       <span className='sticky top-0 z-10 flex items-center justify-start   bg-[#ffffff] px-2 py-2 text-[1.3rem]  '>
         Notification
       </span>
-      {data.loading ? (
+      {loading ? (
         <Spin />
       ) : (
         <section className='z-0 max-h-[70vh]  overflow-auto '>
