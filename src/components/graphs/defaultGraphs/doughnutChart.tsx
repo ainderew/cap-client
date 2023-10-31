@@ -3,13 +3,8 @@ import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-<<<<<<< HEAD
 const colorPalette = ['#A1A1A1', '#81DDC5', '#65A4F5', '#8F7ED4', '#EF7783']
 
-=======
-/* const colorPalette = ['#8F7ED4', '#F5C269', '#EF7783', '#65A4F5', '#ffb55a'] */
-const colorPalette = ['#65A4F5', '#8F7ED4', '#F5C269', '#EF7783']
->>>>>>> main
 const DoughnutGraph: React.FC<{
   position: string
   months: string[]

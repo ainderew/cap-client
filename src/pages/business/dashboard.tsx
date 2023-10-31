@@ -89,7 +89,6 @@ const Dashboard: React.FC = () => {
               isRetrieved={data.loading}
             />
           </section>
-<<<<<<< HEAD
           <section className='col-span-8 min-h-full  '>
             <span className=' text-[1.4rem] font-semibold'>Trend Report</span>
 
@@ -110,11 +109,6 @@ const Dashboard: React.FC = () => {
             <span className=' text-[1.4rem] font-semibold'>Demographics</span>
 
             <AgeData monthData={clicksdata?.clicks} loading={data.loading} />
-=======
-          <section className='col-span-8 mb-10 mt-10 '>
-            <span className='text-[1.4rem] font-semibold'>Monthly Report </span>
-            <MonthlyGraph businessId={businessId} />
->>>>>>> main
           </section>
         </div>
       </div>
