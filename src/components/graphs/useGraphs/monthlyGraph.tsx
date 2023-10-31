@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Loading from '@/components/loading'
-import DoughnutGraph from '@/components/graphs/defaultGraphs/doughnutChart'
 import GraphChart from '../defaultGraphs/graphChart'
 import { Select } from 'antd'
 import Image from 'next/image'
-import AgeDisplay from '@/components/ageDisplay'
-import AgeData from './ageData'
 interface Details {
   monthData: any
   loading: boolean
@@ -108,28 +105,6 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
                 </p>
               </div>
             </div>
-            {/*    <div className='flex items-center gap-2 rounded-lg bg-[#2B99FF] text-white    sm:px-10 md:bg-white md:text-black'>
-              <div className='relative h-12 w-4  '>
-                <Image
-                  src={
-                    ((previous?.total - current?.total) / previous?.total) *
-                      100 <
-                    0
-                      ? '/upArrow.svg'
-                      : '/downArrow.svg'
-                  }
-                  fill
-                  alt='arrow'
-                />
-              </div>
-              <p>
-                {(
-                  ((current?.total - previous?.total) / previous?.total) *
-                  100
-                ).toFixed(2)}
-                %
-              </p>
-            </div> */}
           </div>
           <div className='col-span-5 h-[15rem] border-2 shadow-md md:h-[rem]'>
             {!props.loading ? (

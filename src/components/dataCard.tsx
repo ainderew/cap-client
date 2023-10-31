@@ -15,7 +15,9 @@ const DataCard: React.FC<Details> = ({ ...prop }) => {
 
   return (
     <div className='grid min-h-[5rem] cursor-default overflow-visible rounded-lg border-2 border-solid border-[#5d5d5d10] bg-[#2B99FF] p-2 px-2 text-[#ffffff] drop-shadow-sm xl:px-4'>
-      {!prop.isRetrieved ? (
+      {prop.isRetrieved ? (
+        <Skeleton active />
+      ) : (
         <div>
           <div className='flex items-end justify-between pr-2 lg:pr-10'>
             <div className='flex items-center gap-4'>
@@ -29,8 +31,6 @@ const DataCard: React.FC<Details> = ({ ...prop }) => {
           </div>
           <p className='text-[0.6rem] sm:text-[0.8rem]'>{prop.title}</p>
         </div>
-      ) : (
-        <Skeleton active />
       )}
     </div>
   )

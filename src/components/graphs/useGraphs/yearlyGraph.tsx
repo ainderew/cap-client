@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Loading from '@/components/loading'
 import GraphChart from '../defaultGraphs/graphChart'
-import CurrentData from './cuereentData'
 
 interface Details {
   yearlyData: any

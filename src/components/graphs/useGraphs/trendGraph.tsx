@@ -1,9 +1,7 @@
-import useStores from '@/core/stores/UseStores'
 import useLazyFetchData from '@/hooks/useLazyFetchData'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { config } from '../../../../config'
-import useFetchData from '@/hooks/useFetchData'
 import GraphChart from '../defaultGraphs/graphChart'
 import {
   ConfigIndustry,
@@ -38,8 +36,8 @@ const TrendGraph: React.FC = () => {
       <div className='col-span-1 flex flex-col'>
         <div className='text-[1.2rem]'>Top Industry</div>
         <div className=' flex flex-col justify-center rounded-lg  border-2 bg-white  px-4  text-sm shadow-lg lg:min-h-[18rem]'>
-          {industryData?.slice(0, 5).map((item: any) => (
-            <div className='grid grid-cols-[80%_20%] py-2'>
+          {industryData?.slice(0, 5).map((item: any, index: any) => (
+            <div className='grid grid-cols-[80%_20%] py-2' key={index}>
               <div className='flex'>
                 <p className='h-[.1rem] bg-black'></p>
                 {item.industry}

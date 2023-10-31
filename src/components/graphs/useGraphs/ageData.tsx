@@ -3,7 +3,6 @@ import Loading from '@/components/loading'
 import React from 'react'
 import DoughnutGraph from '../defaultGraphs/doughnutChart'
 import GraphChart from '../defaultGraphs/graphChart'
-import TrendGraph from './trendGraph'
 interface props {
   monthData: any
   loading: boolean
