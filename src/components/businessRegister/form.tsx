@@ -33,7 +33,6 @@ const BusinessRegisterForm: React.FC = () => {
   const { data, loading, handlePostRequest } = usePostData(
     `${config.BACKEND_ENDPOINT}/api/register/business`,
   )
-  const [hasError, setHasError] = useState<boolean>(false)
   const handleRedirect = (route: string): void => {
     router.push(route).catch((err) => {
       throw err
@@ -49,12 +48,6 @@ const BusinessRegisterForm: React.FC = () => {
     }
     const bodyObj: Filter = {
       ...business,
-      /*   email: business.email,
-      password: business.password,
-      type: business.type,
-      name: business.name,
-      size: business.size,
-      industry: business.industry, */
     }
     void handlePostRequest(bodyObj)
   }
@@ -113,17 +106,7 @@ const BusinessRegisterForm: React.FC = () => {
           className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
         ></input>
       </div>
-      {/*   <div className='grid grid-cols-2 gap-3'>
-                <div >
-                  <p>Business Size</p>
-                  <BusinessDropdown list={sizelist} defaultMessage='Select one . . .' business={business} setBusiness={setBusiness} />
-                </div>
-                <div>
-                  <p>Industry</p>
-                  <BusinessIndustrySearch list={industrylist} defaultMessage='Select one . . .' business={business} setBusiness={setBusiness} />
-                </div>
-              </div> */}
-      <div className='w-[20rem]'>
+      <div>
         <p>Business Size</p>
         <BusinessDropdown
           list={sizelist}

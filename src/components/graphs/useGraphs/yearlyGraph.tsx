@@ -46,13 +46,6 @@ const YearlyGraph: React.FC<Details> = ({ ...props }) => {
       {!props.isRetrieved ? (
         <div>
           <div className='col-span-3 hidden h-[25rem] rounded-lg border-2 border-solid border-[#5d5d5d29] md:block '>
-            {/*  <BarGraph
-              months={monthNames}
-              clickCounts={[props.yearlyData]}
-              axis={'x'}
-              showTicks={true}
-              barwidth={50}
-            /> */}
             <GraphChart
               tags={props.monthNames.slice(0, currentDate.getMonth() + 2)}
               clickCounts={[movingAverage, props.yearlyData]}

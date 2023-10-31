@@ -40,12 +40,12 @@ export default function useLazyFetchData (endpoint: string): useLazyFetchReturnT
         }
       })
       const retrivedData = await res.json()
-
+      
       setFetchedStates({
         data: retrivedData,
         loading: false
       })
-
+      console.log(retrivedData)
       return retrivedData
     } catch (error: any) {
       void message.error(error)
