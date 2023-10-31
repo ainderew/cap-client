@@ -115,7 +115,7 @@ const BusinessRegisterForm: React.FC = () => {
           setBusiness={setBusiness}
         />
       </div>
-      <div>
+      <div className='w-[20rem]'>
         <p>Industry</p>
         <BusinessIndustrySearch
           list={industrylist}

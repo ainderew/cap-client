@@ -1,54 +1,52 @@
 import Clock from '@/components/clock'
 import useStores from '@/core/stores/UseStores'
 import React, { useEffect, useState } from 'react'
-import useFetchData from '@/hooks/useFetchData'
 import { config } from '../../../config'
 import DefaultLayout from '../layouts/default'
 import YearlyGraph from '@/components/graphs/useGraphs/yearlyGraph'
 import CurrentData from '@/components/graphs/useGraphs/cuereentData'
-import MonthlyGraph from '@/components/graphs/useGraphs/monthlyGraph'
 import useLazyFetchData from '@/hooks/useLazyFetchData'
+import MonthlyGraph from '@/components/graphs/useGraphs/monthlyGraph'
+import AgeData from '@/components/graphs/useGraphs/ageData'
+import TrendGraph from '@/components/graphs/useGraphs/trendGraph'
 
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
 const Dashboard: React.FC = () => {
   const currentDate = new Date()
-  const [yearlyData, setYearlyData] = useState<any>({ labels: [], clicks: [] })
-  const [currentYearly, setCurrentYearly] = useState<any>(0)
+  const [clicksdata, setClicksdata] = useState<any>()
 
   const { authStore } = useStores()
   const businessId = authStore.userProfile?._id
 
-  const [getYearlyClicks, data] = useLazyFetchData(
-    `${config.BACKEND_ENDPOINT}/api/yearlyclicks/${
-      businessId ? businessId : ''
-    }/${currentDate.getFullYear()}`,
-  )
-
-  const [getTotalCicks] = useLazyFetchData(
+  const [getCicks, data] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/clicks/${
       businessId ? businessId : ''
     }/${currentDate.getFullYear()}`,
   )
-  // getYearlyClicks()
 
   useEffect(() => {
     if (!businessId) return
     const run = async () => {
-      const yearlyClicks = await getYearlyClicks()
-      const currentYear = await getTotalCicks()
-
-      setYearlyData(yearlyClicks)
-      setCurrentYearly(currentYear)
+      const currentClicks = await getCicks()
+      setClicksdata(currentClicks)
     }
+    console.log(currentDate.getDate())
 
     run()
   }, [businessId])
-
-  // useEffect(() => {
-  //   if (year === null || totalYear === null) return
-
-  //   setYearlyData(year)
-  //   setCurrentYearly(totalYear)
-  // }, [year, totalYear])
 
   return (
     <DefaultLayout>
@@ -56,37 +54,61 @@ const Dashboard: React.FC = () => {
         <div className=' mt-10 grid  grid-cols-8 justify-center gap-2'>
           <section className='col-span-8 grid grid-cols-1 gap-2 pt-2 lg:grid-cols-4'>
             <div
-              className='col-span-4 flex h-[10rem] flex-col justify-center rounded-md bg-[#3ba0ff] text-white md:col-span-1 md:h-[30rem] md:rounded-[2rem]'
+              className='col-span-4 flex h-[10rem] flex-col justify-center overflow-hidden rounded-md border-2 bg-[#005cb3df]  text-white shadow-lg md:col-span-1 md:rounded-[2rem] lg:h-[25rem]'
               style={{
                 backgroundImage: 'url("../images/calendarBg.svg")',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
               }}
             >
+              {/*   <Summary yearlyData={undefined} isRetrieved={false} /> */}
               <Clock />
             </div>
             <div className='col-span-3'>
               <YearlyGraph
                 isRetrieved={data.loading}
-                yearlyData={{ ...yearlyData }}
+                yearlyData={clicksdata?.monthlyCounts}
+                monthNames={monthNames}
               />
             </div>
           </section>
-          <section className='col-span-8 mt-10'>
+
+          <section className='col-span-8 mt-4'>
             <span className='text-[1.4rem] font-semibold'>Current Data </span>
             <CurrentData
               clicks={[
-                currentYearly,
-                yearlyData.clicks[currentDate.getMonth()],
-                yearlyData.clicks[currentDate.getMonth()] / 12,
-                yearlyData.clicks[currentDate.getMonth()] / 365,
+                clicksdata?.thisyearClicks,
+                clicksdata?.monthlyCounts[currentDate.getMonth()],
+                (clicksdata?.monthlyCounts[currentDate.getMonth()] /
+                  (clicksdata?.thisyearClicks / (currentDate.getMonth() + 1))) *
+                  100,
+                (clicksdata?.monthlyCounts[currentDate.getMonth()] /
+                  currentDate.getDate()) *
+                  100,
               ]}
               isRetrieved={data.loading}
             />
           </section>
-          <section className='col-span-8 mb-10 mt-10 '>
-            <span className='text-[1.4rem] font-semibold'>Monthly Report </span>
-            <MonthlyGraph businessId={businessId} />
+          <section className='col-span-8 min-h-full  '>
+            <span className=' text-[1.4rem] font-semibold'>Trend Report</span>
+
+            <TrendGraph />
+          </section>
+          <section className='col-span-8 mb-10  '>
+            <span className=' text-[1.4rem] font-semibold'>Monthly Report</span>
+            <MonthlyGraph
+              monthData={clicksdata?.clicks}
+              loading={data.loading}
+              monthNames={monthNames}
+            />
+          </section>
+          {/*   <section className='col-span-8 min-h-full  '>
+            <TrendGraph monthNames={monthNames} />
+          </section> */}
+          <section className='col-span-8 min-h-full  '>
+            <span className=' text-[1.4rem] font-semibold'>Demographics</span>
+
+            <AgeData monthData={clicksdata?.clicks} loading={data.loading} />
           </section>
         </div>
       </div>
