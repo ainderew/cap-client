@@ -3,8 +3,8 @@ import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-/* const colorPalette = ['#8F7ED4', '#F5C269', '#EF7783', '#65A4F5', '#ffb55a'] */
-const colorPalette = ['#65A4F5', '#8F7ED4', '#F5C269', '#EF7783']
+const colorPalette = ['#A1A1A1', '#81DDC5', '#65A4F5', '#8F7ED4', '#EF7783']
+
 const DoughnutGraph: React.FC<{
   position: string
   months: string[]
@@ -28,12 +28,11 @@ const DoughnutGraph: React.FC<{
     setChartOptions({
       plugins: {
         legend: {
-          display: true,
+          display: false,
           position: position,
         },
         title: {
           display: true,
-          text: 'Monthly Age Demographic',
         },
       },
       cutout: 90,
@@ -43,7 +42,11 @@ const DoughnutGraph: React.FC<{
     })
   }, [months, clickCounts])
 
-  return <Doughnut options={chartOptions} data={chartDataset} />
+  return (
+    <div className='h-full w-auto '>
+      <Doughnut options={chartOptions} data={chartDataset} />
+    </div>
+  )
 }
 
 export default DoughnutGraph

@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
-import NotificationCard from "./notificationCard";
-import { config } from "../../config";
-import useStores from "@/core/stores/UseStores";
-import { Spin } from "antd";
-import useFetchData from "@/hooks/useFetchData";
+import React, { useEffect, useState } from 'react'
+import NotificationCard from './notificationCard'
+import { config } from '../../config'
+import useStores from '@/core/stores/UseStores'
+import { Spin } from 'antd'
+import useFetchData from '@/hooks/useFetchData'
 
 const NotificationBar: React.FC = () => {
-  const { authStore } = useStores();
-  const [notifications, setNotifications] = useState<any>([]);
-  const businessId = authStore.userProfile?._id;
-  const {data, loading} = useFetchData(
+  const { authStore } = useStores()
+  const [notifications, setNotifications] = useState<any>([])
+  const businessId = authStore.userProfile?._id
+  const { data, loading } = useFetchData(
     `${config.BACKEND_ENDPOINT}/api/notification/getnotifications/${
-      businessId ? businessId : ""
-    }`
-  );
+      businessId ? businessId : ''
+    }`,
+  )
 
   useEffect(() => {
-    if (data === null) return;
-    console.log(data);
-    setNotifications(data);
-  }, [data]);
+    if (data === null) return
+    console.log(data)
+    setNotifications(data)
+  }, [data])
 
   // useEffect(() => {
   //   if (!businessId) return;
@@ -57,6 +57,6 @@ const NotificationBar: React.FC = () => {
         </section>
       )}
     </div>
-  );
-};
-export default NotificationBar;
+  )
+}
+export default NotificationBar

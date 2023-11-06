@@ -19,8 +19,10 @@ const Home: React.FC = () => {
   return (
     <DefaultLayout>
       <div className='flex w-full flex-col items-center'>
-        <div className="bg-black w-full h-10 flex items-center justify-center">
-          <span className="text-white text-center text-xs md:text-sm">We're currently building out more features. BRAMK is in Pre-alpha</span>
+        <div className='flex h-10 w-full items-center justify-center bg-black'>
+          <span className='text-center text-xs text-white md:text-sm'>
+            We're currently building out more features. BRAMK is in Pre-alpha
+          </span>
         </div>
         <Banner />
         <div className='flex w-full flex-col gap-10 py-16 lg:w-9/12'>
@@ -89,7 +91,39 @@ const Home: React.FC = () => {
             </section>
           </article>
         </div>
-        <footer className='mt-10 h-[20rem] w-full bg-[#23EBEB]'></footer>
+        <footer className='mt-10  flex h-full w-full items-center justify-center bg-[#005DB3] '>
+          <div className='grid grid-cols-3 items-center  text-white lg:w-9/12'>
+            <div className='col-span-3 pt-10  md:col-span-1'>
+              <div className='relative h-[20rem] w-full '>
+                <Image src={'/mascot.svg'} fill alt='robot' />
+              </div>
+            </div>
+            <div className='col-span-3 flex flex-col  items-center gap-4 px-2 text-center md:col-span-2 md:items-start md:text-start'>
+              <h1 className='text-5xl font-bold '>BRAMK</h1>
+              <p className='text-sm font-light leading-[2rem] tracking-wide'>
+                A comprehensive, user-friendly software that integrates all
+                business processes, manages customer support and contractors,
+                tracks engagements, and offers real-time project profitability.
+              </p>
+              <h2 className='font-bold'>CONTACT</h2>
+              <div className='flex'>
+                {/*  <div className='relative h-[1.5rem] w-[2rem] '>
+                  <Image src={'/email.svg'} fill alt='email' />
+                </div> */}
+                <span>bramk.gpt@gmail.com</span>
+              </div>
+              <h2 className='font-bold'>LOCATION</h2>
+              <div className='flex'>
+                {/*  <div className='relative h-[1.5rem] w-[2rem] '>
+                  <Image src={'/location.svg'} fill alt='location' />
+                </div> */}
+                <span>192 Natalio B. Bacalso Ave, Cebu City, 6000 Cebu</span>
+              </div>
+            </div>
+
+            <p className='col-span-3 justify-self-center'>©COPYRIGHT 2023</p>
+          </div>
+        </footer>
       </div>
     </DefaultLayout>
   )
