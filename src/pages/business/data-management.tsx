@@ -13,7 +13,7 @@ const DataManagement: React.FC = () => {
     <DefaultLayout>
       <FileProvider>
         <div className='flex h-full w-full flex-col items-center'>
-          <div className='w-8/12'>
+          <div className='lg:w-8/12 w-10/12'>
             <UploadSection />
             <FileGroup />
           </div>
