@@ -21,15 +21,7 @@ const NotificationBar: React.FC = () => {
     setNotifications(data)
   }, [data])
 
-  // useEffect(() => {
-  //   if (!businessId) return;
-  //   console.log('Getting notifications')
-  //   async () => {
-  //     const resNotifs = await getNotifications();
-  //     console.log('notifications:',resNotifs)
-  //     setNotifications(resNotifs.data)
-  //   };
-  // }, [businessId]);
+ 
 
   return (
     <div className=' w-[25rem] border-[#77777722]  '>

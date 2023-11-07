@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import FileInfo from "./fileinfo";
 import { formatDate } from "@/utils/functions/dateformat";
 import useStores from "@/core/stores/UseStores";
@@ -8,6 +8,7 @@ import { Empty, Spin } from "antd";
 import { observer } from "mobx-react";
 
 const FileGroup: React.FC = () => {
+  const isInitial = useRef(true);
   const {
     authStore,
     uiStore: { isUploadingFile, isActivatingFile },
@@ -26,15 +27,19 @@ const FileGroup: React.FC = () => {
 
   useEffect(() => {
     if (data === null) return;
-
     setFiles(data);
   }, [data]);
 
   useEffect(() => {
     if (isUploadingFile || isActivatingFile) return;
     refetch();
-    console.log(files)
   }, [isUploadingFile, isActivatingFile]);
+
+  useEffect(() =>{
+    if(!isUploadingFile){
+      refetch();
+    }
+  },[isUploadingFile])
 
   if (loading) {
     return (
