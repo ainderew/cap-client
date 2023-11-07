@@ -38,7 +38,6 @@ export default class UiStore {
     this.showModal = true;
 
 
-    console.log("setModatData activated")
     console.log(this.showModal)
   }
 
