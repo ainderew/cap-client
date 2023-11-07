@@ -8,8 +8,8 @@ import ButtonOpen from './modal/buttonOpen'
 const UploadSection: React.FC = () => {
   const { uiStore: { isUploadingFile } } = useStores()
   return (
-    <div className='mt-8 flex flex-col gap-4 items-center bg-neutral-200 p-12 text-center'>
-      <h3 className='my-2 text-3xl font-semibold'>Upload Business Data</h3>
+    <div className='mt-8 flex flex-col gap-4 items-center bg-neutral-200 p-5 sm:p-12 text-center'>
+      <h3 className='my-2 text-xl md:text-3xl font-semibold'>Upload Business Data</h3>
 
       {isUploadingFile ? 
         <div>
@@ -23,7 +23,7 @@ const UploadSection: React.FC = () => {
         </div>
       }
 
-        <p className='text-md my-2 text-neutral-500'>
+        <p className='text-sm md:text-base my-2 text-neutral-500'>
           Effortlessly upload and manage your business data with our
           user-friendly data management platform.
         </p>

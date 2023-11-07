@@ -35,12 +35,6 @@ const FileGroup: React.FC = () => {
     refetch();
   }, [isUploadingFile, isActivatingFile]);
 
-  useEffect(() =>{
-    if(!isUploadingFile){
-      refetch();
-    }
-  },[isUploadingFile])
-
   if (loading) {
     return (
       <div className='flex h-full w-full items-center justify-center'>
@@ -61,7 +55,7 @@ const FileGroup: React.FC = () => {
     <div className='mt-5'>
       <p className='font-semibold'>Recent Changes</p>
       <section>
-        <ul className='my-2 grid grid-cols-[60%_25%_15%] rounded-md bg-blue-400 px-10 py-1 font-medium text-white'>
+        <ul className='hidden my-2 sm:grid grid-cols-[60%_25%_15%] rounded-md bg-blue-400 px-10 py-1 font-medium text-white'>
           <li className='flex items-center'>File Name</li>
           <li className='flex items-center'>Date Uploaded</li>
           <li className='flex items-center justify-center text-center'>

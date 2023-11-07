@@ -32,7 +32,6 @@ const Login: React.FC = () => {
     try {
       await handlePostRequest(bodyObj)
     } catch (err) {
-      console.log(err)
     }
   }
 
