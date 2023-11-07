@@ -3,7 +3,6 @@ import usePostData from '@/hooks/usePostData'
 import { config } from '../../../../config'
 import { type Filter } from '@/utils/types/base'
 import { type UploadFileResponse } from 'uploadthing/client'
-import { useEffect } from 'react'
 
 interface useHandleUploadTypes {
   sendFileData: (value: UploadFileResponse) => Promise<void>
