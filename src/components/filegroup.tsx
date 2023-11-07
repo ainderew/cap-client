@@ -35,12 +35,6 @@ const FileGroup: React.FC = () => {
     refetch();
   }, [isUploadingFile, isActivatingFile]);
 
-  useEffect(() =>{
-    if(!isUploadingFile){
-      refetch();
-    }
-  },[isUploadingFile])
-
   if (loading) {
     return (
       <div className='flex h-full w-full items-center justify-center'>

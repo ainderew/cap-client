@@ -26,11 +26,9 @@ const TrendGraph: React.FC = () => {
     const fetchData = async () => {
       const datas = await getData()
       setIndustryData(datas?.slice(0, 5))
-      console.log([industryData?.map((item: any) => item.counts)])
     }
     fetchData()
   }, [])
-  console.log()
   return (
     <div className='grid grid-cols-1 items-center justify-center rounded-sm sm:gap-4 lg:grid-cols-5'>
       <div className='col-span-1 flex flex-col'>
