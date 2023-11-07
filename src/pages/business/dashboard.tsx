@@ -43,7 +43,6 @@ const Dashboard: React.FC = () => {
       const currentClicks = await getCicks()
       setClicksdata(currentClicks)
     }
-    console.log(currentDate.getDate())
 
     run()
   }, [businessId])

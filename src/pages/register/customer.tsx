@@ -31,14 +31,12 @@ const CustomerRegisterUI: React.FC = () => {
 
   const onChange: DatePickerProps['onChange'] = (data, dateString) => {
     if (dateString !== null && dateString !== '') {
-      console.log(dateString)
       const inputDateStr = dateString
       const dob = new Date(inputDateStr)
       dob.setHours(0)
       dob.setMinutes(0)
       dob.setSeconds(0)
       dob.setMilliseconds(0)
-      console.log(dob.toISOString())
 
       const now = currentDate
       let yearsDiff = now.getFullYear() - dob.getFullYear()
@@ -49,11 +47,8 @@ const CustomerRegisterUI: React.FC = () => {
         yearsDiff--
       }
       setAge(yearsDiff)
-      console.log(age)
       setBirthdate(dob)
-      console.log(dob)
     } else {
-      console.log('Test')
     }
   }
 
@@ -66,7 +61,6 @@ const CustomerRegisterUI: React.FC = () => {
       birthdate,
       age,
     }
-    console.log(bodyObj)
 
     if (age < 12 || age > 100) {
       void message.error('Invalid Age')
@@ -83,11 +77,9 @@ const CustomerRegisterUI: React.FC = () => {
     })
       .then(async (res) => {
         const test = res.json()
-        console.log(test)
         return await test
       })
       .then((data) => {
-        console.log(data)
         router.push('/home').catch((err) => {
           throw err
         })

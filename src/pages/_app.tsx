@@ -51,7 +51,6 @@ const App: any = ({ Component, pageProps }: AppProps) => {
     }
 
     const res = await queryProfile()
-    console.log(res)
     if (res === undefined) {
       void message.error('Something went wrong')
       return false

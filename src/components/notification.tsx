@@ -17,7 +17,6 @@ const NotificationBar: React.FC = () => {
 
   useEffect(() => {
     if (data === null) return
-    console.log(data)
     setNotifications(data)
   }, [data])
 

@@ -29,9 +29,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
 
   const handleTrigger = async (): Promise<void> => {
     setIsActivatingFile(true)
-    console.log("starting")
     await handlePostRequest(data)
-    console.log("finished")
     setIsActivatingFile(false)
   }
 

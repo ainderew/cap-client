@@ -40,7 +40,6 @@ export default function usePostData(endpoint: string): UsePostDataReturnType {
     })
       .then(async (res) => await res.json())
       .then((data) => {
-        console.log(data);
         setFetchedStates({
           loading: false,
           data,

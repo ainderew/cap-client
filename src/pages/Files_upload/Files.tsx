@@ -50,7 +50,6 @@ const Files: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState('')
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    console.log(selectedOption)
     setSelectedOption(event.target.value)
   }
 

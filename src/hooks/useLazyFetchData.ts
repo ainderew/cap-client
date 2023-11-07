@@ -45,7 +45,6 @@ export default function useLazyFetchData (endpoint: string): useLazyFetchReturnT
         data: retrivedData,
         loading: false
       })
-      console.log(retrivedData)
       return retrivedData
     } catch (error: any) {
       void message.error(error)
