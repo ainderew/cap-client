@@ -9,6 +9,7 @@ import BusinessDropdown from './dropdown'
 import BusinessIndustrySearch from './searchdropdown'
 import { measureMemory } from 'vm'
 import ValidateUserForm from '../registerValidation'
+import LocationSelector from '../location/locationselector'
 
 export interface BusinessInterface {
   email: string
@@ -17,9 +18,21 @@ export interface BusinessInterface {
   name: string
   size: (typeof sizelist)[number]
   industry: (typeof industrylist)[number]
+  location: any
 }
 
 const BusinessRegisterForm: React.FC = () => {
+  const [businessLocation, setBusinessLocation] = useState({
+    country: '',
+    province: '',
+    cityOrMunicipality: '',
+    specifics: '',
+  });
+  const handleLocationChange = (selectedlocation:any) => {
+    setBusinessLocation(selectedlocation);
+
+    setBusiness({ ...business, location:  selectedlocation})
+  };
   const router = useRouter()
   const [business, setBusiness] = useState<BusinessInterface>({
     email: '',
@@ -28,6 +41,12 @@ const BusinessRegisterForm: React.FC = () => {
     name: '',
     size: '',
     industry: '',
+    location: {
+      country: '',
+      province: '',
+      cityOrMunicipality: '',
+      specifics: ''
+    }
   })
   const [vpassword, setVpassword] = useState<string>('')
   const { data, loading, handlePostRequest } = usePostData(
@@ -53,6 +72,7 @@ const BusinessRegisterForm: React.FC = () => {
   }
 
   useEffect(() => {
+    console.log(business)
     if (data === null) return
 
     //make this as separate tsx
@@ -106,7 +126,7 @@ const BusinessRegisterForm: React.FC = () => {
           className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
         ></input>
       </div>
-      <div>
+      <div  className='w-[20rem]'>
         <p>Business Size</p>
         <BusinessDropdown
           list={sizelist}
@@ -123,6 +143,10 @@ const BusinessRegisterForm: React.FC = () => {
           business={business}
           setBusiness={setBusiness}
         />
+      </div>
+      <div className='w-[20rem]'>
+        <p>Business Location</p>
+        <LocationSelector onLocationChange={handleLocationChange} />
       </div>
       <div className='text-[.7rem] text-[#878787]'>
         <p>

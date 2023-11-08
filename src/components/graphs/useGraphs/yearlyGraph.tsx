@@ -29,10 +29,8 @@ const YearlyGraph: React.FC<Details> = ({ ...props }) => {
 
   for (let i = 0; i < props.yearlyData?.length; i++) {
     if (i < windowSize - 1) {
-      // Not enough data to calculate the moving average, so set it as null or zero as appropriate.
       movingAverage.push(0) // or null
     } else {
-      // Calculate the moving average for the current month and the two previous months.
       const sum = props.yearlyData
         .slice(i - windowSize + 1, i + 1)
         .reduce((acc: number, val: number) => acc + val, 0)

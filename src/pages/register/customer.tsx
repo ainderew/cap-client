@@ -87,7 +87,6 @@ const CustomerRegisterUI: React.FC = () => {
         return await test
       })
       .then((data) => {
-        console.log(data)
         router.push('/home').catch((err) => {
           throw err
         })
