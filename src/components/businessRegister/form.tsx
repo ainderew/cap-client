@@ -72,7 +72,6 @@ const BusinessRegisterForm: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(business)
     if (data === null) return
 
     //make this as separate tsx
