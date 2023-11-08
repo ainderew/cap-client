@@ -22,14 +22,8 @@ export interface BusinessInterface {
 }
 
 const BusinessRegisterForm: React.FC = () => {
-  const [businessLocation, setBusinessLocation] = useState({
-    country: '',
-    province: '',
-    cityOrMunicipality: '',
-    specifics: '',
-  });
+
   const handleLocationChange = (selectedlocation:any) => {
-    setBusinessLocation(selectedlocation);
 
     setBusiness({ ...business, location:  selectedlocation})
   };
@@ -61,6 +55,12 @@ const BusinessRegisterForm: React.FC = () => {
   const submitForm = (): void => {
     if (!ValidateUserForm(business, vpassword)) return
 
+    if (Object.values(business.location).some((value) => !value)) {
+      void message.error('Empty fields')
+  
+      return 
+    }
+    
     if (!industrylist.includes(business.industry)) {
       void message.error('Please select a valid Industry')
       return
