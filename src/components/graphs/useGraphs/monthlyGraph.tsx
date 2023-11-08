@@ -3,6 +3,8 @@ import Loading from '@/components/loading'
 import GraphChart from '../defaultGraphs/graphChart'
 import { Select } from 'antd'
 import Image from 'next/image'
+import { formatNumber } from '@/utils/functions/numberFormat'
+import { fetchProvincesInPhilippines } from '@/components/location/location'
 interface Details {
   monthData: any
   loading: boolean
@@ -97,10 +99,10 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
                   />
                 </div>
                 <p>
-                  {(
+                  {formatNumber(
                     ((current?.total - previous?.total) / previous?.total) *
                     100
-                  ).toFixed(2)}
+                  )}
                   %
                 </p>
               </div>
