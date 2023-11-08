@@ -1,9 +1,9 @@
 import React from 'react'
-import UploadButtonWrapper from './uploadButton'
 import useStores from '@/core/stores/UseStores'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react'
 import ButtonOpen from './modal/buttonOpen'
+import UploadFile from './fileupload/uploadfile'
 
 const UploadSection: React.FC = () => {
   const { uiStore: { isUploadingFile } } = useStores()
@@ -19,7 +19,7 @@ const UploadSection: React.FC = () => {
         <div className='flex flex-col'> 
             <ButtonOpen/>
             <p className='m-3'>or</p>
-            <UploadButtonWrapper />
+            <UploadFile/>
         </div>
       }
 

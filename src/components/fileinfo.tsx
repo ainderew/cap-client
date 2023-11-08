@@ -26,6 +26,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
   const { uiStore: { setIsActivatingFile } } = useStores()
   const data = { businessId: businessid }
   const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/file/trigger/${id}`)
+  const fileName = name.substring(0, name.lastIndexOf('.'))
 
   const handleTrigger = async (): Promise<void> => {
     setIsActivatingFile(true)
@@ -43,7 +44,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
           {status ? 'ACTIVE' : 'DISABLED'}
         </div>
         <ul className='flex flex-col gap-2 sm:gap-0 sm:grid sm:grid-cols-[60%_25%_15%] '>
-          <li className='text-lg font-semibold sm:text-xl '>{name}</li>
+          <li className='text-lg font-semibold sm:text-xl '>{fileName}</li>
           <li className='text-sm sm:text-base text-neutral-500 sm:text-black'><span className='sm:hidden'>Uploaded on </span>{dateuploaded}</li>
           <li className='flex sm:justify-center gap-3'>
           <div >
