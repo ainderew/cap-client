@@ -20,6 +20,7 @@ const NotificationBar: React.FC = () => {
     setNotifications(data)
   }, [data])
 
+ 
 
   return (
     <div className=' w-[25rem] border-[#77777722]  '>

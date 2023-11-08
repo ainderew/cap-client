@@ -20,21 +20,18 @@ const FileUploadButton:React.FC<ComponentProp> = ({title, inputText, isDisabled}
         setIsUploadingFile(true)
         const newFile = InputTextToTextFile(title, inputText)
         
-        console.log(newFile)
         
         try {
             const res = await uploadFiles({
                     files: newFile,
                     endpoint: "text",
             });
-            console.log(res) 
             if(res!==null){
                 const data: UploadFileResponse = res[0]
-                void sendFileData(data)
+                await sendFileData(data)
             }   
             setIsUploadingFile(false)
         } catch (error) {
-            console.log(error)
             setIsUploadingFile(false)
         }
     };

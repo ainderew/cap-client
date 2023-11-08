@@ -23,7 +23,6 @@ function useChatWithAi(): useChatWithAiReturnType{
 
   useEffect(() =>{
     if(!data) return;
-    console.log(data)
     setConversation(data)
   },[data])
 
@@ -33,7 +32,6 @@ function useChatWithAi(): useChatWithAiReturnType{
 
   async function sendChat(e:any, bypass?: boolean){
     if (((e.key !== 'Enter' || loading)) && !bypass) {
-      console.log("RETURNING")
       return
     }
 

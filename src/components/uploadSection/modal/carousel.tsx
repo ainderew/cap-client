@@ -75,7 +75,7 @@ const ModalCarousel:React.FC<CarouselProps> = ({content, data, setContent, setDi
                 <div className='p-4'>
                     <div>
                         <p className='text-xl font-semibold'>Create New Dataset</p>
-                        <p className='text-lg'> In the following sections, we'll provide you with comprehensive guideline about 
+                        <p className='text-base text-neutral-500 sm:text-lg'> In the following sections, we'll provide you with comprehensive guideline about 
                         the data the should be provided. Make sure the data is accurate for a better and more reliable insights into your business.</p>
                     </div>
                     <p className='my-2 text-md font-semibold'>Title</p>

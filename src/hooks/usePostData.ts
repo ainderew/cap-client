@@ -20,7 +20,7 @@ export default function usePostData(endpoint: string): UsePostDataReturnType {
     data: null,
   });
 
-  function handlePostRequest(variables?: Filter): any {
+  async function handlePostRequest(variables?: Filter): Promise<any> {
     setFetchedStates((prev) => {
       return {
         ...prev,
@@ -29,7 +29,7 @@ export default function usePostData(endpoint: string): UsePostDataReturnType {
     });
 
     const filter: Filter = variables ?? {};
-    fetch(endpoint, {
+    await fetch(endpoint, {
       method: "POST",
       mode: "cors",
       headers: {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import FileInfo from "./fileinfo";
 import { formatDate } from "@/utils/functions/dateformat";
 import useStores from "@/core/stores/UseStores";
@@ -8,6 +8,7 @@ import { Empty, Spin } from "antd";
 import { observer } from "mobx-react";
 
 const FileGroup: React.FC = () => {
+  const isInitial = useRef(true);
   const {
     authStore,
     uiStore: { isUploadingFile, isActivatingFile },
@@ -26,14 +27,12 @@ const FileGroup: React.FC = () => {
 
   useEffect(() => {
     if (data === null) return;
-
     setFiles(data);
   }, [data]);
 
   useEffect(() => {
     if (isUploadingFile || isActivatingFile) return;
     refetch();
-    console.log(files)
   }, [isUploadingFile, isActivatingFile]);
 
   if (loading) {
@@ -56,7 +55,7 @@ const FileGroup: React.FC = () => {
     <div className='mt-5'>
       <p className='font-semibold'>Recent Changes</p>
       <section>
-        <ul className='my-2 grid grid-cols-[60%_25%_15%] rounded-md bg-blue-400 px-10 py-1 font-medium text-white'>
+        <ul className='hidden my-2 sm:grid grid-cols-[60%_25%_15%] rounded-md bg-blue-400 px-10 py-1 font-medium text-white'>
           <li className='flex items-center'>File Name</li>
           <li className='flex items-center'>Date Uploaded</li>
           <li className='flex items-center justify-center text-center'>

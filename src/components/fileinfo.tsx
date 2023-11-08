@@ -29,9 +29,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
 
   const handleTrigger = async (): Promise<void> => {
     setIsActivatingFile(true)
-    console.log("starting")
     await handlePostRequest(data)
-    console.log("finished")
     setIsActivatingFile(false)
   }
 
@@ -39,15 +37,16 @@ const FileInfo: React.FC<FileInfoProps> = ({
     <div className='relative my-4 rounded-xl outline outline-1 outline-neutral-300'>
       <div className='px-10 pt-8'>
         <div
-          className={`absolute -top-2 left-5 rounded-md px-5 text-white ${status ? 'bg-green-500' : 'bg-neutral-500'
+          className={`absolute -top-2 left-5 rounded-md px-5 text-white ${status ? 'bg-blue-500' : 'bg-neutral-500'
             }`}
         >
           {status ? 'ACTIVE' : 'DISABLED'}
         </div>
-        <ul className='grid grid-cols-[60%_25%_10%_5%]'>
-          <li className='text-xl'>{name}</li>
-          <li>{dateuploaded}</li>
-          <li>
+        <ul className='flex flex-col gap-2 sm:gap-0 sm:grid sm:grid-cols-[60%_25%_15%] '>
+          <li className='text-lg font-semibold sm:text-xl '>{name}</li>
+          <li className='text-sm sm:text-base text-neutral-500 sm:text-black'><span className='sm:hidden'>Uploaded on </span>{dateuploaded}</li>
+          <li className='flex sm:justify-center gap-3'>
+          <div >
             <section className='flex items-center justify-center gap-2'>
               <Tooltip label='Download'>
                 <a
@@ -59,10 +58,16 @@ const FileInfo: React.FC<FileInfoProps> = ({
                 </a>
               </Tooltip>
             </section>
-          </li>
-          <li>
+          </div>
+          <div>
             {status ? (
-              ''
+              <Image
+              src='/activate.svg'
+              width={24}
+              height={24}
+              alt=''
+              className='opacity-0'
+            />
             ) : (
               <section className='flex items-center justify-center gap-2'>
                 <Tooltip label='Activate'>
@@ -76,6 +81,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
                 </Tooltip>
               </section>
             )}
+          </div>
           </li>
         </ul>
       </div>
