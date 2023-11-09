@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { AutoComplete } from 'antd'
 import React from 'react'
-import { BusinessInterface } from './form'
+import { type BusinessInterface } from './form'
 
 interface BSearchInterface {
   list: string[]
@@ -13,10 +14,10 @@ const BusinessIndustrySearch: React.FC<BSearchInterface> = ({
   list,
   defaultMessage,
   business,
-  setBusiness,
+  setBusiness
 }) => {
   const options = list.map((option) => ({
-    value: option,
+    value: option
   }))
   return (
     <AutoComplete
@@ -25,7 +26,7 @@ const BusinessIndustrySearch: React.FC<BSearchInterface> = ({
       options={options}
       placeholder={defaultMessage}
       filterOption={(inputValue, option) =>
-        option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+        option!.value.toUpperCase().includes(inputValue.toUpperCase())
       }
       value={business.industry}
       onChange={(value) => {

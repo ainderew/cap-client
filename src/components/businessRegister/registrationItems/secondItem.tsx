@@ -1,17 +1,18 @@
-import LocationSelector from "@/components/location/locationselector";
-import BusinessDropdown from "../dropdown";
-import BusinessIndustrySearch from "../searchdropdown";
+import React from 'react'
+import LocationSelector from '@/components/location/locationselector'
+import BusinessDropdown from '../dropdown'
+import BusinessIndustrySearch from '../searchdropdown'
 
-interface props{
+interface props {
   handleLocationChange: any
-  sizelist:any
+  sizelist: any
   business: any
-  setBusiness:any
+  setBusiness: any
   industrylist: any
 }
 
-export default function SecondItem({handleLocationChange,setBusiness, business, sizelist,industrylist}:props):React.ReactElement {
-    return (
+export default function SecondItem ({ handleLocationChange, setBusiness, business, sizelist, industrylist }: props): React.ReactElement {
+  return (
       <>
         <div className='w-[20rem]'>
           <p>Business Size</p>
@@ -40,13 +41,12 @@ export default function SecondItem({handleLocationChange,setBusiness, business, 
         <input
           value={business.website}
           onChange={(e) => {
-            setBusiness({ ...business, website: e.target.value });
+            setBusiness({ ...business, website: e.target.value })
           }}
           type='text'
           className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
         ></input>
       </div>
       </>
-    );
-  }
-  
+  )
+}

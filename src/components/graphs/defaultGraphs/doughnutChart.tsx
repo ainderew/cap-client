@@ -19,26 +19,26 @@ const DoughnutGraph: React.FC<{
       datasets: [
         {
           data: clickCounts,
-          backgroundColor: colorPalette,
+          backgroundColor: colorPalette
           // Use the specified color palette
-        },
-      ],
+        }
+      ]
     })
 
     setChartOptions({
       plugins: {
         legend: {
           display: false,
-          position: position,
+          position
         },
         title: {
-          display: true,
-        },
+          display: true
+        }
       },
       cutout: 90,
       tension: 0.2,
       maintainAspectRatio: false,
-      responsive: true,
+      responsive: true
     })
   }, [months, clickCounts])
 

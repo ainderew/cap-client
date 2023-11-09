@@ -1,22 +1,21 @@
 import { Button, Input, Modal } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 import FileUploadButton from '../modal/fileHandler'
 
-interface SpreadsheetModalProps{
-    content: string
-    title: string
-    open: boolean
-    setContent: React.Dispatch<React.SetStateAction<string>>
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+interface SpreadsheetModalProps {
+  content: string
+  title: string
+  open: boolean
+  setContent: React.Dispatch<React.SetStateAction<string>>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
-  
 
-const SpreadsheetModal:React.FC<SpreadsheetModalProps> = ({content, title, open, setContent, setOpen}) => {
-    const {TextArea} = Input
-    const handleCancel = () => {
-        setOpen(false);
-      };
-    return (
+const SpreadsheetModal: React.FC<SpreadsheetModalProps> = ({ content, title, open, setContent, setOpen }) => {
+  const { TextArea } = Input
+  const handleCancel = (): void => {
+    setOpen(false)
+  }
+  return (
         <Modal
         width={800}
         open={open}
@@ -32,11 +31,11 @@ const SpreadsheetModal:React.FC<SpreadsheetModalProps> = ({content, title, open,
         ]}>
             <TextArea
                 value={content}
-                onChange={(e)=>setContent(e.target.value)}
+                onChange={(e) => { setContent(e.target.value) }}
                 autoSize={{ minRows: 20, maxRows: 20 }}
             />
         </Modal>
-    )
+  )
 }
 
 export default SpreadsheetModal

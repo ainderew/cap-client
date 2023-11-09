@@ -22,7 +22,7 @@ const monthNames = [
   'September',
   'October',
   'November',
-  'December',
+  'December'
 ]
 const Dashboard: React.FC = () => {
   const currentDate = new Date()
@@ -33,18 +33,19 @@ const Dashboard: React.FC = () => {
 
   const [getCicks, data] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/clicks/${
-      businessId ? businessId : ''
-    }/${currentDate.getFullYear()}`,
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      businessId
+    }/${currentDate.getFullYear()}`
   )
 
   useEffect(() => {
-    if (!businessId) return
-    const run = async () => {
+    if (businessId == null) return
+    const run = async (): Promise<void> => {
       const currentClicks = await getCicks()
       setClicksdata(currentClicks)
     }
 
-    run()
+    void run()
   }, [businessId])
 
   return (
@@ -57,7 +58,7 @@ const Dashboard: React.FC = () => {
               style={{
                 backgroundImage: 'url("../images/calendarBg.svg")',
                 backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
+                backgroundSize: 'cover'
               }}
             >
               {/*   <Summary yearlyData={undefined} isRetrieved={false} /> */}
@@ -83,7 +84,7 @@ const Dashboard: React.FC = () => {
                   100,
                 (clicksdata?.monthlyCounts[currentDate.getMonth()] /
                   currentDate.getDate()) *
-                  100,
+                  100
               ]}
               isRetrieved={data.loading}
             />

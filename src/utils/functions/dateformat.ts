@@ -5,10 +5,10 @@ export function formatDate (inputDate: string): string {
   return format(date, 'MMMM dd, yyyy HH:mm:ss')
 }
 
-export function formatRelativeDate(inputDate: string) {
+export function formatRelativeDate (inputDate: string): any {
   return formatDistance(
     new Date(inputDate),
     new Date(),
-   { addSuffix: true }
-)
+    { addSuffix: true }
+  )
 }

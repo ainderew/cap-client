@@ -9,7 +9,7 @@ import {
   Title,
   Tooltip,
   Filler,
-  Legend,
+  Legend
 } from 'chart.js'
 
 ChartJS.register(
@@ -20,12 +20,12 @@ ChartJS.register(
   Title,
   Tooltip,
   Filler,
-  Legend,
+  Legend
 )
 
-const LineGraph: React.FC<{ months: string[]; clickCounts: number[] }> = ({
+const LineGraph: React.FC<{ months: string[], clickCounts: number[] }> = ({
   months,
-  clickCounts,
+  clickCounts
 }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
@@ -39,44 +39,44 @@ const LineGraph: React.FC<{ months: string[]; clickCounts: number[] }> = ({
           label: 'Click Count', // You can customize the label here
           data: clickCounts,
           borderColor: 'rgba(43, 153, 255, 1)',
-          backgroundColor: 'rgba(14, 255, 212, .5)',
-        },
-      ],
+          backgroundColor: 'rgba(14, 255, 212, .5)'
+        }
+      ]
     })
 
     setChartOptions({
       scales: {
         x: {
           ticks: {
-            display: true,
+            display: true
           },
           grid: {
-            display: false,
-          },
+            display: false
+          }
         },
         y: {
           ticks: {
-            display: true,
+            display: true
           },
           grid: {
             color: 'rgba(43, 153, 255, 1)',
-            display: false,
-          },
-        },
+            display: false
+          }
+        }
       },
       plugins: {
         legend: {
           display: false,
-          position: 'top' as const,
+          position: 'top' as const
         },
         title: {
           display: true,
-          text: 'MONTHLY DATA',
-        },
+          text: 'MONTHLY DATA'
+        }
       },
       tension: 0.2,
       maintainAspectRatio: false,
-      responsive: true,
+      responsive: true
     })
   }, [months, clickCounts])
 

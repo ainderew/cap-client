@@ -1,4 +1,4 @@
-export function formatNumber(data: any) {
+export function formatNumber (data: any): any {
   if (Number.isNaN(data)) {
     return 0
   } else if (data > 1000) {

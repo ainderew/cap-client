@@ -10,7 +10,7 @@ import {
   Legend,
   ArcElement,
   LineElement,
-  BarController,
+  BarController
 } from 'chart.js'
 
 ChartJS.register(
@@ -22,7 +22,7 @@ ChartJS.register(
   Legend,
   ArcElement,
   LineElement,
-  BarController,
+  BarController
 )
 
 const BarGraph: React.FC<{
@@ -42,9 +42,9 @@ const BarGraph: React.FC<{
         {
           data: clickCounts,
           backgroundColor: colors,
-          barThickness: 30,
-        },
-      ],
+          barThickness: 30
+        }
+      ]
     })
 
     setChartOptions({
@@ -52,44 +52,44 @@ const BarGraph: React.FC<{
         x: {
           ticks: {
             display: showTicks,
-            color: 'black',
+            color: 'black'
           },
           grid: {
             dispaly: false,
-            color: 'rgba(43, 153, 255, .5)',
-          },
+            color: 'rgba(43, 153, 255, .5)'
+          }
         },
         y: {
           beginAtZero: true,
           ticks: {
             display: showTicks,
-            color: 'black',
+            color: 'black'
           },
           grid: {
             dispaly: false,
-            color: 'rgba(0, 0, 0, .2)',
-          },
-        },
+            color: 'rgba(0, 0, 0, .2)'
+          }
+        }
       },
       layout: {},
       plugins: {
         legend: {
-          display: false,
+          display: false
         },
         title: {
           display: showTicks,
           text: 'This Year Interactions',
           font: {
-            size: 16,
-          },
+            size: 16
+          }
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
           borderColor: 'black',
-          borderWidth: 1,
+          borderWidth: 1
         },
         animation: {
-          duration: 1500,
+          duration: 1500
         },
         annotation: {
           annotations: [
@@ -103,15 +103,15 @@ const BarGraph: React.FC<{
               label: {
                 content: 'Max Value',
                 enabled: true,
-                position: 'right',
-              },
-            },
-          ],
-        },
+                position: 'right'
+              }
+            }
+          ]
+        }
       },
       indexAxis: axis,
       maintainAspectRatio: false,
-      responsive: true,
+      responsive: true
     })
   }, [months, clickCounts])
 

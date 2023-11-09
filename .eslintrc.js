@@ -15,6 +15,8 @@ module.exports = {
   rules: {
     'multiline-ternary': ['error', 'never'],
     'no-return-assign': 'off',
-    '@typescript-eslint/no-misused-promises': 'off'
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'react/react-in-jsx-scope': 'off'
   }
 }

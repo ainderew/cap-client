@@ -37,9 +37,7 @@ const BusinessNavBar: React.FC = () => {
         <div className='hidden flex-1 gap-10 px-10 text-[.9rem] font-semibold md:flex'>
           <button
             className={
-              currentRoute === '/business/dashboard'
-                ? 'underline underline-offset-4 '
-                : ''
+              currentRoute === '/business/dashboard' ? 'underline underline-offset-4 ' : ''
             }
             onClick={() => {
               handleRedirect('/business/dashboard')
@@ -50,9 +48,7 @@ const BusinessNavBar: React.FC = () => {
 
           <button
             className={
-              currentRoute === '/business/data-management'
-                ? 'underline underline-offset-4 '
-                : ''
+              currentRoute === '/business/data-management' ? 'underline underline-offset-4 ' : ''
             }
             onClick={() => {
               handleRedirect('/business/data-management')
@@ -72,9 +68,7 @@ const BusinessNavBar: React.FC = () => {
             <div className='relative h-full w-7'>
               <Image
                 src={
-                  clickNotification
-                    ? '/notificationActive.svg'
-                    : '/notification.svg'
+                  clickNotification ? '/notificationActive.svg' : '/notification.svg'
                 }
                 fill
                 alt='notification'

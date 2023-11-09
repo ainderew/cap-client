@@ -1,54 +1,54 @@
-import { useState } from "react";
-import checkToken from "@/utils/functions/checkToken";
+import { useState } from 'react'
+import checkToken from '@/utils/functions/checkToken'
 
 interface FetchStateTypes {
-  loading: boolean;
-  data: any;
+  loading: boolean
+  data: any
 }
 
 interface UsePostDataReturnType {
-  loading: boolean;
-  data: any;
-  handlePostRequest: (variables?: Filter) => Promise<any>;
+  loading: boolean
+  data: any
+  handlePostRequest: (variables?: Filter) => Promise<any>
 }
 
-type Filter = Record<string, unknown>;
+type Filter = Record<string, unknown>
 
-export default function usePostData(endpoint: string): UsePostDataReturnType {
+export default function usePostData (endpoint: string): UsePostDataReturnType {
   const [fetchStates, setFetchedStates] = useState<FetchStateTypes>({
     loading: false,
-    data: null,
-  });
+    data: null
+  })
 
-  async function handlePostRequest(variables?: Filter): Promise<any> {
+  async function handlePostRequest (variables?: Filter): Promise<any> {
     setFetchedStates((prev) => {
       return {
         ...prev,
-        loading: true,
-      };
-    });
+        loading: true
+      }
+    })
 
-    const filter: Filter = variables ?? {};
+    const filter: Filter = variables ?? {}
     await fetch(endpoint, {
-      method: "POST",
-      mode: "cors",
+      method: 'POST',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${checkToken() ?? ""}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${checkToken() ?? ''}`
       },
-      body: JSON.stringify(filter),
+      body: JSON.stringify(filter)
     })
       .then(async (res) => await res.json())
       .then((data) => {
         setFetchedStates({
           loading: false,
-          data,
-        });
+          data
+        })
       })
       .catch((err) => {
-        throw err;
-      });
+        throw err
+      })
   }
 
-  return { ...fetchStates, handlePostRequest };
+  return { ...fetchStates, handlePostRequest }
 }

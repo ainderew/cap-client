@@ -29,17 +29,17 @@ export default function UploadButtonWrapper (): React.ReactElement {
 
     onUploadBegin={() => { setIsUploadingFile(true) }}
 
-    onClientUploadComplete={async(res) => {
+    onClientUploadComplete={async (res) => {
       if (res != null) {
         const data: UploadFileResponse = res[0]
         await sendFileData(data)
-        return;
+        return
       }
-      setIsUploadingFile(false) 
+      setIsUploadingFile(false)
     }}
     onUploadError={(error: Error) => {
       handleError(error.message)
-      setIsUploadingFile(false) 
+      setIsUploadingFile(false)
     }}
   />
 }

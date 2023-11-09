@@ -11,10 +11,10 @@ const Avatar: React.FC<props> = ({ image }) => {
         src={image === undefined ? '/mascot.svg' : image}
         alt="logo"
         fill
-        
+
         // width={0}
         // height={0}
-        style={{objectFit:'cover' }}
+        style={{ objectFit: 'cover' }}
       />
     </div>
   )

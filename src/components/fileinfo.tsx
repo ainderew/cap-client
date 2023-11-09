@@ -55,7 +55,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
                   target='_blank'
                   rel='noreferrer'
                 >
-                  <CloudDownloadOutlined style={{color:'#3b82f6', fontSize: '24px'}}/>
+                  <CloudDownloadOutlined style={{ color: '#3b82f6', fontSize: '24px' }}/>
                 </a>
               </Tooltip>
             </section>

@@ -11,11 +11,11 @@ const options = {
 }
 
 function NavOptions (): React.ReactElement {
-  const {authStore:{userProfile}} = useStores()
-  
+  const { authStore: { userProfile } } = useStores()
+
   return (
     <div className="flex flex-1 items-center justify-end gap-10 px-10">
-      {options[userProfile ? userProfile?.type : "default"]}
+      {options[(userProfile != null) ? userProfile?.type : 'default']}
     </div>
   )
 }

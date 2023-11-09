@@ -7,7 +7,7 @@ const Clock: React.FC = () => {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   }
   const formattedDate = currentDate.toLocaleDateString(undefined, options)
   useEffect(() => {

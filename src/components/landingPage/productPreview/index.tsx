@@ -1,6 +1,6 @@
-import React from "react";
-import PreviewHeadBar from "./dummyComponents/headBar";
-import PreviewAppBody from "./dummyComponents/appBody";
+import React from 'react'
+import PreviewHeadBar from './dummyComponents/headBar'
+import PreviewAppBody from './dummyComponents/appBody'
 
 const ProductPreview: React.FC = () => {
   return (
@@ -15,7 +15,7 @@ const ProductPreview: React.FC = () => {
 
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductPreview;
+export default ProductPreview

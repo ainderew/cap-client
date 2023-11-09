@@ -1,24 +1,22 @@
-export const fetchProvincesInPhilippines = async () => {
+export const fetchProvincesInPhilippines = async (): Promise<any> => {
   try {
-    const nominatimApiEndpoint = 'https://nominatim.openstreetmap.org/search?';
-    const query = 'q=province+in+philippines&format=json';
+    const nominatimApiEndpoint = 'https://nominatim.openstreetmap.org/search?'
+    const query = 'q=province+in+philippines&format=json'
 
-    const response = await fetch(`${nominatimApiEndpoint}${query}`);
+    const response = await fetch(`${nominatimApiEndpoint}${query}`)
 
     if (!response.ok) {
-      throw new Error(`Error fetching data: ${response.status}`);
+      throw new Error(`Error fetching data: ${response.status}`)
     }
 
-    const data = await response.json();
-    const provinces = data.map((result: any) => result.display_name);
+    const data = await response.json()
+    const provinces = data.map((result: any) => result.display_name)
 
-    return provinces;
+    return provinces
   } catch (error) {
-    console.error('Error:', error);
-    return [];
+    console.error('Error:', error)
+    return []
   }
-};
-
+}
 
 // Example usage:
-

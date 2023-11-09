@@ -1,107 +1,109 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { config } from "../../../config";
-import usePostData from "@/hooks/usePostData";
-import { type Filter } from "@/utils/types/base";
-import { Spin, message } from "antd";
-import { industrylist, sizelist } from "./menulists";
-import ValidateUserForm from "../registerValidation";
-import PaginationController from "./paginationController";
-import FirstItem from "./registrationItems/firstItem";
-import SecondItem from "./registrationItems/secondItem";
-import ThirdItem from "./registrationItems/thirdItem";
-import { Image } from 'antd';
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import { config } from '../../../config'
+import usePostData from '@/hooks/usePostData'
+import { type Filter } from '@/utils/types/base'
+import { Spin, message, Image } from 'antd'
+import { industrylist, sizelist } from './menulists'
+import ValidateUserForm from '../registerValidation'
+import PaginationController from './paginationController'
+import FirstItem from './registrationItems/firstItem'
+import SecondItem from './registrationItems/secondItem'
+import ThirdItem from './registrationItems/thirdItem'
 
 export interface BusinessInterface {
-  email: string;
-  password: string;
-  type: string;
-  name: string;
-  size: (typeof sizelist)[number];
-  industry: (typeof industrylist)[number];
-  location: any;
-  website: string;
+  email: string
+  password: string
+  type: string
+  name: string
+  size: (typeof sizelist)[number]
+  industry: (typeof industrylist)[number]
+  location: any
+  website: string
   photo: string
 }
 
 interface props {
-  forwards: any;
-  backwards: any;
-  currentStep: number;
-  steps: any;
+  forwards: any
+  backwards: any
+  currentStep: number
+  steps: any
 }
 
 const BusinessRegisterForm: React.FC<props> = ({
   currentStep,
   backwards,
   forwards,
-  steps,
+  steps
 }) => {
-  const handleLocationChange = (selectedlocation: any) => {
-    setBusiness({ ...business, location: selectedlocation });
-  };
-  const router = useRouter();
+  const handleLocationChange = (selectedlocation: any): void => {
+    setBusiness({ ...business, location: selectedlocation })
+  }
+  const router = useRouter()
   const [business, setBusiness] = useState<BusinessInterface>({
-    email: "",
-    password: "",
-    type: "business",
-    name: "",
-    size: "",
-    industry: "",
+    email: '',
+    password: '',
+    type: 'business',
+    name: '',
+    size: '',
+    industry: '',
     location: {
-      country: "",
-      province: "",
-      cityOrMunicipality: "",
-      specifics: "",
+      country: '',
+      province: '',
+      cityOrMunicipality: '',
+      specifics: ''
     },
-    website:"",
-    photo: ""
-  });
-  const [vpassword, setVpassword] = useState<string>("");
-  const [hasUploaded, setHasUploaded] = useState<boolean>(false);
+    website: '',
+    photo: ''
+  })
+  const [vpassword, setVpassword] = useState<string>('')
+  const [hasUploaded, setHasUploaded] = useState<boolean>(false)
   const { data, loading, handlePostRequest } = usePostData(
     `${config.BACKEND_ENDPOINT}/api/register/business`
-  );
+  )
   const handleRedirect = (route: string): void => {
     router.push(route).catch((err) => {
-      throw err;
-    });
-  };
+      throw err
+    })
+  }
 
   const submitForm = (): void => {
-    if (!ValidateUserForm(business, vpassword)) return;
+    if (!ValidateUserForm(business, vpassword)) return
 
     if (Object.values(business.location).some((value) => !value)) {
-      void message.error("Empty fields");
+      void message.error('Empty fields')
 
-      return;
+      return
     }
 
     if (!industrylist.includes(business.industry)) {
-      void message.error("Please select a valid Industry");
-      return;
+      void message.error('Please select a valid Industry')
+      return
     }
     const bodyObj: Filter = {
-      ...business,
-    };
-    void handlePostRequest(bodyObj);
-  };
+      ...business
+    }
+    void handlePostRequest(bodyObj)
+  }
 
   useEffect(() => {
-    if (data === null) return;
-    //make this as separate tsx
+    if (data === null) return
+    // make this as separate tsx
 
-    if (data !== null) void router.push("/login");
-  }, [data]);
+    if (data !== null) void router.push('/login')
+  }, [data])
 
   const sections = [
     <FirstItem
+      key={1}
       vpassword={vpassword}
       setVpassword={setVpassword}
       business={business}
       setBusiness={setBusiness}
     />,
     <SecondItem
+      key={2}
       handleLocationChange={handleLocationChange}
       setBusiness={setBusiness}
       business={business}
@@ -110,12 +112,13 @@ const BusinessRegisterForm: React.FC<props> = ({
     />,
 
     <ThirdItem
-    business={business} 
-    setBusiness={setBusiness} 
-    hasUploaded={hasUploaded} 
-    setHasUploaded={setHasUploaded}
+      key={3}
+      business={business}
+      setBusiness={setBusiness}
+      hasUploaded={hasUploaded}
+      setHasUploaded={setHasUploaded}
     />
-  ];
+  ]
 
   return (
     <div className='grid h-full w-full grid-cols-[2fr_1fr] gap-8'>
@@ -124,15 +127,15 @@ const BusinessRegisterForm: React.FC<props> = ({
 
         <div className='text-[.7rem] text-[#878787]'>
           <p>
-            Register as{" "}
+            Register as{' '}
             <a
               className='cursor-pointer font-semibold text-[#2B99FF] hover:text-black'
               onClick={() => {
-                handleRedirect("/register/customer");
+                handleRedirect('/register/customer')
               }}
             >
               Customer
-            </a>{" "}
+            </a>{' '}
             instead
           </p>
         </div>
@@ -151,28 +154,28 @@ const BusinessRegisterForm: React.FC<props> = ({
           <div className='flex flex-col gap-4 rounded-xl border-[2px] p-4'>
             <div className='flex flex-col gap-2 '>
               <span className='text-sm font-semibold text-gray-400'>
-                BUSINESS NAME:{" "}
+                BUSINESS NAME:{' '}
               </span>
               <span className=''>{business.name}</span>
             </div>
 
             <div className='flex flex-col gap-2 '>
               <span className='text-sm font-semibold text-gray-400'>
-                INDUSTRY:{" "}
+                INDUSTRY:{' '}
               </span>
               <span className=''>{business.industry}</span>
             </div>
 
             <div className='flex flex-col gap-2 '>
               <span className='text-sm font-semibold text-gray-400'>
-                SIZE:{" "}
+                SIZE:{' '}
               </span>
               <span className=''>{business.size}</span>
             </div>
 
             <div className='flex flex-col gap-2 '>
               <span className='text-sm font-semibold text-gray-400'>
-                LOCATION:{" "}
+                LOCATION:{' '}
               </span>
               <div className='flex gap-4'>
                 <div className='country flex flex-col'>
@@ -201,15 +204,21 @@ const BusinessRegisterForm: React.FC<props> = ({
             </div>
             <div className='flex flex-col gap-2 '>
               <span className='text-sm font-semibold text-gray-400'>
-                WEBSITE:{" "}
+                WEBSITE:{' '}
               </span>
               <span className=''>{business.website}</span>
             </div>
             <div className='flex flex-col gap-2 '>
               <span className='text-sm font-semibold text-gray-400'>
-                Business Photo:{" "}
+                Business Photo:{' '}
               </span>
-              <span className=''>{business.photo===""?"":(<Image src={business.photo} alt='Business Photo'/>)}</span>
+              <span className=''>
+                {business.photo === '' ? (
+                  ''
+                ) : (
+                  <Image src={business.photo} alt='Business Photo' />
+                )}
+              </span>
             </div>
           </div>
 
@@ -221,13 +230,13 @@ const BusinessRegisterForm: React.FC<props> = ({
               onClick={submitForm}
               className='w-full rounded-[.3rem] bg-[#2B99FF] px-[1.5rem] py-[.3rem] text-[.8rem] font-[600] text-white'
             >
-              {loading ? <Spin /> : "Proceed"}
+              {loading ? <Spin /> : 'Proceed'}
             </button>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BusinessRegisterForm;
+export default BusinessRegisterForm

@@ -4,7 +4,6 @@ import GraphChart from '../defaultGraphs/graphChart'
 import { Select } from 'antd'
 import Image from 'next/image'
 import { formatNumber } from '@/utils/functions/numberFormat'
-import { fetchProvincesInPhilippines } from '@/components/location/location'
 interface Details {
   monthData: any
   loading: boolean
@@ -16,14 +15,14 @@ const config = [
     hexColor: '#0bb4ff',
     rgbaColor: 'rgba(53, 162, 235, 0.2)',
     label: 'previous',
-    type: 'line',
+    type: 'line'
   },
   {
     hexColor: '#e60049',
     rgbaColor: 'rgba(239, 119, 131, 0.2)',
     label: 'current',
-    type: 'line',
-  },
+    type: 'line'
+  }
 ]
 
 const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
@@ -31,10 +30,10 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
   const [current, setCurrent] = useState<any>()
   const [previous, setprevious] = useState<any>()
   const [selectedMonth1, setSelectedMonth1] = useState<any>(
-    currentDate.getMonth(),
+    currentDate.getMonth()
   )
   const [selectedMonth2, setSelectedMonth2] = useState<any>(
-    currentDate.getMonth() - 1,
+    currentDate.getMonth() - 1
   )
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
 
   const monthsOptions = props.monthNames.map((month, index) => ({
     value: index.toString(),
-    label: month,
+    label: month
   }))
 
   const defaultMonthValue = currentDate.getMonth()
@@ -63,10 +62,10 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
                   labelInValue
                   defaultValue={{
                     value: defaultMonthValue,
-                    label: props.monthNames[defaultMonthValue],
+                    label: props.monthNames[defaultMonthValue]
                   }}
                   style={{ width: 100 }}
-                  onChange={(value) => setSelectedMonth1(value.value)}
+                  onChange={(value) => { setSelectedMonth1(value.value) }}
                   options={monthsOptions}
                 />
                 <p> Total: {current?.total}</p>
@@ -76,10 +75,10 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
                   labelInValue
                   defaultValue={{
                     value: defaultMonthValue,
-                    label: props.monthNames[selectedMonth2],
+                    label: props.monthNames[selectedMonth2]
                   }}
                   style={{ width: 100 }}
-                  onChange={(value) => setSelectedMonth2(value.value)}
+                  onChange={(value) => { setSelectedMonth2(value.value) }}
                   options={monthsOptions}
                 />
                 <p> Total: {previous?.total}</p>
@@ -90,9 +89,7 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
                     src={
                       ((previous?.total - current?.total) / previous?.total) *
                         100 <
-                      0
-                        ? '/upArrow.svg'
-                        : '/downArrow.svg'
+                      0 ? '/upArrow.svg' : '/downArrow.svg'
                     }
                     fill
                     alt='arrow'
@@ -112,7 +109,7 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
             {!props.loading ? (
               <GraphChart
                 tags={Array.from({ length: current?.daily.length }, (_, i) =>
-                  (i + 1).toString(),
+                  (i + 1).toString()
                 )}
                 clickCounts={[current?.daily, previous?.daily]}
                 config={config}

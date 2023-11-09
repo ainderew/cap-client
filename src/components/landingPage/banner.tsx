@@ -1,28 +1,28 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { motion, useScroll, useTransform, useAnimation } from "framer-motion";
-import ProductPreview from "./productPreview";
-import LeftHighlight from "./highlight/left";
-import Image from "next/image";
+import React from 'react'
+import { useRouter } from 'next/router'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import ProductPreview from './productPreview'
+import LeftHighlight from './highlight/left'
+import Image from 'next/image'
 
-function Banner(): React.ReactElement {
-  const router = useRouter();
-  const { scrollY } = useScroll();
+function Banner (): React.ReactElement {
+  const router = useRouter()
+  const { scrollY } = useScroll()
 
   const productXAnimtation = useTransform(
     scrollY,
     [300, 800, 1500, 1800],
     [-900, 0, 0, 2000]
-  );
+  )
 
-  const opacity = useTransform(scrollY, [1200, 1400, 1700], [1, 1, 0]);
+  const opacity = useTransform(scrollY, [1200, 1400, 1700], [1, 1, 0])
   const productScale = useTransform(
     scrollY,
     [300, 800, 1500, 1800],
     [0, 1, 1, 0]
-  );
+  )
 
-  const y2 = useTransform(scrollY, [1400, 2400], [50, -400]);
+  const y2 = useTransform(scrollY, [1400, 2400], [50, -400])
   return (
     <div className='section-1 flex w-full flex-col items-center justify-center'>
       <section className='flex h-screen w-full flex-col items-center justify-center gap-8 px-4 lg:px-0 py-8'>
@@ -44,10 +44,10 @@ function Banner(): React.ReactElement {
         </span>
         <div className='group flex gap-5 text-sm'>
           <button
-            onClick={() => router.push("/home")}
+            onClick={async () => await router.push('/home')}
             className='flex rounded-md border-2 border-white px-6  py-1 text-white hover:border-blue-500 hover:bg-blue-500'
           >
-            Start Chatting{" "}
+            Start Chatting{' '}
             <div className='translate-x-0 transition-all group-hover:translate-x-1'>
               &#x279D;
             </div>
@@ -55,20 +55,20 @@ function Banner(): React.ReactElement {
         </div>
 
         <div className='hovering-mascot h-[30vh] w-full lg:h-96 lg:w-96 relative'>
-          <Image src={"mascot.svg"} fill alt='bramk' />
+          <Image src={'mascot.svg'} fill alt='bramk' />
         </div>
       </section>
 
       <div className='relative flex w-full flex-col items-center lg:h-[300vh] xl:h-[250vh]'>
         <div className='animation_fix sticky top-0 h-[250vh] w-full overflow-hidden md:block md:h-[140vh] xl:h-[200vh]'>
           <motion.div
-            key={"setuplayout_motion"}
-            style={{ scale: productScale, opacity, x:productXAnimtation }}
+            key={'setuplayout_motion'}
+            style={{ scale: productScale, opacity, x: productXAnimtation }}
             transition={{
               // x: { type: "spring", stiffness: 100 },
               stiffness: 0,
               duration: 0.8,
-              delay: 0,
+              delay: 0
             }}
             className='sticky top-7 flex w-full items-center justify-center'
           >
@@ -86,7 +86,7 @@ function Banner(): React.ReactElement {
 
           <div className='flex h-full w-full items-center justify-start bg-highlightRight bg-cover bg-no-repeat px-12 md:h-1/2 md:bg-contain'>
             <motion.div
-              key={"setuplayout_motion2"}
+              key={'setuplayout_motion2'}
               style={{ y: y2 }}
               className='h-80 w-80 bg-highlightLeft bg-cover bg-no-repeat'
             />
@@ -94,7 +94,7 @@ function Banner(): React.ReactElement {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Banner;
+export default Banner

@@ -11,12 +11,9 @@ const UploadSection: React.FC = () => {
     <div className='mt-8 flex flex-col gap-4 items-center bg-neutral-200 p-5 sm:p-12 text-center'>
       <h3 className='my-2 text-xl md:text-3xl font-semibold'>Upload Business Data</h3>
 
-      {isUploadingFile ? 
-        <div>
-          <Spin /> 
-        </div>
-      : 
-        <div className='flex flex-col'> 
+      {isUploadingFile ? <div>
+          <Spin />
+        </div> : <div className='flex flex-col'>
             <ButtonOpen/>
             <p className='m-3'>or</p>
             <UploadFile/>

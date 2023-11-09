@@ -1,12 +1,12 @@
-import { ChatMessage, ModalData } from '@/utils/types/base'
+import { type ChatMessage, type ModalData } from '@/utils/types/base'
 import { action, observable, makeObservable } from 'mobx'
 
 export default class UiStore {
-  isUploadingFile: boolean = false;
-  isActivatingFile: boolean = false;
-  modalData: ModalData|null = null;
-  showModal: boolean = false;
-  conversation: ChatMessage[] = [];
+  isUploadingFile: boolean = false
+  isActivatingFile: boolean = false
+  modalData: ModalData | null = null
+  showModal: boolean = false
+  conversation: ChatMessage[] = []
 
   constructor () {
     makeObservable(this, {
@@ -16,12 +16,11 @@ export default class UiStore {
       showModal: observable,
       conversation: observable,
 
-
       setIsUploadingFile: action,
-      setIsActivatingFile:action,
+      setIsActivatingFile: action,
       setModalData: action,
-      setConversation:action,
-      clearConversation: action,
+      setConversation: action,
+      clearConversation: action
     })
   }
 
@@ -35,20 +34,18 @@ export default class UiStore {
 
   setModalData = (newValue: ModalData): void => {
     this.modalData = newValue
-    this.showModal = true;
-
-
+    this.showModal = true
   }
 
-  setShowModal = (showModal:boolean):void =>{
-    this.showModal = showModal;
+  setShowModal = (showModal: boolean): void => {
+    this.showModal = showModal
   }
 
-  setConversation = (response:any):void =>{
-    this.conversation = [...this.conversation, response];
+  setConversation = (response: any): void => {
+    this.conversation = [...this.conversation, response]
   }
 
-  clearConversation = ():void =>{
-    this.conversation = [];
+  clearConversation = (): void => {
+    this.conversation = []
   }
 }
