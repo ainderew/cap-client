@@ -23,7 +23,6 @@ const {uiStore:{setModalData}, authStore:{userProfile}} = useStores()
 
 
  const {handlePostRequest} = usePostData(`${config.BACKEND_ENDPOINT}/api/clicked/653260b8bdbc2114a3abcac7/${userProfile?._id ?? 0}`)
- const {doSpecific} = useChatWithAi()
  
 
   const handleClick = useCallback((company:SimpleBusiness) => {
@@ -37,7 +36,6 @@ const {uiStore:{setModalData}, authStore:{userProfile}} = useStores()
         showSubmitButton: false
       }
     })
-    doSpecific({ content: 'only respond with info about leonas and dont reply about others', role: ResponseRoles.user })
     
     modalOpener(true)
     handlePostRequest();
