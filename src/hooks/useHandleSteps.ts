@@ -1,35 +1,45 @@
-import { useState } from "react";
+import { useState } from 'react'
 
+interface handleStepsReturn {
+  currentStep: number
+  backwards: () => void
+  forwards: () => void
+  steps: steps[]
+}
 
-const description = "";
-export default function useHandleSteps(){
-  const [currentStep, setCurrentStep] = useState<number>(1);
+interface steps {
+  title: string
+  description: string
+}
 
-  const steps =[
+const description = ''
+export default function useHandleSteps (): handleStepsReturn {
+  const [currentStep, setCurrentStep] = useState<number>(1)
+
+  const steps: steps[] = [
     {
-      title: "Login Info",
-      description,
+      title: 'Login Info',
+      description
     },
     {
-      title: "Additional Info",
-      description,
+      title: 'Additional Info',
+      description
     },
     {
-      title: "Photo",
-      description,
-    },
+      title: 'Photo',
+      description
+    }
   ]
 
-
-  function backwards(){
-    if(currentStep === 1) return;
-    setCurrentStep(prev => prev-=1)
+  function backwards (): void {
+    if (currentStep === 1) return
+    setCurrentStep((prev) => prev -= 1)
   }
-  function forwards(){
-    if(currentStep === 3) return;
-    setCurrentStep(prev => prev+=1)
+  function forwards (): void {
+    if (currentStep === 3) return
+    setCurrentStep(prev => prev += 1)
   }
-  return{
+  return {
     currentStep,
     backwards,
     forwards,

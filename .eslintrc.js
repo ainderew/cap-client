@@ -14,6 +14,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'multiline-ternary': ['error', 'never'],
-    '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }]
+    'no-return-assign': 'off',
+    '@typescript-eslint/no-misused-promises': 'off'
   }
 }
