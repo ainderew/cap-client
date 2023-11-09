@@ -1,4 +1,3 @@
-import NavBar from '@/components/navbar'
 import React, { useState } from 'react'
 import Eachfiles from './Each_FIles'
 
@@ -55,7 +54,6 @@ const Files: React.FC = () => {
 
   return (
     <div className='flex h-screen flex-col'>
-      <NavBar />
 
       <div className='flex items-center justify-center '>
         <div className=' w-[90vw] sm:w-[80vw]'>

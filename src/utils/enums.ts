@@ -6,7 +6,6 @@ export enum AccountType {
   customer = 'customer'
 }
 
-
 export enum ResponseRoles {
   ai = 'ai',
   user = 'user'

@@ -1,22 +1,21 @@
-import { Spin } from "antd";
-import dynamic from "next/dynamic";
+/* eslint-disable @typescript-eslint/no-redeclare */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable @typescript-eslint/ban-types */
+import { Spin } from 'antd'
+import dynamic from 'next/dynamic'
 
-type ModalDictionary = {
-    [key: string]: React.ComponentType<{}>;
-};
+type ModalDictionary = Record<string, React.ComponentType<{}>>
 
-// const options = 
+// const options =
 
 const SpecificChat = dynamic(
-    () => import("./specificChat/specificChatModal"),
-    {
-        loading: () => <Spin />,
-        ssr: false
-    }
+  async () => await import('./specificChat/specificChatModal'),
+  {
+    loading: () => <Spin />,
+    ssr: false
+  }
 )
 
-
-
 export const ModalDictionary: ModalDictionary = {
-    SpecificChat: SpecificChat
+  SpecificChat
 }

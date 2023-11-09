@@ -1,17 +1,16 @@
-import MinimizedWidget from "@/components/chatWidget/minimizedWidget";
-import React from "react";
-import SpecificChatHeader from "./specificChatHeader";
+import MinimizedWidget from '@/components/chatWidget/minimizedWidget'
+import React from 'react'
+import SpecificChatHeader from './specificChatHeader'
 import {
   BuildFilled,
-  HeatMapOutlined,
   MailFilled,
   PhoneFilled,
   PushpinFilled,
-  ShopFilled,
-} from "@ant-design/icons";
-import SpecificChatCategories from "./specificChatCategoriesSection";
+  ShopFilled
+} from '@ant-design/icons'
+import SpecificChatCategories from './specificChatCategoriesSection'
 
-function SpecificChat() {
+function SpecificChat (): React.ReactElement {
   return (
     <div className='flex-shrink-1 grid h-full w-full grid-cols-4 grid-rows-6 gap-8 overflow-hidden rounded-lg bg-transparent p-8 text-gray-500'>
       <div className='col-span-1 row-span-4 overflow-hidden rounded-md  bg-white text-gray-500 shadow-lg'>
@@ -33,7 +32,7 @@ function SpecificChat() {
           <iframe
             width='100%'
             height='300'
-            style={{border:0}}
+            style={{ border: 0 }}
             loading='lazy'
             src='https://www.google.com/maps/embed/v1/place?key=AIzaSyAlhQ6JFJmLxL2q0w4NbqspH2ved7KRBRo
     &q=Space+Needle,Seattle+WA'
@@ -48,7 +47,7 @@ function SpecificChat() {
 
       <MinimizedWidget />
     </div>
-  );
+  )
 }
 
-export default SpecificChat;
+export default SpecificChat

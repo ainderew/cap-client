@@ -1,24 +1,25 @@
-import { Badge, Popover } from "antd";
-import React, { useEffect, useState } from "react";
-import IconContainer from "../../iconContainer";
-import { NotificationOutlined } from "@ant-design/icons";
-import NotificationBar from "../../notification";
-import useStores from "@/core/stores/UseStores";
-import useFetchData from "@/hooks/useFetchData";
-import { config } from "../../../../config";
-import usePostData from "@/hooks/usePostData";
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { Badge, Popover } from 'antd'
+import React, { useEffect, useState } from 'react'
+import IconContainer from '../../iconContainer'
+import { NotificationOutlined } from '@ant-design/icons'
+import NotificationBar from '../../notification'
+import useStores from '@/core/stores/UseStores'
+import useFetchData from '@/hooks/useFetchData'
+import { config } from '../../../../config'
+import usePostData from '@/hooks/usePostData'
 
-interface Data{
-  count:number;
+interface Data {
+  count: number
 }
 
-function NotificationSection(): React.ReactElement {
+function NotificationSection (): React.ReactElement {
   const { authStore } = useStores()
   const businessId = authStore.userProfile?._id
-  const[notifCount, setNotifCount] = useState<any>()
-  const[isNotifClicked, setIsNotifClicked] = useState(false)
-  const body = { businessId: businessId }
-  
+  const [notifCount, setNotifCount] = useState<any>()
+  const [isNotifClicked, setIsNotifClicked] = useState(false)
+  const body = { businessId }
+
   const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/notification/trigger`)
 
   const handleTrigger = async (): Promise<void> => {
@@ -27,24 +28,24 @@ function NotificationSection(): React.ReactElement {
     setIsNotifClicked(false)
   }
 
-  const { data,  refetch } = useFetchData(
+  const { data, refetch } = useFetchData(
     `${config.BACKEND_ENDPOINT}/api/notification/hasnotification/${businessId ?? ''}`
   )
 
-  useEffect(()=>{
+  useEffect(() => {
     if (data === null) return
-    const {count} = data as Data
+    const { count } = data as Data
     setNotifCount(count)
-  },[data])
+  }, [data])
 
-  useEffect(()=>{
-    if(isNotifClicked) return
+  useEffect(() => {
+    if (isNotifClicked) return
     refetch()
-  },[isNotifClicked])
+  }, [isNotifClicked])
 
   return (
-    <Popover content={<NotificationBar />} trigger={"click"}>
-      <div onClick={()=> handleTrigger()}>
+    <Popover content={<NotificationBar />} trigger={'click'}>
+      <div onClick={async () => { await handleTrigger() }}>
       <Badge count={notifCount || 0}>
         <IconContainer>
           <NotificationOutlined />
@@ -53,7 +54,7 @@ function NotificationSection(): React.ReactElement {
       </Badge>
       </div>
     </Popover>
-  );
+  )
 }
 
-export default NotificationSection;
+export default NotificationSection

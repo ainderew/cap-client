@@ -48,7 +48,6 @@ const CustomerRegisterUI: React.FC = () => {
       }
       setAge(yearsDiff)
       setBirthdate(dob)
-    } else {
     }
   }
 
@@ -59,7 +58,7 @@ const CustomerRegisterUI: React.FC = () => {
       type: 'customer',
       username,
       birthdate,
-      age,
+      age
     }
 
     if (age < 12 || age > 100) {
@@ -73,7 +72,7 @@ const CustomerRegisterUI: React.FC = () => {
       mode: 'cors',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bodyObj),
+      body: JSON.stringify(bodyObj)
     })
       .then(async (res) => {
         const test = res.json()

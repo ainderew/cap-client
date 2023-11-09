@@ -3,30 +3,29 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { config } from '../../config'
 import usePostData from '@/hooks/usePostData'
-import { type userProfile } from '@/utils/types/auth'
-import { message } from 'antd'
 import { AccountType } from '@/utils/enums'
 import DefaultLayout from './layouts/default'
+import { message } from 'antd'
 
-interface LoginReply {
-  message?: string
-  authToken: string
-  profile: userProfile
-}
+// interface LoginReply {
+//   message?: string
+//   authToken: string
+//   profile: userProfile
+// }
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const { authStore } = useStores()
   const router = useRouter()
-  const { data, handlePostRequest, loading } = usePostData(
-    `${config.BACKEND_ENDPOINT}/login`,
+  const { data, handlePostRequest } = usePostData(
+    `${config.BACKEND_ENDPOINT}/login`
   )
 
-  async function submitForm(): Promise<void> {
+  async function submitForm (): Promise<void> {
     const bodyObj = {
       email,
-      password,
+      password
     }
 
     try {
@@ -36,7 +35,7 @@ const Login: React.FC = () => {
   }
 
   useEffect(() => {
-    if (!data) return
+    if (data === null) return
 
     if (data?.message === 'Invalid Credentials') {
       void message.error(data.message)

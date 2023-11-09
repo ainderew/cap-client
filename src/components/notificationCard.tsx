@@ -7,7 +7,6 @@ interface Data {
   message: string
 }
 
-
 const NotificationCard: React.FC<Data> = (props) => {
   const formattedDate = formatRelativeDate(props.date)
 

@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import useLazyFetchData from '@/hooks/useLazyFetchData'
-import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { config } from '../../../../config'
 import GraphChart from '../defaultGraphs/graphChart'
 import {
-  ConfigIndustry,
-  configIndustry,
+  ConfigIndustry
 } from '@/components/businessRegister/menulists'
 import Loading from '@/components/loading'
 import { formatNumber } from '@/utils/functions/numberFormat'
@@ -19,7 +18,7 @@ const TrendGraph: React.FC = () => {
   const [getData, data] = useLazyFetchData(
     `${
       config.BACKEND_ENDPOINT
-    }/api/business/categories/${currentDate.getFullYear()}`,
+    }/api/business/categories/${currentDate.getFullYear()}`
   )
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const TrendGraph: React.FC = () => {
       const datas = await getData()
       setIndustryData(datas?.slice(0, 5))
     }
-    fetchData()
+    void fetchData()
   }, [])
   return (
     <div className='grid grid-cols-1 items-center justify-center rounded-sm sm:gap-4 lg:grid-cols-5'>
@@ -54,7 +53,7 @@ const TrendGraph: React.FC = () => {
             config={ConfigIndustry(
               industryData?.map((item: any) => item.industry),
               color,
-              'line',
+              'line'
             )}
             barwidth={0}
             show={false}
@@ -73,7 +72,7 @@ const TrendGraph: React.FC = () => {
             config={ConfigIndustry(
               industryData?.map((item: any) => item.industry),
               color,
-              'bar',
+              'bar'
             )}
             barwidth={50}
             show={false}

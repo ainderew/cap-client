@@ -20,7 +20,6 @@ function useHandleUpload (): useHandleUploadTypes {
     path: ''
   }
 
-
   async function sendFileData (res: any): Promise<void> {
     const { key, url, name } = res
     filter.blobname = key

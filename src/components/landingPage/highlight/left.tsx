@@ -1,7 +1,7 @@
-import React from "react";
-import FeatureTags from "./tags";
+import React from 'react'
+import FeatureTags from './tags'
 
-function LeftHighlight(): React.ReactElement {
+function LeftHighlight (): React.ReactElement {
   return (
     <>
       <span className='self-end font-semibold md:self-start text-white'>FOR BUSINESS</span>
@@ -15,10 +15,9 @@ function LeftHighlight(): React.ReactElement {
         full control over your processes and track all expenses in real-time.
       </p>
 
-
       <FeatureTags />
     </>
-  );
+  )
 }
 
-export default LeftHighlight;
+export default LeftHighlight

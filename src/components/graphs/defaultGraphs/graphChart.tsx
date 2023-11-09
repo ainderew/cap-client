@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import React, { useEffect, useState } from 'react'
-import { Bar, Line } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,7 +14,7 @@ import {
   Legend,
   BarElement,
   ArcElement,
-  BarController,
+  BarController
 } from 'chart.js'
 
 ChartJS.register(
@@ -26,7 +28,7 @@ ChartJS.register(
   Legend,
   BarElement,
   ArcElement,
-  BarController,
+  BarController
 )
 
 const GraphChart: React.FC<{
@@ -51,44 +53,44 @@ const GraphChart: React.FC<{
         borderColor: config && config[index] ? config[index].hexColor : '',
         backgroundColor: config && config[index] ? config[index].rgbaColor : '',
         barPercentage: 1,
-        barThickness: barwidth,
-      })),
+        barThickness: barwidth
+      }))
     })
 
     setChartOptions({
       scales: {
         x: {
           ticks: {
-            display: show,
+            display: show
           },
           grid: {
-            display: show,
-          },
+            display: show
+          }
         },
         y: {
           ticks: {
-            display: true,
+            display: true
           },
           grid: {
             color: 'rgba(43, 153, 255, 1)',
-            display: true,
-          },
-        },
+            display: true
+          }
+        }
       },
       plugins: {
         legend: {
           display: false,
-          position: 'top' as const,
+          position: 'top' as const
         },
         title: {
           display: true,
-          text: title,
-        },
+          text: title
+        }
       },
       tension: 0.2,
       maintainAspectRatio: false,
       responsive: true,
-      indexAxis: axis,
+      indexAxis: axis
     })
   }, [tags, clickCounts])
 

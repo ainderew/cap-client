@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 import React, { useEffect, useState } from 'react'
 import NotificationCard from './notificationCard'
 import { config } from '../../config'
@@ -11,16 +12,14 @@ const NotificationBar: React.FC = () => {
   const businessId = authStore.userProfile?._id
   const { data, loading } = useFetchData(
     `${config.BACKEND_ENDPOINT}/api/notification/getnotifications/${
-      businessId ? businessId : ''
-    }`,
+      businessId != null ? businessId : ''
+    }`
   )
 
   useEffect(() => {
     if (data === null) return
     setNotifications(data)
   }, [data])
-
- 
 
   return (
     <div className=' w-[25rem] border-[#77777722]  '>

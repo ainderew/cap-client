@@ -5,11 +5,11 @@ import { useRouter } from 'next/router'
 import useStores from '@/core/stores/UseStores'
 import { config } from '../../config'
 import useLazyFetchData from '@/hooks/useLazyFetchData'
-import { message as antdMessage, message } from 'antd'
+import { message } from 'antd'
 import { AccountType } from '@/utils/enums'
 import ModalContainer from '@/components/modals/modalContainer'
 import { observer } from 'mobx-react'
-import { userProfile } from '@/utils/types/auth'
+import { type userProfile } from '@/utils/types/auth'
 
 const ALLOWED_URL = [
   '',
@@ -17,28 +17,28 @@ const ALLOWED_URL = [
   '/login',
   '/register/customer',
   '/register/business',
-  '/home',
+  '/home'
 ]
 const CUSTOMER_ALLOWED_URL = ['/', '/home', 'register/customer']
 const BUSINESS_ALLOWED_URL = [
   '/',
   '/business/dashboard',
-  '/business/data-management',
+  '/business/data-management'
 ]
 
 const App: any = ({ Component, pageProps }: AppProps) => {
   const router = useRouter()
   const {
     authStore,
-    uiStore: { showModal },
+    uiStore: { showModal }
   } = useStores()
 
   const userType = authStore.userProfile?.type
   const [queryProfile] = useLazyFetchData(
-    `${config.BACKEND_ENDPOINT}/getProfile`,
+    `${config.BACKEND_ENDPOINT}/getProfile`
   )
 
-  async function getProfile(): Promise<boolean> {
+  async function getProfile (): Promise<boolean> {
     let storedProfile: userProfile
 
     const data: string | null = sessionStorage.getItem('profile')
@@ -65,7 +65,7 @@ const App: any = ({ Component, pageProps }: AppProps) => {
     return false
   }
 
-  async function handleProtectedRoutes(): Promise<void> {
+  async function handleProtectedRoutes (): Promise<void> {
     const profile: null | boolean = await getProfile()
 
     if (profile) return
@@ -81,7 +81,7 @@ const App: any = ({ Component, pageProps }: AppProps) => {
     } else if (userType === AccountType.business) {
       const allow =
         BUSINESS_ALLOWED_URL.includes(
-          currentUrl,
+          currentUrl
         ) /* (link => link === currentUrl) */
       if (!allow) {
         router.replace('/business/dashboard').catch((err) => {
@@ -99,7 +99,7 @@ const App: any = ({ Component, pageProps }: AppProps) => {
   }
 
   useEffect(() => {
-    handleProtectedRoutes()
+    void handleProtectedRoutes()
   }, [])
 
   return (

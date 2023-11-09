@@ -1,13 +1,14 @@
-import React from "react";
-import { observer } from "mobx-react";
-import useHandleModalLogic from "./hooks/useHandleModalLogic";
-import { Button } from "antd";
-import { ModalDictionary } from "./modalDictionary";
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import React from 'react'
+import { observer } from 'mobx-react'
+import useHandleModalLogic from './hooks/useHandleModalLogic'
+import { Button } from 'antd'
+import { ModalDictionary } from './modalDictionary'
 
-function ModalContainer(): React.ReactElement {
-  const { closeModal, modalRef, modalData } = useHandleModalLogic();
+function ModalContainer (): React.ReactElement {
+  const { closeModal, modalRef, modalData } = useHandleModalLogic()
 
-  if (!modalData) return <></>;
+  if (modalData == null) return <></>
 
   const {
     componentName,
@@ -16,20 +17,20 @@ function ModalContainer(): React.ReactElement {
     onSubmitFunction,
     options,
     height,
-    width,
-  } = modalData;
+    width
+  } = modalData
 
   return (
     <div
-      onClick={(e) => closeModal(e)}
+      onClick={(e) => { closeModal(e) }}
       className='fixed top-0 z-10 flex h-screen w-screen items-center justify-center bg-[rgba(120,_120,_120,_0.5)]'
     >
       <div
         ref={modalRef}
-        className={`w-[${width ?? "700px"}] 
-        !h-[${height ?? "800px"}] relative flex flex-col rounded-lg`}
+        className={`w-[${width ?? '700px'}] 
+        !h-[${height ?? '800px'}] relative flex flex-col rounded-lg`}
       >
-        {modalTitle || options?.showTitle ? (
+        {modalTitle ?? options?.showTitle ? (
           <div className='border-b-[1px] px-4 py-2'>modalTitle</div>
         ) : null}
 
@@ -41,9 +42,7 @@ function ModalContainer(): React.ReactElement {
             {options?.showCancelButton === false ? null : (
               <Button
                 onClick={
-                  onCancelFunction
-                    ? onCancelFunction
-                    : (e) => closeModal(e, true)
+                  (onCancelFunction != null) ? onCancelFunction : (e) => { closeModal(e, true) }
                 }
                 className=''
               >
@@ -59,10 +58,10 @@ function ModalContainer(): React.ReactElement {
               </Button>
             )}
           </div>
-        )}
+          )}
       </div>
     </div>
-  );
+  )
 }
 
-export default observer(ModalContainer);
+export default observer(ModalContainer)

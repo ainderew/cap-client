@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GraphChart from '../defaultGraphs/graphChart'
 
 interface Details {
@@ -12,14 +12,14 @@ const config = [
     hexColor: '#0EFFD4',
     rgbaColor: 'rgba(14, 255, 212, 0.4)',
     label: 'Moving Average',
-    type: 'line',
+    type: 'line'
   },
   {
     hexColor: '#0bb4ff',
     rgbaColor: '#0bb4ff',
     label: 'previous',
-    type: 'bar',
-  },
+    type: 'bar'
+  }
 ]
 
 const YearlyGraph: React.FC<Details> = ({ ...props }) => {

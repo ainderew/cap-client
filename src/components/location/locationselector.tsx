@@ -7,7 +7,7 @@ interface LocationSelectorProps {
 }
 
 const LocationSelector: React.FC<LocationSelectorProps> = ({
-  onLocationChange,
+  onLocationChange
 }) => {
   const [country, setCountry] = useState('')
   const [state, setState] = useState('')
@@ -15,24 +15,23 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
     country: '',
     province: '',
     cityOrMunicipality: '',
-    specifics: '',
+    specifics: ''
   })
 
   const countries = Country.getAllCountries().map((country) => ({
     value: country.isoCode,
-    label: country.name,
+    label: country.name
   }))
   const states = State.getStatesOfCountry(country).map((state) => ({
     value: state.isoCode,
-    label: state.name,
+    label: state.name
   }))
   const cities = City.getCitiesOfState(country, state).map((city) => ({
     value: city.name,
-    label: city.name,
+    label: city.name
   }))
 
   useEffect(() => {
-
     setCountry(country)
     setState(state)
     onLocationChange(location)
@@ -57,9 +56,9 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
           options={countries}
           onChange={(value) => {
             const selectedOption = countries.find(
-              (option) => option.value === value,
+              (option) => option.value === value
             )
-            if (selectedOption) {
+            if (selectedOption != null) {
               setLocation({ ...location, country: selectedOption.label })
               setCountry(value)
             }
@@ -82,9 +81,9 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
           options={states}
           onChange={(value) => {
             const selectedOption = states.find(
-              (option) => option.value === value,
+              (option) => option.value === value
             )
-            if (selectedOption) {
+            if (selectedOption != null) {
               setLocation({ ...location, province: selectedOption.label })
               setState(value)
             }

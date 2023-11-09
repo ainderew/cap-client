@@ -1,73 +1,71 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import ChatWindow from "@/components/chatWindow";
-import CommonQuestions from "@/components/commonQuestions";
-import SideBar from "@/components/sidebar";
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import LoadingPage from "@/components/loadingPage";
-import useStores from "@/core/stores/UseStores";
-import { regexLocation } from "@/utils/functions/regex";
-import Modal from "@/components/modals/modalContainer";
-import { useGetLocation } from "@/hooks/useGetLocation";
-import { Input } from "antd";
-import { config } from "../../config";
-import DefaultLayout from "./layouts/default";
+import ChatWindow from '@/components/chatWindow'
+import CommonQuestions from '@/components/commonQuestions'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
+import LoadingPage from '@/components/loadingPage'
+import useStores from '@/core/stores/UseStores'
+import { regexLocation } from '@/utils/functions/regex'
+import { useGetLocation } from '@/hooks/useGetLocation'
+import { config } from '../../config'
+import DefaultLayout from './layouts/default'
 
 const GeneralChatUI: React.FC = () => {
-  const { authStore } = useStores();
-  const [userInput, setUserInput] = useState<string>("");
-  const [response, setResponse] = useState<any[]>([]);
-  const [aiRes, setAiRes] = useState<string>("");
-  const [loadingResponse, setLoadingResponse] = useState<boolean>(false);
-  const [show, setShow] = useState<boolean>(false);
+  const { authStore } = useStores()
+  const [userInput, setUserInput] = useState<string>('')
+  const [response, setResponse] = useState<any[]>([])
+  const [aiRes, setAiRes] = useState<string>('')
+  const [loadingResponse, setLoadingResponse] = useState<boolean>(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [show, setShow] = useState<boolean>(false)
 
-  const { location, loading } = useGetLocation();
+  const { location, loading } = useGetLocation()
 
   useEffect(() => {
-    if (aiRes === "") return;
-    setLoadingResponse(false);
-    setResponse((prev) => [aiRes, ...prev]);
-  }, [aiRes]);
+    if (aiRes === '') return
+    setLoadingResponse(false)
+    setResponse((prev) => [aiRes, ...prev])
+  }, [aiRes])
 
   const submitUserInput = (
     e: any,
     commonQuestion: boolean = false,
     question: string = userInput
   ): void => {
-    if ((e.key !== "Enter" && !commonQuestion) || loadingResponse) {
-      return;
+    if ((e.key !== 'Enter' && !commonQuestion) || loadingResponse) {
+      return
     }
-    setLoadingResponse(true);
-    setResponse((prev) => [{ content: question, role: "user" }, ...prev]);
+    setLoadingResponse(true)
+    setResponse((prev) => [{ content: question, role: 'user' }, ...prev])
 
     const history = [
       ...response,
-      { content: regexLocation(question, location), role: "user" },
-    ];
+      { content: regexLocation(question, location), role: 'user' }
+    ]
 
     const sendObj = {
       userInput: history,
-      userId: authStore.userProfile?._id,
-    };
-    setUserInput("");
+      userId: authStore.userProfile?._id
+    }
+    setUserInput('')
 
     fetch(`${config.BACKEND_ENDPOINT}/getReply`, {
-      method: "POST",
-      mode: "cors",
+      method: 'POST',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(sendObj),
+      body: JSON.stringify(sendObj)
     })
       .then(async (res) => await res.json())
       .then((data) => {
-        setAiRes(data);
+        setAiRes(data)
       })
       .catch((err) => {
-        throw err;
-      });
-  };
+        throw err
+      })
+  }
 
   return loading ? (
     <LoadingPage />
@@ -79,7 +77,7 @@ const GeneralChatUI: React.FC = () => {
               <div className='flex h-[calc(35vh-4rem)] items-end justify-center border-b-2 py-14'>
                 <div className='flex items-center gap-4'>
                   <Image
-                    src={"/mascot.svg"}
+                    src={'/mascot.svg'}
                     width={40}
                     height={40}
                     alt='Logo'
@@ -94,7 +92,7 @@ const GeneralChatUI: React.FC = () => {
                 <input
                   onKeyDown={submitUserInput}
                   onChange={(e) => {
-                    setUserInput(e.target.value);
+                    setUserInput(e.target.value)
                   }}
                   value={userInput}
                   type='text'
@@ -134,7 +132,7 @@ const GeneralChatUI: React.FC = () => {
           )}
         </div>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default GeneralChatUI;
+export default GeneralChatUI

@@ -1,47 +1,46 @@
-import { useEffect, useState } from "react";
-import useStores from "@/core/stores/UseStores";
-import usePostData from "./usePostData";
-import { config } from "../../config";
-import { ChatMessage } from "@/utils/types/base";
-import { ResponseRoles } from "@/utils/enums";
+import { useEffect, useState } from 'react'
+import useStores from '@/core/stores/UseStores'
+import usePostData from './usePostData'
+import { config } from '../../config'
+import { type ChatMessage } from '@/utils/types/base'
+import { ResponseRoles } from '@/utils/enums'
 
-export interface useChatWithAiReturnType{
-  conversation: ChatMessage[],
+export interface useChatWithAiReturnType {
+  conversation: ChatMessage[]
   input: string
-  loading:boolean
+  loading: boolean
   doSpecific: (propmpt: ChatMessage) => void
-  sendChat: (e:any, bypass?: boolean) => void,
-  handleInputChange: (e:any)=>void,
+  sendChat: (e: any, bypass?: boolean) => void
+  handleInputChange: (e: any) => void
 }
 
-function useChatWithAi(): useChatWithAiReturnType{
-  const {uiStore: {conversation, setConversation}, authStore} = useStores()
-  const {data,handlePostRequest,loading} =usePostData(`${config.BACKEND_ENDPOINT}/getReply` )
+function useChatWithAi (): useChatWithAiReturnType {
+  const { uiStore: { conversation, setConversation }, authStore } = useStores()
+  const { data, handlePostRequest, loading } = usePostData(`${config.BACKEND_ENDPOINT}/getReply`)
 
-  const [input, setInput] = useState<string>('');
+  const [input, setInput] = useState<string>('')
 
-
-  useEffect(() =>{
-    if(!data) return;
+  useEffect(() => {
+    if (data == null) return
     setConversation(data)
-  },[data])
+  }, [data])
 
-  function handleInputChange(e:any){
+  function handleInputChange (e: any): void {
     setInput(e.target.value)
   }
 
-  async function sendChat(e:any, bypass?: boolean){
-    if (((e.key !== 'Enter' || loading)) && !bypass) {
+  async function sendChat (e: any, bypass?: boolean): Promise<void> {
+    if (((e.key !== 'Enter' || loading)) && (bypass === false)) {
       return
     }
 
-    const userChat:ChatMessage = { content: input, role: ResponseRoles.user }
+    const userChat: ChatMessage = { content: input, role: ResponseRoles.user }
 
     setConversation(userChat)
     console.log(conversation)
 
     const sendObj = {
-      userInput: [...conversation,userChat],
+      userInput: [...conversation, userChat],
       userId: authStore.userProfile?._id
     }
     setInput('')
@@ -49,8 +48,7 @@ function useChatWithAi(): useChatWithAiReturnType{
     await handlePostRequest(sendObj)
   }
 
-  async function doSpecific(prompt:any){
-
+  async function doSpecific (prompt: any): Promise<void> {
     const sendObj = {
       userInput: [prompt],
       userId: authStore.userProfile?._id
@@ -60,7 +58,7 @@ function useChatWithAi(): useChatWithAiReturnType{
     await handlePostRequest(sendObj)
   }
 
-  return{
+  return {
     conversation,
     sendChat,
     handleInputChange,
@@ -68,7 +66,6 @@ function useChatWithAi(): useChatWithAiReturnType{
     loading,
     doSpecific
   }
-
 }
 
-export default useChatWithAi;
+export default useChatWithAi

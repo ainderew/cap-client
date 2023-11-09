@@ -1,7 +1,7 @@
 import { message } from 'antd'
 
-function ValidateUserForm(user: any, vpassword: any): boolean {
-  if (Object.values(user).some((value) => !value)) {
+function ValidateUserForm (user: any, vpassword: any): boolean {
+  if (Object.values(user).some((value) => value === null || value === '')) {
     void message.error('Empty fields')
 
     return false

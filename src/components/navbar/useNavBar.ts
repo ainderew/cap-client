@@ -1,29 +1,27 @@
-import { useEffect, useRef, useState } from "react";
-import { debounce } from "lodash";
+import { useEffect, useRef, useState } from 'react'
+import { debounce } from 'lodash'
 
+function useNavBar (): boolean {
+  const currScroll = useRef(0)
+  const [hideNav, setHideNav] = useState(false)
 
-function useNavBar(): boolean{
-  const currScroll = useRef(0);
-  const [hideNav, setHideNav] = useState(false);
-
-  function handleHideNav(){
-    if(currScroll.current < window.scrollY){
+  function handleHideNav (): void {
+    if (currScroll.current < window.scrollY) {
       setHideNav(true)
-    }else{
+    } else {
       setHideNav(false)
     }
 
-    currScroll.current = window.scrollY;
+    currScroll.current = window.scrollY
   }
 
-  const debounceFunc = debounce(handleHideNav,35)
-  
-  useEffect(() =>{
-    window.addEventListener("scroll", debounceFunc)
+  const debounceFunc = debounce(handleHideNav, 35)
 
-    return () => window.removeEventListener("scroll", () => {})
-  },[])
+  useEffect(() => {
+    window.addEventListener('scroll', debounceFunc)
 
+    return () => { window.removeEventListener('scroll', () => {}) }
+  }, [])
 
   return hideNav
 }

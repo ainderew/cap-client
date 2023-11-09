@@ -7,7 +7,7 @@ interface props {
   modalOpener?: any
   small?: boolean
 }
-const ChatBubble: React.FC<props> = ({ content, modalOpener,small=false }) => {
+const ChatBubble: React.FC<props> = ({ content, modalOpener, small = false }) => {
   return (
     <div
       className={`${
@@ -22,7 +22,7 @@ const ChatBubble: React.FC<props> = ({ content, modalOpener,small=false }) => {
       <div
         className={`${
           content.role === 'ai' ? 'border-2 bg-[#F6F6F6] text-gray-800' : 'bg-[#2B99FF] text-white'
-        }  min-h-min min-w-[10px] ${small ? "max-w-full" : "max-w-[70%]"} self-start rounded-2xl px-4 py-2 shadow-sm lg:${small ? "max-w-full" : "max-w-[45%]"}`}
+        }  min-h-min min-w-[10px] ${small ? 'max-w-full' : 'max-w-[70%]'} self-start rounded-2xl px-4 py-2 shadow-sm lg:${small ? 'max-w-full' : 'max-w-[45%]'}`}
       >
         <SpecificBusinessLink
           modalOpener={modalOpener}

@@ -1,26 +1,21 @@
-import React from "react";
-import Image from "next/image";
-import DefaultLayout from "./layouts/default";
-import Banner from "@/components/landingPage/banner";
+import React from 'react'
+import Image from 'next/image'
+import DefaultLayout from './layouts/default'
+import Banner from '@/components/landingPage/banner'
 const Home: React.FC = () => {
   const business = [
-    "Personalized Data",
-    "Personalized Service",
-    "Business Analytics",
-    " Proactive Notifications",
-  ];
-  const customer = [
-    "Personalized Data",
-    "Personalized Service",
-    "Business Analytics",
-    " Proactive Notifications",
-  ];
+    'Personalized Data',
+    'Personalized Service',
+    'Business Analytics',
+    ' Proactive Notifications'
+  ]
+
   return (
     <DefaultLayout>
       <div className='flex w-full flex-col items-center'>
         <div className='flex h-10 w-full items-center justify-center bg-black'>
           <span className='text-center text-xs text-white md:text-sm'>
-            We're currently building out more features. BRAMK is in Pre-alpha
+            We&apos;re currently building out more features. BRAMK is in Pre-alpha
           </span>
         </div>
         <Banner />
@@ -41,7 +36,7 @@ const Home: React.FC = () => {
           <article className='w-80% grid gap-2 px-10'>
             <section className='grid gap-8 md:grid-cols-2  md:items-center'>
               <div className='relative h-[30rem] w-full md:flex md:h-[20rem] xl:h-[30rem]'>
-                <Image src={"/landingPic1.svg"} fill alt='landingPic1' />
+                <Image src={'/landingPic1.svg'} fill alt='landingPic1' />
               </div>
 
               <div className="flex flex-col gap-4">
@@ -57,7 +52,7 @@ const Home: React.FC = () => {
                   </p>
                 </div>
 
-                <ul className='list-inside' style={{ listStyleType: "disc" }}>
+                <ul className='list-inside' style={{ listStyleType: 'disc' }}>
                     {business.map((item, index) => (
                       <li className='md:py-2' key={index}>
                         {item}
@@ -77,9 +72,9 @@ const Home: React.FC = () => {
                   <p>
                     Revolutionize customer support with MBARK: Boost efficiency,
                     automate common queries, and deliver instant personalized
-                    service to elevate your brand's customer experience!
+                    service to elevate your brand&apos;s customer experience!
                   </p>
-                  <ul className='list-inside	' style={{ listStyleType: "disc" }}>
+                  <ul className='list-inside' style={{ listStyleType: 'disc' }}>
                     {business.map((item, index) => (
                       <li className='md:py-2' key={index}>
                         {item}
@@ -89,7 +84,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className='relative order-first h-[30rem] w-full md:order-last md:flex md:h-[20rem] xl:h-[30rem]'>
-                <Image src={"/landingPic2.svg"} fill alt='landingPic2' />
+                <Image src={'/landingPic2.svg'} fill alt='landingPic2' />
               </div>
             </section>
           </article>
@@ -98,7 +93,7 @@ const Home: React.FC = () => {
           <div className='grid grid-cols-3 items-center  text-white lg:w-9/12'>
             <div className='col-span-3 pt-10  md:col-span-1'>
               <div className='relative h-[20rem] w-full '>
-                <Image src={"/mascot.svg"} fill alt='robot' />
+                <Image src={'/mascot.svg'} fill alt='robot' />
               </div>
             </div>
             <div className='col-span-3 flex flex-col  items-center gap-4 px-2 text-center md:col-span-2 md:items-start md:text-start'>
@@ -129,7 +124,7 @@ const Home: React.FC = () => {
         </footer>
       </div>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

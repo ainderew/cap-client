@@ -1,4 +1,4 @@
-import AgeDisplay from '@/components/ageDisplay'
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import Loading from '@/components/loading'
 import React from 'react'
 import DoughnutGraph from '../defaultGraphs/doughnutChart'
@@ -12,14 +12,14 @@ const config1 = [
     hexColor: '#0bb4ff',
     rgbaColor: 'rgba(53, 162, 235, 0.5)',
     label: 'registered',
-    type: 'bar',
+    type: 'bar'
   },
   {
     hexColor: '#A1A1A1',
     rgbaColor: '#A1A1A1',
     label: 'Unknown',
-    type: 'bar',
-  },
+    type: 'bar'
+  }
 ]
 const ageGroup = ['Teen', 'Young adult', 'Adult', 'Senior']
 
@@ -35,12 +35,12 @@ const AgeData: React.FC<props> = ({ ...props }) => {
               {props?.monthData?.[
                 currentDate.getMonth()
               ]?.thisMonth?.ageDemographic.every(
-                (value: any) => value === 0,
+                (value: any) => value === 0
               ) ? (
                 <div className='flex items-center justify-center bg-slate-300 text-center'>
                   No Data
                 </div>
-              ) : (
+                  ) : (
                 <DoughnutGraph
                   months={['unknown', '12-18', '19-26', '26-60', '60 above']}
                   clickCounts={
@@ -49,7 +49,7 @@ const AgeData: React.FC<props> = ({ ...props }) => {
                   }
                   position={'bottom'}
                 />
-              )}
+                  )}
             </div>
           </div>
         ) : (
@@ -66,12 +66,12 @@ const AgeData: React.FC<props> = ({ ...props }) => {
               [
                 props?.monthData?.[currentDate.getMonth()]?.thisMonth?.total -
                   props?.monthData?.[currentDate.getMonth()]?.thisMonth
-                    ?.ageDemographic?.[0],
+                    ?.ageDemographic?.[0]
               ],
               [
                 props?.monthData?.[currentDate.getMonth()]?.thisMonth
-                  ?.ageDemographic?.[0],
-              ],
+                  ?.ageDemographic?.[0]
+              ]
             ]}
             config={config1}
             axis={'y'}

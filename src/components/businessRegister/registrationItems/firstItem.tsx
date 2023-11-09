@@ -1,13 +1,13 @@
-
-//change later
-interface props{
-    business: any,
-    setBusiness: any,
-    vpassword:any,
-    setVpassword: any
+import React from 'react'
+// change later
+interface props {
+  business: any
+  setBusiness: any
+  vpassword: any
+  setVpassword: any
 }
 
-export default function FirstItem({business, setBusiness, vpassword, setVpassword}:props): React.ReactElement {
+export default function FirstItem ({ business, setBusiness, vpassword, setVpassword }: props): React.ReactElement {
   return (
     <>
       <div>
@@ -15,7 +15,7 @@ export default function FirstItem({business, setBusiness, vpassword, setVpasswor
         <input
           value={business.email}
           onChange={(e) => {
-            setBusiness({ ...business, email: e.target.value });
+            setBusiness({ ...business, email: e.target.value })
           }}
           type='text'
           className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
@@ -26,7 +26,7 @@ export default function FirstItem({business, setBusiness, vpassword, setVpasswor
         <input
           value={business.password}
           onChange={(e) => {
-            setBusiness({ ...business, password: e.target.value });
+            setBusiness({ ...business, password: e.target.value })
           }}
           type='password'
           className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
@@ -37,7 +37,7 @@ export default function FirstItem({business, setBusiness, vpassword, setVpasswor
         <input
           value={vpassword}
           onChange={(e) => {
-            setVpassword(e.target.value);
+            setVpassword(e.target.value)
           }}
           type='password'
           className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
@@ -48,12 +48,12 @@ export default function FirstItem({business, setBusiness, vpassword, setVpasswor
         <input
           value={business.name}
           onChange={(e) => {
-            setBusiness({ ...business, name: e.target.value });
+            setBusiness({ ...business, name: e.target.value })
           }}
           type='text'
           className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
         ></input>
       </div>
     </>
-  );
+  )
 }
