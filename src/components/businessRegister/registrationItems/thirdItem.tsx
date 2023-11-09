@@ -2,7 +2,7 @@ import React from 'react'
 import { BusinessInterface } from '../form'
 import { OurFileRouter } from '@/service/uploadthing';
 import { UploadDropzone } from '@uploadthing/react';
-import { Button, Image } from 'antd';
+import { Button } from 'antd';
 
 interface ThirdItemProps{
     business: BusinessInterface,
