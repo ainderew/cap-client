@@ -3,14 +3,12 @@ import React, { useEffect, useState } from "react";
 import { config } from "../../../config";
 import usePostData from "@/hooks/usePostData";
 import { type Filter } from "@/utils/types/base";
-import { Pagination, Spin, message } from "antd";
+import { Spin, message } from "antd";
 import { industrylist, sizelist } from "./menulists";
-import BusinessDropdown from "./dropdown";
-import BusinessIndustrySearch from "./searchdropdown";
-import { measureMemory } from "vm";
 import ValidateUserForm from "../registerValidation";
-import LocationSelector from "../location/locationselector";
 import PaginationController from "./paginationController";
+import FirstItem from "./registrationItems/firstItem";
+import SecondItem from "./registrationItems/secondItem";
 
 export interface BusinessInterface {
   email: string;
@@ -84,100 +82,32 @@ const BusinessRegisterForm: React.FC<props> = ({
 
   useEffect(() => {
     if (data === null) return;
-
     //make this as separate tsx
 
     if (data !== null) void router.push("/login");
   }, [data]);
 
-  //PLEASE TRANSFER INTO DIFFERENT TSXs
-  function FirstItem() {
-    return (
-      <>
-        <div>
-          <p>Email</p>
-          <input
-            value={business.email}
-            onChange={(e) => {
-              setBusiness({ ...business, email: e.target.value });
-            }}
-            type='text'
-            className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-          ></input>
-        </div>
-        <div>
-          <p>Password</p>
-          <input
-            value={business.password}
-            onChange={(e) => {
-              setBusiness({ ...business, password: e.target.value });
-            }}
-            type='password'
-            className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-          ></input>
-        </div>
-        <div>
-          <p>Verify Password</p>
-          <input
-            value={vpassword}
-            onChange={(e) => {
-              setVpassword(e.target.value);
-            }}
-            type='password'
-            className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-          ></input>
-        </div>
-        <div>
-          <p>Business Name</p>
-          <input
-            value={business.name}
-            onChange={(e) => {
-              setBusiness({ ...business, name: e.target.value });
-            }}
-            type='text'
-            className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-          ></input>
-        </div>
-      </>
-    );
-  }
+  const sections = [
+    <FirstItem
+      vpassword={vpassword}
+      setVpassword={setVpassword}
+      business={business}
+      setBusiness={setBusiness}
+    />,
+    <SecondItem
+      handleLocationChange={handleLocationChange}
+      setBusiness={setBusiness}
+      business={business}
+      sizelist={sizelist}
+      industrylist={industrylist}
+    />,
 
-  function SecondItem() {
-    return (
-      <>
-        <div className='w-[20rem]'>
-          <p>Business Size</p>
-          <BusinessDropdown
-            list={sizelist}
-            defaultMessage='Select one . . .'
-            business={business}
-            setBusiness={setBusiness}
-          />
-        </div>
-        <div className='w-[20rem]'>
-          <p>Industry</p>
-          <BusinessIndustrySearch
-            list={industrylist}
-            defaultMessage='Select one . . .'
-            business={business}
-            setBusiness={setBusiness}
-          />
-        </div>
-        <div className='w-[20rem]'>
-          <p>Business Location</p>
-          <LocationSelector onLocationChange={handleLocationChange} />
-        </div>
-      </>
-    );
-  }
-
-  //brett please add here picture section
-
-  const sections = [<FirstItem />, <SecondItem />];
+    //add here third section for images
+  ];
 
   return (
     <div className='grid h-full w-full grid-cols-[2fr_1fr] gap-8'>
-      <section className='white-shadow flex h-full w-full flex-col justify-around gap-2 py-8 px-16 font-[400]'>
+      <section className='white-shadow flex h-full w-full flex-col justify-around gap-2 px-16 py-8 font-[400]'>
         {sections[currentStep - 1]}
 
         <div className='text-[.7rem] text-[#878787]'>
