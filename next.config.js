@@ -10,6 +10,5 @@ const nextConfig = {
 
 // module.exports = pluginAntdLess(nextConfig)
 module.exports = withAntdLess({
-  lessVarsFilePath: './src/styles/antd-styles.less',
   ...nextConfig // Spread the nextConfig object to merge the configurations.
 })
