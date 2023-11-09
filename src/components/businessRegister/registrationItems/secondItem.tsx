@@ -35,6 +35,17 @@ export default function SecondItem({handleLocationChange,setBusiness, business, 
           <p>Business Location</p>
           <LocationSelector onLocationChange={handleLocationChange} />
         </div>
+        <div>
+        <p>Website</p>
+        <input
+          value={business.website}
+          onChange={(e) => {
+            setBusiness({ ...business, website: e.target.value });
+          }}
+          type='text'
+          className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
+        ></input>
+      </div>
       </>
     );
   }
