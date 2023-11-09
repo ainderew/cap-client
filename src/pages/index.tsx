@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import DefaultLayout from "./layouts/default";
-import NavBar from "@/components/navbar";
 import Banner from "@/components/landingPage/banner";
 const Home: React.FC = () => {
   const business = [

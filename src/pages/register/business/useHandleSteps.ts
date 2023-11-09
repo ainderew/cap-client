@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 
-const description = "test";
-export function useHandleSteps(){
+const description = "";
+export default function useHandleSteps(){
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const steps =[
@@ -15,7 +15,7 @@ export function useHandleSteps(){
       description,
     },
     {
-      title: "Images",
+      title: "Photo",
       description,
     },
   ]

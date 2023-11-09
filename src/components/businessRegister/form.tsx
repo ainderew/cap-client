@@ -9,6 +9,8 @@ import ValidateUserForm from "../registerValidation";
 import PaginationController from "./paginationController";
 import FirstItem from "./registrationItems/firstItem";
 import SecondItem from "./registrationItems/secondItem";
+import ThirdItem from "./registrationItems/thirdItem";
+import { Image } from 'antd';
 
 export interface BusinessInterface {
   email: string;
@@ -18,6 +20,8 @@ export interface BusinessInterface {
   size: (typeof sizelist)[number];
   industry: (typeof industrylist)[number];
   location: any;
+  website: string;
+  photo: string
 }
 
 interface props {
@@ -50,8 +54,11 @@ const BusinessRegisterForm: React.FC<props> = ({
       cityOrMunicipality: "",
       specifics: "",
     },
+    website:"",
+    photo: ""
   });
   const [vpassword, setVpassword] = useState<string>("");
+  const [hasUploaded, setHasUploaded] = useState<boolean>(false);
   const { data, loading, handlePostRequest } = usePostData(
     `${config.BACKEND_ENDPOINT}/api/register/business`
   );
@@ -102,7 +109,12 @@ const BusinessRegisterForm: React.FC<props> = ({
       industrylist={industrylist}
     />,
 
-    //add here third section for images
+    <ThirdItem
+    business={business} 
+    setBusiness={setBusiness} 
+    hasUploaded={hasUploaded} 
+    setHasUploaded={setHasUploaded}
+    />
   ];
 
   return (
@@ -186,6 +198,18 @@ const BusinessRegisterForm: React.FC<props> = ({
                   </span>
                 </div>
               </div>
+            </div>
+            <div className='flex flex-col gap-2 '>
+              <span className='text-sm font-semibold text-gray-400'>
+                WEBSITE:{" "}
+              </span>
+              <span className=''>{business.website}</span>
+            </div>
+            <div className='flex flex-col gap-2 '>
+              <span className='text-sm font-semibold text-gray-400'>
+                Business Photo:{" "}
+              </span>
+              <span className=''>{business.photo===""?"":(<Image src={business.photo} alt='Business Photo'/>)}</span>
             </div>
           </div>
 
