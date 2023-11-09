@@ -9,7 +9,7 @@ const BusinessRegisterUI: React.FC = () => {
   const {currentStep, backwards, forwards,steps } = useHandleSteps()
   return (
     <DefaultLayout>
-      <div className='flex h-full w-full flex-col items-center gap-12 p-16'>
+      <div className='flex h-full w-full flex-col items-center gap-12 py-16 px-28'>
         <div className='steps w-1/2'>
           <Steps
             current={currentStep-1}

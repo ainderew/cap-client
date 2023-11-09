@@ -177,7 +177,7 @@ const BusinessRegisterForm: React.FC<props> = ({
 
   return (
     <div className='grid h-full w-full grid-cols-[2fr_1fr] gap-8'>
-      <section className='white-shadow flex h-full w-full flex-col justify-around gap-2 p-4 font-[400]'>
+      <section className='white-shadow flex h-full w-full flex-col justify-around gap-2 py-8 px-16 font-[400]'>
         {sections[currentStep - 1]}
 
         <div className='text-[.7rem] text-[#878787]'>

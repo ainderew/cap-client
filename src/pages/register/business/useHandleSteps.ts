@@ -11,7 +11,7 @@ export function useHandleSteps(){
       description,
     },
     {
-      title: "Additional Business Info",
+      title: "Additional Info",
       description,
     },
     {
