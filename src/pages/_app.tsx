@@ -6,7 +6,7 @@ import useStores from '@/core/stores/UseStores'
 import { config } from '../../config'
 import useLazyFetchData from '@/hooks/useLazyFetchData'
 import { message } from 'antd'
-import { AccountType } from '@/utils/enums'
+import { AccountType, keys } from '@/utils/enums'
 import ModalContainer from '@/components/modals/modalContainer'
 import { observer } from 'mobx-react'
 import { type userProfile } from '@/utils/types/auth'
@@ -41,7 +41,7 @@ const App: any = ({ Component, pageProps }: AppProps) => {
   async function getProfile (): Promise<boolean> {
     let storedProfile: userProfile
 
-    const data: string | null = sessionStorage.getItem('profile')
+    const data: string | null = sessionStorage.getItem(keys.PROFILE)
 
     if (data !== null) {
       storedProfile = JSON.parse(data)

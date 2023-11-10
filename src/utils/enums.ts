@@ -1,5 +1,6 @@
 export enum keys {
-  AUTH_TOKEN_KEY = 'authToken'
+  AUTH_TOKEN_KEY = 'authToken',
+  PROFILE = 'profile'
 }
 export enum AccountType {
   business = 'business',

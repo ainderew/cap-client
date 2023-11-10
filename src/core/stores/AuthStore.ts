@@ -19,13 +19,14 @@ export default class AuthStore {
   loginUser = (profile: any): void => {
     this.userProfile = profile.profile
 
-    sessionStorage.setItem('profile', JSON.stringify(profile.profile))
+    sessionStorage.setItem(keys.PROFILE, JSON.stringify(profile.profile))
 
     sessionStorage.setItem(keys.AUTH_TOKEN_KEY, profile.authToken)
   }
 
   logoutUser = (): void => {
     this.userProfile = null
+    sessionStorage.removeItem(keys.AUTH_TOKEN_KEY)
     sessionStorage.removeItem(keys.AUTH_TOKEN_KEY)
   }
 
