@@ -41,8 +41,7 @@ const YearlyGraph: React.FC<Details> = ({ ...props }) => {
 
   return (
     <>
-      {!props.isRetrieved ? (
-        <div>
+     <div>
           <div className='col-span-3 hidden h-[25rem] rounded-lg border-2 border-solid border-[#5d5d5d29] md:block '>
             <GraphChart
               tags={props.monthNames.slice(0, currentDate.getMonth() + 2)}
@@ -52,23 +51,21 @@ const YearlyGraph: React.FC<Details> = ({ ...props }) => {
               barwidth={50}
               show={true}
               title={'Year Data'}
+              loading={props.isRetrieved}
             />
           </div>
           <div className='col-span-3 block h-[30rem] rounded-lg border-2 border-solid border-[#5d5d5d29] md:hidden '>
             <GraphChart
-              tags={props.monthNames}
-              clickCounts={[movingAverage, props.yearlyData]}
-              config={config}
-              axis={'y'}
-              barwidth={20}
-              show={true}
-              title={'Year Data'}
-            />
+            tags={props.monthNames}
+            clickCounts={[movingAverage, props.yearlyData]}
+            config={config}
+            axis={'y'}
+            barwidth={20}
+            show={true}
+            title={'Year Data'} loading={props.isRetrieved} />
           </div>
         </div>
-      ) : (
-        <div className='order-first col-span-5 h-[25rem] shadow-md md:col-span-3 md:h-[25rem]'></div>
-      )}
+
     </>
   )
 }

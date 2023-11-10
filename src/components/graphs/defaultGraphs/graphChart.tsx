@@ -16,6 +16,7 @@ import {
   ArcElement,
   BarController
 } from 'chart.js'
+import Loading from '@/components/loading'
 
 ChartJS.register(
   CategoryScale,
@@ -39,14 +40,15 @@ const GraphChart: React.FC<{
   barwidth: number
   show: boolean
   title: string
-}> = ({ tags, clickCounts, config, axis, barwidth, show, title }) => {
+  loading: boolean
+}> = ({ tags, clickCounts, config, axis, barwidth, show, title, loading }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
   useEffect(() => {
     setChartDataset({
       labels: tags,
       datasets: clickCounts?.map((clickCount, index) => ({
-        label: config && config[index] ? config[index].label : '', // Check if config and config[index] are defined
+        label: config && config[index] ? config[index].label : '',
         data: clickCount,
         fill: true,
         type: config && config[index] ? config[index].type : '',
@@ -95,9 +97,9 @@ const GraphChart: React.FC<{
   }, [tags, clickCounts])
 
   return (
-    <div className='h-full w-auto '>
-      {/* Use a Bar and Line component to render mixed chart */}
-      <Bar options={chartOptions} data={chartDataset} />
+    <div className='h-full flex w-full '>
+      {loading ? (<Loading />) : (<Bar className='w-full' options={chartOptions} data={chartDataset} />)}
+
     </div>
   )
 }

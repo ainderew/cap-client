@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Loading from '@/components/loading'
 import GraphChart from '../defaultGraphs/graphChart'
 import { Select } from 'antd'
 import Image from 'next/image'
@@ -106,21 +105,16 @@ const MonthlyGraph: React.FC<Details> = ({ ...props }) => {
             </div>
           </div>
           <div className='col-span-5 h-[15rem] border-2 shadow-md md:h-[rem]'>
-            {!props.loading ? (
-              <GraphChart
-                tags={Array.from({ length: current?.daily.length }, (_, i) =>
-                  (i + 1).toString()
-                )}
-                clickCounts={[current?.daily, previous?.daily]}
-                config={config}
-                axis={'x'}
-                barwidth={20}
-                show={false}
-                title={'Monthly Data'}
-              />
-            ) : (
-              <Loading />
-            )}
+          <GraphChart
+              tags={Array.from({ length: current?.daily.length }, (_, i) => (i + 1).toString()
+              )}
+              clickCounts={[current?.daily, previous?.daily]}
+              config={config}
+              axis={'x'}
+              barwidth={20}
+              show={false}
+              title={'Monthly Data'} loading={props.loading} />
+
           </div>
         </section>
       </div>

@@ -80,8 +80,7 @@ const Dashboard: React.FC = () => {
                 clicksdata?.thisyearClicks,
                 clicksdata?.monthlyCounts[currentDate.getMonth()],
                 (clicksdata?.monthlyCounts[currentDate.getMonth()] /
-                  (clicksdata?.thisyearClicks / (currentDate.getMonth() + 1))) *
-                  100,
+                  (clicksdata?.thisyearClicks / (currentDate.getMonth() + 1))),
                 (clicksdata?.monthlyCounts[currentDate.getMonth()] /
                   currentDate.getDate()) *
                   100
