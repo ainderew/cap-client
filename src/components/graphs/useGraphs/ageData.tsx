@@ -29,7 +29,24 @@ const AgeData: React.FC<props> = ({ ...props }) => {
   return (
     <div className=' grid h-full w-full grid-cols-6 gap-2 text-center '>
       <div className='col-span-6 md:col-span-2'>
-        {!props.loading ? (
+      <div className='h-[25rem] w-[full] md:h-[25rem]  lg:block'>
+              {props?.monthData?.[
+                currentDate.getMonth()
+              ]?.thisMonth?.ageDemographic.every(
+                (value: any) => value === 0
+              ) ? (
+                <div className='flex items-center justify-center bg-slate-300 text-center'>
+                  No Data
+                </div>
+                  ) : (
+                <DoughnutGraph
+                    months={['unknown', '12-18', '19-26', '26-60', '60 above']}
+                    clickCounts={props?.monthData?.[currentDate.getMonth()]?.thisMonth
+                      ?.ageDemographic}
+                    position={'bottom'} loading={props.loading} />
+                  )}
+            </div>
+     {/*    {!props.loading ? (
           <div>
             <div className='h-[25rem] w-[full] md:h-[25rem]  lg:block'>
               {props?.monthData?.[
@@ -42,13 +59,10 @@ const AgeData: React.FC<props> = ({ ...props }) => {
                 </div>
                   ) : (
                 <DoughnutGraph
-                  months={['unknown', '12-18', '19-26', '26-60', '60 above']}
-                  clickCounts={
-                    props?.monthData?.[currentDate.getMonth()]?.thisMonth
-                      ?.ageDemographic
-                  }
-                  position={'bottom'}
-                />
+                    months={['unknown', '12-18', '19-26', '26-60', '60 above']}
+                    clickCounts={props?.monthData?.[currentDate.getMonth()]?.thisMonth
+                      ?.ageDemographic}
+                    position={'bottom'} loading={props.loading} />
                   )}
             </div>
           </div>
@@ -56,7 +70,7 @@ const AgeData: React.FC<props> = ({ ...props }) => {
           <div className=' col-span-4 h-[25rem] w-full'>
             <Loading />
           </div>
-        )}
+        )} */}
       </div>
       <div className='col-span-6 md:col-span-4 '>
         <div className='flex h-[10rem] flex-col rounded-md bg-white shadow-lg'>
@@ -65,8 +79,8 @@ const AgeData: React.FC<props> = ({ ...props }) => {
             clickCounts={[
               [
                 props?.monthData?.[currentDate.getMonth()]?.thisMonth?.total -
-                  props?.monthData?.[currentDate.getMonth()]?.thisMonth
-                    ?.ageDemographic?.[0]
+                props?.monthData?.[currentDate.getMonth()]?.thisMonth
+                  ?.ageDemographic?.[0]
               ],
               [
                 props?.monthData?.[currentDate.getMonth()]?.thisMonth
@@ -77,8 +91,7 @@ const AgeData: React.FC<props> = ({ ...props }) => {
             axis={'y'}
             barwidth={40}
             show={false}
-            title={'User Interaction Demographics'}
-          />
+            title={'User Interaction Demographics'} loading={props.loading} />
           <div className='mt-2 h-[10rem]'>
             {/* <AgeDisplay
               data={props?.monthData?.[

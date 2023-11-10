@@ -57,8 +57,7 @@ const TrendGraph: React.FC = () => {
             )}
             barwidth={0}
             show={false}
-            title={'Top Five Engagement'}
-          />
+            title={'Top Five Engagement'} loading={data.loading} />
         ) : (
           <Loading />
         )}
@@ -76,8 +75,7 @@ const TrendGraph: React.FC = () => {
             )}
             barwidth={50}
             show={false}
-            title={'Total Engagement'}
-          />
+            title={'Total Engagement'} loading={data.loading} />
         ) : (
           <Loading />
         )}

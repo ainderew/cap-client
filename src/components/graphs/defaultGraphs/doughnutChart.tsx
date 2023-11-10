@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import Loading from '@/components/loading'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 const colorPalette = ['#A1A1A1', '#81DDC5', '#65A4F5', '#8F7ED4', '#EF7783']
@@ -9,7 +10,8 @@ const DoughnutGraph: React.FC<{
   position: string
   months: string[]
   clickCounts: number[]
-}> = ({ months, clickCounts, position }) => {
+  loading: boolean
+}> = ({ months, clickCounts, position, loading }) => {
   const [chartDataset, setChartDataset] = useState<any>({ datasets: [] })
   const [chartOptions, setChartOptions] = useState({})
 
@@ -44,7 +46,7 @@ const DoughnutGraph: React.FC<{
 
   return (
     <div className='h-full w-auto '>
-      <Doughnut options={chartOptions} data={chartDataset} />
+      {loading ? (<Loading />) : (<Doughnut options={chartOptions} data={chartDataset} />)}
     </div>
   )
 }

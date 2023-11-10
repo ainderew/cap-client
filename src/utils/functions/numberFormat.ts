@@ -1,5 +1,7 @@
 export function formatNumber (data: any): any {
-  if (Number.isNaN(data)) {
+  if (data === Infinity || data === -Infinity) {
+    return 100 // Set to 100 if it's Infinity
+  } else if (Number.isNaN(data)) {
     return 0
   } else if (data > 1000) {
     if (data >= 1000000) {
