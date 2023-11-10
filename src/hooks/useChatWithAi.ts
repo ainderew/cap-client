@@ -9,7 +9,7 @@ export interface useChatWithAiReturnType {
   conversation: ChatMessage[]
   input: string
   loading: boolean
-  doSpecific: (propmpt: ChatMessage) => void
+  initializeSpecificChat: (propmpt: ChatMessage) => void
   sendChat: (e: any, bypass?: boolean) => void
   handleInputChange: (e: any) => void
 }
@@ -35,6 +35,8 @@ function useChatWithAi (): useChatWithAiReturnType {
       return
     }
 
+    console.log(businessId)
+
     const userChat: ChatMessage = { content: input, role: ResponseRoles.user }
 
     setConversation(userChat)
@@ -43,20 +45,19 @@ function useChatWithAi (): useChatWithAiReturnType {
     const sendObj = {
       userInput: [...conversation, userChat],
       userId: authStore.userProfile?._id,
-      specificBusinessId: businessId ?? null
+      specificBusinessId: businessId
     }
     setInput('')
 
     await handlePostRequest(sendObj)
   }
 
-  async function doSpecific (prompt: any): Promise<void> {
+  async function initializeSpecificChat (prompt: any): Promise<void> {
     const sendObj = {
-      userInput: [prompt],
+      userInput: [{ content: 'What Store is this', role: 'user' }],
       userId: authStore.userProfile?._id,
       specificBusinessId: businessId ?? null
     }
-    setInput('')
 
     await handlePostRequest(sendObj)
   }
@@ -67,7 +68,7 @@ function useChatWithAi (): useChatWithAiReturnType {
     handleInputChange,
     input,
     loading,
-    doSpecific
+    initializeSpecificChat
   }
 }
 

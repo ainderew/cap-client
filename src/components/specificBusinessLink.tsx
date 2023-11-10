@@ -29,6 +29,7 @@ const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
   useEffect(() => {
     void handlePostRequest()
   }, [businessId])
+
   const handleClick = useCallback(async (company: SimpleBusiness) => {
     setModalData({
       componentName: 'SpecificChat',
