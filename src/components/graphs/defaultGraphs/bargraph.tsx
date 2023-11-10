@@ -11,7 +11,7 @@ import {
   ArcElement,
   LineElement,
   BarController
-} from 'chart.js'
+} from 'chart.js/auto'
 
 ChartJS.register(
   CategoryScale,

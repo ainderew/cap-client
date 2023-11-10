@@ -15,7 +15,7 @@ import {
   BarElement,
   ArcElement,
   BarController
-} from 'chart.js'
+} from 'chart.js/auto'
 import Loading from '@/components/loading'
 
 ChartJS.register(

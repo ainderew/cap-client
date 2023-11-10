@@ -10,7 +10,7 @@ import {
   Tooltip,
   Filler,
   Legend
-} from 'chart.js'
+} from 'chart.js/auto'
 
 ChartJS.register(
   CategoryScale,
