@@ -6,7 +6,8 @@ const handler = createNextPageApiHandler({
   router: ourFileRouter,
   config: {
     uploadthingId: config.UPLOADTHING_APP_ID,
-    uploadthingSecret: config.UPLOADTHING_SECRET
+    uploadthingSecret: config.UPLOADTHING_SECRET,
+    callbackUrl: '/api/uploadthing'
   }
 })
 
