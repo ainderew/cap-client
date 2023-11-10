@@ -1,25 +1,34 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import useStores from '@/core/stores/UseStores'
 import { observer } from 'mobx-react'
 import { type SimpleBusiness } from '@/utils/types/base'
 import usePostData from '@/hooks/usePostData'
 import { config } from '../../config'
+import useFetchData from '@/hooks/useFetchData'
 
 interface props {
   response: string
   modalOpener: any
 }
 
-const companies = [
-  { name: "Leona's", location: 'Mabolo, SM Cebu City', url: 'https://leonas.com/', image: '/leonas.jpeg' }
-  // Add more company objects as needed
-]
 const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
-  const { uiStore: { setModalData }, authStore: { userProfile } } = useStores()
+  const { uiStore: { setModalData, setBusiness }, authStore: { userProfile } } = useStores()
+  const [companies, setCompanies] = useState<any>([])
+  const [businessId, setBusinessId] = useState<string>('')
 
-  const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/clicked/653260b8bdbc2114a3abcac7/${userProfile?._id ?? 0}`)
+  const { handlePostRequest } = usePostData(`${config.BACKEND_ENDPOINT}/api/clicked/${businessId}/${userProfile?._id ?? 0}`)
+  const { data, loading } = useFetchData(`${config.BACKEND_ENDPOINT}/api/business/all`)
 
+  useEffect(() => {
+    if (data === null || data === undefined) return
+
+    setCompanies(data)
+  }, [data])
+
+  useEffect(() => {
+    void handlePostRequest()
+  }, [businessId])
   const handleClick = useCallback(async (company: SimpleBusiness) => {
     setModalData({
       componentName: 'SpecificChat',
@@ -31,9 +40,10 @@ const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
         showSubmitButton: false
       }
     })
-
+    console.log(company)
+    setBusinessId(company.businessId)
+    setBusiness(company)
     modalOpener(true)
-    await handlePostRequest()
   }, [])
 
   const generateClickableText = (text: string): React.ReactNode => {
@@ -78,6 +88,7 @@ const SpecificBusinessLink: React.FC<props> = ({ response, modalOpener }) => {
 
   const newResponse = generateClickableText(response)
 
+  if (loading) return <>loading</>
   return <div className="">{newResponse}</div>
 }
 

@@ -41,7 +41,7 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
     <div>
       <div className='grid grid-cols-2 gap-2'>
         <Select
-          className='col-span-2 w-[20rem]  rounded-[.5rem] outline outline-1 outline-[#2B99FF]'
+          className='col-span-2 w-full border-b-2'
           showSearch
           placeholder='Select Country'
           optionFilterProp='children'
@@ -66,7 +66,7 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
           value={location.country}
         />
         <Select
-          className='w-[10rem] rounded-[.5rem]  outline outline-1 outline-[#2B99FF]'
+          className='w-full border-b-2'
           showSearch
           placeholder='Select State/Province'
           optionFilterProp='children'
@@ -91,7 +91,7 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
           value={location.province}
         />
         <AutoComplete
-          className='w-[10rem]  rounded-[.5rem] outline outline-1 outline-[#2B99FF]'
+          className='w-full border-b-2'
           style={{ width: '100%' }}
           options={cities}
           placeholder={'select city'}
@@ -110,7 +110,7 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({
         />
 
         <AutoComplete
-           className='w-[20rem]  rounded-[.5rem] outline outline-1 outline-[#2B99FF]'
+           className='col-span-2 w-full border-b-2'
           options={[]}
           placeholder='Specific Address'
           onChange={(value) => {

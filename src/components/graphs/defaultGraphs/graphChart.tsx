@@ -64,7 +64,7 @@ const GraphChart: React.FC<{
             display: show
           },
           grid: {
-            display: show
+            display: false
           }
         },
         y: {
@@ -73,7 +73,7 @@ const GraphChart: React.FC<{
           },
           grid: {
             color: 'rgba(43, 153, 255, 1)',
-            display: true
+            display: false
           }
         }
       },

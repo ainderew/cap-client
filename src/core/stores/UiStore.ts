@@ -1,4 +1,4 @@
-import { type ChatMessage, type ModalData } from '@/utils/types/base'
+import { type SimpleBusiness, type ChatMessage, type ModalData } from '@/utils/types/base'
 import { action, observable, makeObservable } from 'mobx'
 
 export default class UiStore {
@@ -7,6 +7,7 @@ export default class UiStore {
   modalData: ModalData | null = null
   showModal: boolean = false
   conversation: ChatMessage[] = []
+  currentBusiness: SimpleBusiness | null = null
 
   constructor () {
     makeObservable(this, {
@@ -15,12 +16,14 @@ export default class UiStore {
       modalData: observable,
       showModal: observable,
       conversation: observable,
+      currentBusiness: observable,
 
       setIsUploadingFile: action,
       setIsActivatingFile: action,
       setModalData: action,
       setConversation: action,
-      clearConversation: action
+      clearConversation: action,
+      setBusiness: action
     })
   }
 
@@ -47,5 +50,9 @@ export default class UiStore {
 
   clearConversation = (): void => {
     this.conversation = []
+  }
+
+  setBusiness = (business: SimpleBusiness): void => {
+    this.currentBusiness = business
   }
 }

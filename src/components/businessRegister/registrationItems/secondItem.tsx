@@ -1,7 +1,6 @@
+import { LinkOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons'
+import { Input } from 'antd'
 import React from 'react'
-import LocationSelector from '@/components/location/locationselector'
-import BusinessDropdown from '../dropdown'
-import BusinessIndustrySearch from '../searchdropdown'
 
 interface props {
   handleLocationChange: any
@@ -11,42 +10,53 @@ interface props {
   industrylist: any
 }
 
-export default function SecondItem ({ handleLocationChange, setBusiness, business, sizelist, industrylist }: props): React.ReactElement {
+export default function SecondItem ({
+  setBusiness,
+  business
+}: props): React.ReactElement {
   return (
-      <>
-        <div className='w-[20rem]'>
-          <p>Business Size</p>
-          <BusinessDropdown
-            list={sizelist}
-            defaultMessage='Select one . . .'
-            business={business}
-            setBusiness={setBusiness}
-          />
-        </div>
-        <div className='w-[20rem]'>
-          <p>Industry</p>
-          <BusinessIndustrySearch
-            list={industrylist}
-            defaultMessage='Select one . . .'
-            business={business}
-            setBusiness={setBusiness}
-          />
-        </div>
-        <div className='w-[20rem]'>
-          <p>Business Location</p>
-          <LocationSelector onLocationChange={handleLocationChange} />
-        </div>
-        <div>
+    <>
+      <span className='bg-gradient-to-r from-purple-400 to-primary bg-clip-text text-xl font-semibold text-transparent'>
+        Business Information
+      </span>
+      <div className='flex flex-col gap-2'>
+        <p>Business contact email</p>
+        <Input
+          value={business.businessEmail}
+          onChange={(e) => {
+            setBusiness({ ...business, businessEmail: e.target.value })
+          }}
+          type='text'
+          className='w-full !border-b-2 p-[.2rem] px-[.7rem]'
+          prefix={<MailOutlined />}
+        />
+      </div>
+
+      <div className='flex flex-col gap-2'>
+      <p>Business contact number</p>
+        <Input
+          value={business.phoneNumber}
+          onChange={(e) => {
+            setBusiness({ ...business, phoneNumber: e.target.value })
+          }}
+          type='text'
+          className='w-full !border-b-2 p-[.2rem] px-[.7rem]'
+          prefix={<PhoneOutlined />}
+        />
+      </div>
+
+      <div>
         <p>Website</p>
-        <input
+        <Input
           value={business.website}
           onChange={(e) => {
             setBusiness({ ...business, website: e.target.value })
           }}
           type='text'
-          className='w-[20rem] rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF]'
-        ></input>
+          className='w-full'
+          prefix={<LinkOutlined />}
+        />
       </div>
-      </>
+    </>
   )
 }

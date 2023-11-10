@@ -1,8 +1,8 @@
 import BusinessRegisterForm from '@/components/businessRegister/form'
 import React from 'react'
-import DefaultLayout from '../../layouts/default'
+import DefaultLayout from '../layouts/default'
 import { Steps } from 'antd'
-import useHandleSteps from '../../../hooks/useHandleSteps'
+import useHandleSteps from '../../hooks/useHandleSteps'
 
 const BusinessRegisterUI: React.FC = () => {
   const { currentStep, backwards, forwards, steps } = useHandleSteps()

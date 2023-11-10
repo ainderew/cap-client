@@ -44,7 +44,7 @@ function WidgetChatWindow ({ visible }: WidgetChatWindowProps): React.ReactEleme
           placeholder='Send message'
           value={input}
           onChange={handleInputChange}
-          onKeyDown={sendChat}
+          onKeyDown={(e) => { sendChat(e, false) }}
         />
         <button className='flex h-full items-center justify-center rounded-full p-2 hover:bg-gray-100'>
           <SendOutlined className='text-primary' />

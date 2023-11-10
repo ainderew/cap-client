@@ -36,15 +36,17 @@ const FileInfo: React.FC<FileInfoProps> = ({
 
   return (
     <div className='relative my-4 rounded-xl outline outline-1 outline-neutral-300'>
-      <div className='px-10 pt-8'>
+      <div className='h-24 flex justify-center'>
+
         <div
-          className={`absolute -top-2 left-5 rounded-md px-5 text-white ${status ? 'bg-blue-500' : 'bg-neutral-500'
+          className={`absolute -top-2 left-5 rounded-md px-5 text-white ${status ? 'bg-green-400' : 'bg-neutral-500'
             }`}
         >
           {status ? 'ACTIVE' : 'DISABLED'}
         </div>
-        <ul className='flex flex-col gap-2 sm:gap-0 sm:grid sm:grid-cols-[60%_25%_15%] '>
-          <li className='text-lg font-semibold sm:text-xl '>{fileName}</li>
+
+        <ul className='h-full w-[90%] flex flex-col gap-2 sm:gap-0 sm:grid sm:grid-cols-[60%_25%_15%] items-center'>
+          <li className='lg:text-base text-xl '>{fileName}</li>
           <li className='text-sm sm:text-base text-neutral-500 sm:text-black'><span className='sm:hidden'>Uploaded on </span>{dateuploaded}</li>
           <li className='flex sm:justify-center gap-3'>
           <div >
@@ -86,7 +88,7 @@ const FileInfo: React.FC<FileInfoProps> = ({
           </li>
         </ul>
       </div>
-      <section className='mt-2 bg-neutral-200 py-2 pl-10 text-sm text-neutral-500'>
+      <section className='bg-neutral-200 py-2 pl-10 text-sm text-neutral-500'>
         {status ? 'Currently in use' : lastused}
       </section>
     </div>

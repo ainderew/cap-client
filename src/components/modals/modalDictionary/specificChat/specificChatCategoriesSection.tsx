@@ -8,7 +8,7 @@ const tags = ['Food', 'Beverage', 'Dessert', 'Milk Tea']
 function SpecificChatCategories (): React.ReactElement {
   return (
     <div className='col-end- col-start-1 row-start-5 row-end-7 overflow-hidden rounded-md  bg-white text-gray-500 shadow-lg'>
-      <SpecificChatHeader image={<AppstoreFilled />} label='Business data' />
+      <SpecificChatHeader image={<AppstoreFilled />} label='Business Categories' />
       <div className='flex flex-wrap items-center gap-4 p-4'>
         {tags.map((tag) => {
           return (

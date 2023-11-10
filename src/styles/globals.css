@@ -31,9 +31,18 @@ html {
   margin-left: 1rem;
 }
 
+.ant-select-selector,
+.ant-input-affix-wrapper {
+  outline: none !important;
+  border-width: 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid gray !important;
+}
+
 .white-shadow {
   background: #ffffff;
-  box-shadow: -7px 7px 14px #f0f0f0, 7px 7px 14px #f0f0f0,-7px -7px 14px #f0f0f0;
+  box-shadow: -7px 7px 14px #f0f0f0, 7px 7px 14px #f0f0f0,
+    -7px -7px 14px #f0f0f0;
 }
 
 .slide-out-top {
@@ -74,21 +83,28 @@ html {
     rgba(238, 174, 202, 1) 0%,
     rgba(148, 187, 233, 1) 100%
   ); */
-/* 
+  /* 
   background: #acb6e5; 
   background: -webkit-linear-gradient(to right, #86fde8, #acb6e5);
   background: linear-gradient(to right, #86fde8, #acb6e5);  */
-/*   
+  /*   
   background: #C6FFDD;
   background: -webkit-linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);  
   background: linear-gradient(to right, #f7797d, #FBD786, #C6FFDD);  */
 
-
-  background: #2980B9;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #FFFFFF, #6DD5FA, #4fb3f5);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #FFFFFF, #acb6e5, rgb(114, 188, 210)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  
-  
+  background: #2980b9; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #ffffff,
+    #6dd5fa,
+    #4fb3f5
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #ffffff,
+    #acb6e5,
+    rgb(114, 188, 210)
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .business-link {

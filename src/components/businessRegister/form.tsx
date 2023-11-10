@@ -22,6 +22,8 @@ export interface BusinessInterface {
   location: any
   website: string
   photo: string
+  businessEmail: string
+  phoneNumber: string
 }
 
 interface props {
@@ -55,7 +57,10 @@ const BusinessRegisterForm: React.FC<props> = ({
       specifics: ''
     },
     website: '',
-    photo: ''
+    photo: '',
+    businessEmail: '',
+    phoneNumber: ''
+
   })
   const [vpassword, setVpassword] = useState<string>('')
   const [hasUploaded, setHasUploaded] = useState<boolean>(false)
@@ -101,6 +106,9 @@ const BusinessRegisterForm: React.FC<props> = ({
       setVpassword={setVpassword}
       business={business}
       setBusiness={setBusiness}
+      sizelist={sizelist}
+      industrylist={industrylist}
+      handleLocationChange={handleLocationChange}
     />,
     <SecondItem
       key={2}

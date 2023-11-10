@@ -4,7 +4,15 @@ const withAntdLess = require('next-plugin-antd-less')
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    unoptimized: true
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'https://utfs.io',
+        port: '',
+        pathname: '/*'
+      }
+    ]
   }
 }
 
