@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import Loading from '@/components/loading'
 import React from 'react'
 import DoughnutGraph from '../defaultGraphs/doughnutChart'
 import GraphChart from '../defaultGraphs/graphChart'
@@ -46,31 +45,7 @@ const AgeData: React.FC<props> = ({ ...props }) => {
                     position={'bottom'} loading={props.loading} />
                   )}
             </div>
-     {/*    {!props.loading ? (
-          <div>
-            <div className='h-[25rem] w-[full] md:h-[25rem]  lg:block'>
-              {props?.monthData?.[
-                currentDate.getMonth()
-              ]?.thisMonth?.ageDemographic.every(
-                (value: any) => value === 0
-              ) ? (
-                <div className='flex items-center justify-center bg-slate-300 text-center'>
-                  No Data
-                </div>
-                  ) : (
-                <DoughnutGraph
-                    months={['unknown', '12-18', '19-26', '26-60', '60 above']}
-                    clickCounts={props?.monthData?.[currentDate.getMonth()]?.thisMonth
-                      ?.ageDemographic}
-                    position={'bottom'} loading={props.loading} />
-                  )}
-            </div>
-          </div>
-        ) : (
-          <div className=' col-span-4 h-[25rem] w-full'>
-            <Loading />
-          </div>
-        )} */}
+
       </div>
       <div className='col-span-6 md:col-span-4 '>
         <div className='flex h-[10rem] flex-col rounded-md bg-white shadow-lg'>
