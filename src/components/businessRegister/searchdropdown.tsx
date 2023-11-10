@@ -21,7 +21,7 @@ const BusinessIndustrySearch: React.FC<BSearchInterface> = ({
   }))
   return (
     <AutoComplete
-      className=' rounded-[.5rem] outline outline-1 outline-[#2B99FF]'
+      className='w-full border-b-2 cursor-pointer '
       style={{ width: '100%' }}
       options={options}
       placeholder={defaultMessage}

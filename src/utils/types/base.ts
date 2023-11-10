@@ -3,10 +3,18 @@ import { type ResponseRoles } from '../enums'
 export type Filter = Record<string, unknown>
 
 export interface SimpleBusiness {
+  businessId: string
+  industry: string
   name: string
-  location: string
+  size: string
+  location: {
+    cityOrMunicipality: string
+    country: string
+    province: string
+    specifics: string
+  }
   url: string
-  image: string
+  photo: any
 }
 
 interface modalOptions {

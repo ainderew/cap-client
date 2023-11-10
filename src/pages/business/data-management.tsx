@@ -8,7 +8,7 @@ import useStores from '@/core/stores/UseStores'
 const DataManagement: React.FC = () => {
   const { authStore: { userProfile } } = useStores()
 
-  if (userProfile?._id !== null) return <>loading</>
+  if (userProfile?._id === null) return <>loading</>
   return (
     <DefaultLayout>
       <FileProvider>

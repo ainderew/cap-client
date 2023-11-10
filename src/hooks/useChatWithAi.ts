@@ -15,7 +15,8 @@ export interface useChatWithAiReturnType {
 }
 
 function useChatWithAi (): useChatWithAiReturnType {
-  const { uiStore: { conversation, setConversation }, authStore } = useStores()
+  const { uiStore: { conversation, setConversation, currentBusiness }, authStore } = useStores()
+  const { businessId } = currentBusiness ?? {}
   const { data, handlePostRequest, loading } = usePostData(`${config.BACKEND_ENDPOINT}/getReply`)
 
   const [input, setInput] = useState<string>('')
@@ -41,7 +42,8 @@ function useChatWithAi (): useChatWithAiReturnType {
 
     const sendObj = {
       userInput: [...conversation, userChat],
-      userId: authStore.userProfile?._id
+      userId: authStore.userProfile?._id,
+      specificBusinessId: businessId ?? null
     }
     setInput('')
 
@@ -51,7 +53,8 @@ function useChatWithAi (): useChatWithAiReturnType {
   async function doSpecific (prompt: any): Promise<void> {
     const sendObj = {
       userInput: [prompt],
-      userId: authStore.userProfile?._id
+      userId: authStore.userProfile?._id,
+      specificBusinessId: businessId ?? null
     }
     setInput('')
 

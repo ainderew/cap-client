@@ -32,7 +32,7 @@ const BusinessDropdown: React.FC<BDropdownInterface> = ({ list, defaultMessage, 
   return (
         <div className='flex w-full'>
             <Dropdown menu={menuProps} trigger={['click']} className='hover:cursor-pointer'>
-                <div className='rounded-[.5rem] p-[.2rem] px-[.7rem] outline outline-1 outline-[#2B99FF] w-full'>
+                <div className='w-full p-[.2rem] px-[.7rem] border-b-2'>
                     <Space>
                             {hasSelected ? (<div>
                                 {list[keySelected]}
