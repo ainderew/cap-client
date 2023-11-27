@@ -4,7 +4,6 @@ import FileInfo from './fileinfo'
 import { formatDate } from '@/utils/functions/dateformat'
 import useStores from '@/core/stores/UseStores'
 import { config } from '../../config'
-// import useFetchData from '@/hooks/useFetchData'
 import { Empty, Spin } from 'antd'
 import { observer } from 'mobx-react'
 import useLazyFetchData from '@/hooks/useLazyFetchData'
@@ -29,14 +28,6 @@ const FileGroup: React.FC = () => {
     }
     void fetchData()
   }, [businessId, isUploadingFile, isActivatingFile])
-
-  if (data.loading) {
-    return (
-      <div className='flex h-full w-full items-center justify-center'>
-        <Spin />
-      </div>
-    )
-  }
 
   if (files === null) {
     return (
