@@ -4,38 +4,33 @@ import FileInfo from './fileinfo'
 import { formatDate } from '@/utils/functions/dateformat'
 import useStores from '@/core/stores/UseStores'
 import { config } from '../../config'
-import useFetchData from '@/hooks/useFetchData'
+// import useFetchData from '@/hooks/useFetchData'
 import { Empty, Spin } from 'antd'
 import { observer } from 'mobx-react'
+import useLazyFetchData from '@/hooks/useLazyFetchData'
 
 const FileGroup: React.FC = () => {
   const {
     authStore,
     uiStore: { isUploadingFile, isActivatingFile }
   } = useStores()
-  const [files, setFiles] = useState<any>([])
+  const [files, setFiles] = useState<any[]>([])
   const businessId = authStore.userProfile?._id
 
-  const { data, loading, refetch } = useFetchData(
+  const [getData, data] = useLazyFetchData(
     `${config.BACKEND_ENDPOINT}/api/file/getallfiles/${businessId ?? ''}`
   )
 
   useEffect(() => {
-    if (businessId === null) return
-    refetch()
-  }, [authStore.userProfile?._id])
+    if (businessId === null || businessId === undefined || isUploadingFile || isActivatingFile) return
+    const fetchData = async (): Promise<void> => {
+      const datas = await getData()
+      setFiles(datas || [])
+    }
+    void fetchData()
+  }, [businessId, isUploadingFile, isActivatingFile])
 
-  useEffect(() => {
-    if (data === null) return
-    setFiles(data)
-  }, [data])
-
-  useEffect(() => {
-    if (isUploadingFile || isActivatingFile) return
-    refetch()
-  }, [isUploadingFile, isActivatingFile])
-
-  if (loading) {
+  if (data.loading) {
     return (
       <div className='flex h-full w-full items-center justify-center'>
         <Spin />
@@ -43,7 +38,7 @@ const FileGroup: React.FC = () => {
     )
   }
 
-  if (data === null) {
+  if (files === null) {
     return (
       <div className=''>
         <Empty />
@@ -63,11 +58,11 @@ const FileGroup: React.FC = () => {
           </li>
         </ul>
         <div>
-          {loading ? (
+          {data.loading ? (
             <Spin />
           ) : (
             files
-              .slice()
+              ?.slice()
               .sort((a: any, b: any) => {
                 if (a.status === b.status) {
                   const dateA = new Date(a.datelastused)
