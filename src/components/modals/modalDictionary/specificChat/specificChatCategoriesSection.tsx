@@ -3,7 +3,7 @@ import SpecificChatHeader from './specificChatHeader'
 import { AppstoreFilled } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 
-const tags = []
+const tags = ['']
 
 function SpecificChatCategories (): React.ReactElement {
   return (
