@@ -16,7 +16,7 @@ function ModalContainer (): React.ReactElement {
     onCancelFunction,
     onSubmitFunction,
     options,
-    height,
+    // height,
     width
   } = modalData
 
@@ -28,7 +28,7 @@ function ModalContainer (): React.ReactElement {
       <div
         ref={modalRef}
         className={`w-[${width ?? '700px'}] 
-        !h-[${height ?? '800px'}] relative flex flex-col rounded-lg`}
+        !h-[900px] relative flex flex-col rounded-lg`}
       >
         {modalTitle ?? options?.showTitle ? (
           <div className='border-b-[1px] px-4 py-2'>modalTitle</div>

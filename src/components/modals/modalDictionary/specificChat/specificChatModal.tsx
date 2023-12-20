@@ -9,7 +9,7 @@ import {
   PushpinFilled,
   ShopFilled
 } from '@ant-design/icons'
-import SpecificChatCategories from './specificChatCategoriesSection'
+// import SpecificChatCategories from './specificChatCategoriesSection'
 import useSpecificChatModal from './hooks/useSpecificChatModal'
 import Image from 'next/image'
 
@@ -20,7 +20,7 @@ function SpecificChat (): React.ReactElement {
 
   return (
     <div className='flex-shrink-1 grid h-full w-full grid-cols-4 grid-rows-6 gap-8 overflow-hidden rounded-lg bg-transparent p-8 text-gray-500'>
-      <div className='col-span-1 row-span-4 overflow-hidden rounded-md  bg-white text-gray-500 shadow-lg'>
+      <div className='col-span-1 row-span-6 overflow-hidden rounded-md  bg-white text-gray-500 shadow-lg'>
         <SpecificChatHeader image={<BuildFilled />} label='Business data' />
         <div className='flex flex-col gap-4 p-4'>
           <span className='flex gap-4'>
@@ -38,13 +38,13 @@ function SpecificChat (): React.ReactElement {
 
           <iframe
             width='100%'
-            height='300'
+            height='550'
             id='gmap_canvas'
             src={`https://maps.google.com/maps?q=${location?.cityOrMunicipality}%20${location?.province}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
           ></iframe>
         </div>
       </div>
-      <SpecificChatCategories />
+      {/* <SpecificChatCategories /> */}
 
       <div className='col-span-2 row-span-6 overflow-hidden rounded-md bg-white shadow-lg'>
         <SpecificChatHeader image={<BuildFilled />} label='Business data' />

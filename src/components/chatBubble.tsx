@@ -17,7 +17,7 @@ const ChatBubble: React.FC<props> = ({ content, modalOpener, small = false }) =>
       {content.role === 'ai' ? (
         <Avatar />
       ) : (
-        <Avatar image="https://ca.slack-edge.com/TLYK33FD1-U03KWGK3EMS-c82179af8c3e-512" />
+        <Avatar image="/user.png" />
       )}
       <div
         className={`${
